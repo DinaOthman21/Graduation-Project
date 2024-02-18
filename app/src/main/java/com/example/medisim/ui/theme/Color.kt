@@ -26,8 +26,16 @@ val ComponentDark = Color(0xFF073C61)
 val ComponentLight = Color(0xFF97CADB)
 val CommonComponent = Color(0xFF02457A)
 
-// Buttons
 
+
+//
+//animatedShimmerColor(
+//    shimmerColors = listOf(
+//    BackgroundDark.copy(alpha = 0.9f),
+//    ComponentDark.copy(alpha = 0.8f),
+//    BackgroundDark.copy(alpha = 0.9f),
+//    )
+//)
 
 @Composable
 fun animatedShimmerColor(shimmerColors:List<Color>): Brush {
