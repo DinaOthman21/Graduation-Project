@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MediSim</string>
+    <string name="android">Android</string>
 </resources>
