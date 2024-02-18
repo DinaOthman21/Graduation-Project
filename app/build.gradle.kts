@@ -71,4 +71,11 @@ dependencies {
 
     // splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // coil for loading image
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // System Ui Controller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+
 }
