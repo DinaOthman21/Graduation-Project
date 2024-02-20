@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPassword
 import com.example.medisim.presentation.authScreens.login.LoginScreen
 
 
@@ -11,13 +12,14 @@ import com.example.medisim.presentation.authScreens.login.LoginScreen
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screens.Login.route){
+    NavHost(navController = navController, startDestination = Screens.ForgotPassword.route){
         composable(route = Screens.Login.route){
             // login screen
             LoginScreen()
         }
         composable(route = Screens.ForgotPassword.route){
             // ForgotPassword screen
+            ForgotPassword()
         }
         composable(route = Screens.ForgotPasswordOTP.route){
             // Forgot Password OTP screen

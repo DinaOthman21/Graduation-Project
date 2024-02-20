@@ -67,7 +67,8 @@ fun EmailEditText(
     editTextHeight: Int = 60,
     isErrorEmail:Boolean ,
     emailErrorMessage:String,
-    onValueChange:(String) -> Unit) {
+    onValueChange:(String) -> Unit
+) {
     Column {
 
         TextField(

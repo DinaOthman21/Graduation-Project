@@ -39,6 +39,15 @@ val HelperColor2 = Color(0xFF06BAF1)
 
 
 
+val brush =  Brush.linearGradient(
+    colors = listOf(
+        Color.Gray.copy(alpha = 0.6f),
+        Color.Gray.copy(alpha = 0.2f),
+        Color.Gray.copy(alpha = 0.6f)
+    )
+)
+
+
 
 @Composable
 fun animatedShimmerColor(shimmerColors:List<Color>): Brush {
