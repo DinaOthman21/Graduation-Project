@@ -21,9 +21,9 @@ val ComponentBackgroundLight = Color(0xFFF7F9FA)
 
 // text
 val TextDark = Color(0xFFD6E8EE)
-val TextLight = Color(0xFF001B48)
+val TextLight =  Color(0xFF02111B)
 
-val TextHintDark = Color(0xFFC0BBBB)
+val TextHintDark = Color(0xFFA3A2A2)
 val TextHintLight = Color(0xFF8D7F7F)
 
 // components
@@ -31,20 +31,14 @@ val ComponentDark = Color(0xFF073C61)
 val ComponentLight = Color(0xFF97CADB)
 val CommonComponent = Color(0xFF02457A)
 
+
 // helper colors
 val HelperColor = Color(0xFF0343A7)
 val HelperColor1 = Color(0xFF0E274E)
 val HelperColor2 = Color(0xFF06BAF1)
 
 
-//
-//animatedShimmerColor(
-//    shimmerColors = listOf(
-//    BackgroundDark.copy(alpha = 0.9f),
-//    ComponentDark.copy(alpha = 0.8f),
-//    BackgroundDark.copy(alpha = 0.9f),
-//    )
-//)
+
 
 @Composable
 fun animatedShimmerColor(shimmerColors:List<Color>): Brush {

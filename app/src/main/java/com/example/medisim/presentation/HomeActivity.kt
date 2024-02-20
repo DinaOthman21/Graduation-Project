@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.medisim.presentation.components.MainAdvicesAndAvoidScreen
+import com.example.medisim.presentation.navigation.AppNavigation
 import com.example.medisim.ui.theme.MediSimTheme
 
 
@@ -21,7 +21,7 @@ class HomeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainAdvicesAndAvoidScreen()
+                    AppNavigation()
                 }
             }
         }

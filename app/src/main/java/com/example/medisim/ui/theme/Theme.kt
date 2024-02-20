@@ -22,7 +22,8 @@ private val DarkColorScheme = darkColorScheme(
     secondary = TextHintDark,
     tertiary = ComponentDark,
     onPrimary = CommonComponent,
-    onSecondary = HelperColor2
+    onSecondary = HelperColor2,
+
 )
 
 private val LightColorScheme = lightColorScheme(

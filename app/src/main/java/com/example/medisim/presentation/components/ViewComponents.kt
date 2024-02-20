@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medisim.R
 
@@ -48,11 +47,11 @@ val images = listOf(
 )
 
 
-@Preview(showSystemUi = true, showBackground = true)
+
 @Composable
 fun MainAdvicesAndAvoidScreen() {
 
-    LazyColumn(){
+    LazyColumn{
         item{
             Column {
                 // make title for "Advices" with small bold under line

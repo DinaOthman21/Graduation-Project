@@ -4,5 +4,13 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="advices">نصائح</string>
     <string name="avoid">تجنب</string>
+    <string name="email">الايميل</string>
+    <string name="password">الرقم السري</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_account">"Don't have account? "</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or">OR</string>
 
 </resources>

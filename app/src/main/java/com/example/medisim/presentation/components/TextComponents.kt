@@ -42,17 +42,18 @@ fun TextWithHiatusFont(
 }
 
 @Composable
-fun AppNameWithHiatusFont() {
+fun AppNameWithHiatusFont(modifier: Modifier = Modifier) {
     Text(
         text = buildAnnotatedString {
             withStyle(style = SpanStyle(color = Color(0xFF097AC7))) {
                 append("MediSim")
             }
             append(" ")
-            withStyle(style = SpanStyle(color = Color(0xFF02111B))) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append("AI")
             }
         },
+        modifier = modifier,
         fontSize = 90.sp,
         fontFamily = FontFamily(Font(R.font.hiatus2)),
     )
