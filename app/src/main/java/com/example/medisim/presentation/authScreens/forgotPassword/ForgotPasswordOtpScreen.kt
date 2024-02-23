@@ -18,18 +18,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
+import com.example.medisim.presentation.components.OtpEditText
 import com.example.medisim.presentation.components.TextLabel
+import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.brush
 
 
-@Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun ForgotPasswordOto() {
-
+fun ForgotPasswordOto(navController: NavHostController) {
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -46,7 +46,7 @@ fun ForgotPasswordOto() {
                     .padding(5.dp)
                     .background(brush, shape = CircleShape)
                     .clickable {
-                        // navController.popBackStack()
+                        navController.popBackStack()
                     },
                 tint = MaterialTheme.colorScheme.primary
             )
@@ -60,16 +60,19 @@ fun ForgotPasswordOto() {
             textFontWight = FontWeight.Bold
         )
         TextLabel(
-            text = "Enter the verification code sent to mail",
+            text = stringResource(R.string.enter_the_verification_code_sent_to_mail),
             modifier = Modifier.padding(top = 60.dp,bottom = 20.dp),
             textFont = 16,
             textColor = MaterialTheme.colorScheme.secondary,
         )
+        OtpEditText()
 
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.submit),
             paddingValue = 0) {
+            navController.navigate(Screens.ForgotPasswordNewPass.route)
+
 
         }
 

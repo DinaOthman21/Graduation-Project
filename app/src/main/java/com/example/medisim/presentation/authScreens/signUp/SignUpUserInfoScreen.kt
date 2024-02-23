@@ -21,16 +21,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
-import com.example.medisim.presentation.components.EmailEditText
-import com.example.medisim.presentation.components.PasswordEditText
+import com.example.medisim.presentation.components.CheckboxWithName
+import com.example.medisim.presentation.components.NumberEditText
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.presentation.components.UserNameEditText
 import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.brush
 
-@Composable
-fun SignUpScreen(navController: NavHostController) {
 
+@Composable
+fun SignUpUserInfoScreen(navController: NavHostController) {
     Column(
         modifier = Modifier.padding(12.dp),
     ) {
@@ -65,67 +64,75 @@ fun SignUpScreen(navController: NavHostController) {
             textFont = 18,
             textColor = MaterialTheme.colorScheme.secondary
         )
+
+
         TextLabel(
-            text = stringResource(R.string.full_name),
+            text = stringResource(R.string.height),
             modifier = Modifier.padding(top = 30.dp,bottom = 10.dp),
             textFont = 18,
             textFontWight = FontWeight.Bold
         )
-        UserNameEditText(
-            userName = "",
-            isUserNameError = false,
-            userNameErrorMessage = "",
+        NumberEditText(
+            number = "",
+            placeholderID = R.string.enter_your_hight,
+            isNumberError = false,
+            numberErrorMessage = "",
             onValueChange = {}
         )
         TextLabel(
-            text = stringResource(id = R.string.email),
+            text = stringResource(R.string.weight),
             modifier = Modifier.padding(bottom = 10.dp),
             textFont = 18,
             textFontWight = FontWeight.Bold
         )
-        EmailEditText(
-            email = "",
-            isErrorEmail = false,
-            emailErrorMessage = "",
+        NumberEditText(
+            number = "",
+            placeholderID = R.string.enter_your_weight,
+            isNumberError = false,
+            numberErrorMessage = "",
+            onValueChange = {}
+        )
+        TextLabel(
+            text = stringResource(R.string.age),
+            modifier = Modifier.padding(bottom = 10.dp),
+            textFont = 18,
+            textFontWight = FontWeight.Bold
+        )
+        NumberEditText(
+            number = "",
+            placeholderID = R.string.enter_your_age,
+            isNumberError = false,
+            numberErrorMessage = "",
             onValueChange = {}
         )
 
         TextLabel(
-            text = stringResource(id = R.string.password),
+            text = stringResource(R.string.gender),
             modifier = Modifier.padding(bottom = 10.dp),
             textFont = 18,
             textFontWight = FontWeight.Bold
         )
-        PasswordEditText(
-            password = "",
-            isErrorPassword = false,
-            passwordErrorMessage = "",
-            showPassword = false,
-            onValueChange = {}
-        ) {
+        Row (
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            CheckboxWithName(
+                checkBoxText = stringResource(R.string.male),
+                checkedState = false,
+                onToggleClick = {}
+            )
+            CheckboxWithName(
+                checkBoxText = stringResource(R.string.female),
+                checkedState = false,
+                onToggleClick = {}
+            )
 
         }
-        TextLabel(
-            text = stringResource(R.string.confirm_password),
-            modifier = Modifier.padding(bottom = 10.dp),
-            textFont = 18,
-            textFontWight = FontWeight.Bold
-        )
-        PasswordEditText(
-            password = "",
-            isErrorPassword = false,
-            passwordErrorMessage = "",
-            showPassword = false,
-            onValueChange = {}
-        ) {
 
-        }
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.next),
             paddingValue = 0) {
-            navController.navigate(Screens.UserInfo.route)
-
+            navController.navigate(Screens.UserChronic.route)
         }
 
 

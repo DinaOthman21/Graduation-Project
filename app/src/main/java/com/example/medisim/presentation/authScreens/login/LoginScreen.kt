@@ -19,9 +19,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.AppNameWithHiatusFont
 import com.example.medisim.presentation.components.ButtonClickOn
@@ -30,11 +30,11 @@ import com.example.medisim.presentation.components.EmailEditText
 import com.example.medisim.presentation.components.ImageButtonClick
 import com.example.medisim.presentation.components.PasswordEditText
 import com.example.medisim.presentation.components.TextLabel
+import com.example.medisim.presentation.navigation.Screens
 
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavHostController) {
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -89,7 +89,7 @@ fun LoginScreen() {
                 ),
                 modifier = Modifier.clickable {
                     // on forgot password text click
-                    // navController.navigate(Screens.SignUp.route)
+                   navController.navigate(Screens.ForgotPassword.route)
 
                 }
             )
@@ -101,7 +101,7 @@ fun LoginScreen() {
             paddingValue = 30
         ) {
             // on login click
-
+            navController.navigate(Screens.Home.route)
         }
 
 
@@ -123,7 +123,7 @@ fun LoginScreen() {
                 ),
                 modifier = Modifier.clickable {
                     // on sign up text click
-                    // navController.navigate(Screens.SignUp.route)
+                   navController.navigate(Screens.SignUp.route)
 
                 }
             )

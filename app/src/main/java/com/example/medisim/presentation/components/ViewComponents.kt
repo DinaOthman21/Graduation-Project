@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,10 +25,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.medisim.R
 
 val images = listOf(
     "https://images.unsplash.com/photo-1599918805559-23cb83102f74?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -48,34 +45,6 @@ val images = listOf(
 
 
 
-@Composable
-fun MainAdvicesAndAvoidScreen() {
-
-    LazyColumn{
-        item{
-            Column {
-                // make title for "Advices" with small bold under line
-                TextWithBoldUnderLine(
-                    text = stringResource(R.string.advices),
-                    lineColor  = MaterialTheme.colorScheme.onSecondary
-                )
-
-                // this for the Horizontal Advices posts
-                ScreenLazyRow(images)
-
-                // also make title for "Avoid" with small bold under line
-                TextWithBoldUnderLine(
-                    text = stringResource(R.string.avoid),
-                    lineColor  = MaterialTheme.colorScheme.onSecondary
-                )
-            }
-        }
-        // this items for Avoid posts
-        items(images){
-            VerticalAvoidCard(it)
-        }
-    }
-}
 
 
 

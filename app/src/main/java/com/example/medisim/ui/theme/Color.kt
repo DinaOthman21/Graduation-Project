@@ -30,6 +30,7 @@ val TextHintLight = Color(0xFF8D7F7F)
 val ComponentDark = Color(0xFF073C61)
 val ComponentLight = Color(0xFF97CADB)
 val CommonComponent = Color(0xFF02457A)
+val CommonComponent2 = Color(0xFF0276D1)
 
 
 // helper colors
@@ -50,7 +51,10 @@ val brush =  Brush.linearGradient(
 
 
 @Composable
-fun animatedShimmerColor(shimmerColors:List<Color>): Brush {
+fun animatedShimmerColor(
+    shimmerColors:List<Color>,
+    durationMillis:Int = 1000
+): Brush {
 
     val transition = rememberInfiniteTransition(label = "")
     val translateAnim = transition.animateFloat(
@@ -58,7 +62,7 @@ fun animatedShimmerColor(shimmerColors:List<Color>): Brush {
         targetValue = 1000f,
         animationSpec = infiniteRepeatable(
             animation = tween(
-                durationMillis = 1000,
+                durationMillis = durationMillis,
                 easing = FastOutSlowInEasing
             ),
             repeatMode = RepeatMode.Restart

@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MediSimTheme {
+            MediSimTheme{
                 // to hide // Status & Navigation bars
                 val systemUiController: SystemUiController = rememberSystemUiController()
                 systemUiController.isSystemBarsVisible = false // Status & Navigation bars

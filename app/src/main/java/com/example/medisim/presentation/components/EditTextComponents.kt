@@ -2,12 +2,14 @@ package com.example.medisim.presentation.components
 
 
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
@@ -23,9 +25,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medisim.R
@@ -57,6 +62,82 @@ fun textFieldColors() : TextFieldColors {
     )
 }
 
+
+
+
+@Composable
+fun UserNameEditText(
+    userName:String ,
+    modifier: Modifier = Modifier,
+    editTextHeight: Int = 60,
+    isUserNameError:Boolean ,
+
+    userNameErrorMessage:String,
+    onValueChange:(String) -> Unit) {
+    Column {
+        TextField(
+            placeholder = { Text(text = stringResource(R.string.user_name), fontSize = 10.sp,color = MaterialTheme.colorScheme.secondary) },
+            value = userName,
+            onValueChange = {
+                onValueChange(it)
+            },
+            colors = textFieldColors(),
+            shape = RoundedCornerShape(12.dp),
+            modifier = modifier
+                .height(editTextHeight.dp)
+                .fillMaxWidth()
+                .shadow(elevation = 24.dp),
+            isError = isUserNameError,
+        )
+        Row {
+            Text(
+                userNameErrorMessage, style = MaterialTheme.typography.bodyMedium, modifier = Modifier
+                    .padding(top = 3.dp, start = 25.dp), color = Color.Red
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
+        }
+    }
+}
+
+
+
+
+@Composable
+fun NumberEditText(
+    number:String ,
+    modifier: Modifier = Modifier,
+    placeholderID: Int,
+    editTextHeight: Int = 60,
+    isNumberError:Boolean ,
+    numberErrorMessage:String,
+    onValueChange:(String) -> Unit) {
+    Column {
+        TextField(
+            placeholder = { Text(text = stringResource(placeholderID), fontSize = 10.sp,color = MaterialTheme.colorScheme.secondary) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            value = number,
+            onValueChange = {
+                onValueChange(it)
+            },
+            colors = textFieldColors(),
+            shape = RoundedCornerShape(12.dp),
+            modifier = modifier
+                .height(editTextHeight.dp)
+                .fillMaxWidth()
+                .shadow(elevation = 24.dp),
+            isError = isNumberError,
+        )
+        Row {
+            Text(
+                numberErrorMessage, style = MaterialTheme.typography.bodyMedium, modifier = Modifier
+                    .padding(top = 3.dp, start = 25.dp), color = Color.Red
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
+        }
+    }
+}
 
 
 
@@ -157,3 +238,53 @@ fun PasswordEditText(
 
 
 
+
+
+@Composable
+fun OtpBox(
+    number:String ,
+    modifier: Modifier = Modifier,
+    editTextHeight: Int = 80,
+    editTextWidth: Int = 80,
+    onValueChange:(String) -> Unit
+) {
+    Column {
+
+        TextField(
+            value = number,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            onValueChange = {
+                onValueChange(it)
+            },
+            colors = textFieldColors(),
+            shape = RoundedCornerShape(12.dp),
+            modifier = modifier
+                .height(editTextHeight.dp)
+                .width(editTextWidth.dp)
+                .shadow(elevation = 24.dp),
+            textStyle =  TextStyle(
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 35.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        )
+    }
+}
+
+
+@Composable
+fun OtpEditText() {
+    Row (
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
+    ){
+        repeat(4){
+            OtpBox(
+                number = "1",
+            ){}
+            Spacer(modifier = Modifier.width(15.dp))
+        }
+    }
+}
