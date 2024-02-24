@@ -77,7 +77,7 @@ fun MainScreen(appNavController: NavHostController) {
     val screens = listOf(
         NavigationScreen.Home,
         NavigationScreen.Prediction,
-        NavigationScreen.Medicine,
+        NavigationScreen.Drug,
         NavigationScreen.Calculator
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

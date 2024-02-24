@@ -86,7 +86,7 @@ fun BottomNavigation(
         composable(route = NavigationScreen.MedicalTest.route){
             MedicalTestScreen()
         }
-        composable(route = NavigationScreen.Medicine.route){
+        composable(route = NavigationScreen.Drug.route){
             MedicineScreen()
         }
         composable(route = NavigationScreen.Calculator.route){

@@ -25,10 +25,10 @@ sealed class NavigationScreen(val title:String, val icon: Int, val route:String)
 
 
 
-    data object Medicine:NavigationScreen(
-        title = "Medicine",
+    data object Drug:NavigationScreen(
+        title = "Drug",
         icon =   R.drawable.baseline_medication_24,
-        route = "medicine"
+        route = "drug"
     )
 
     data object Calculator:NavigationScreen(
