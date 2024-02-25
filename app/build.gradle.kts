@@ -73,7 +73,6 @@ dependencies {
     // preview
     debugImplementation("androidx.compose.ui:ui-tooling-preview:1.6.1")
 
-
     // splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
 
@@ -86,9 +85,11 @@ dependencies {
     // navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
-
     // Icons
     implementation("androidx.compose.material:material-icons-extended:1.6.1")
+
+    // lottie animation
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
 
 
 }

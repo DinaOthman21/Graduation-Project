@@ -87,47 +87,61 @@ fun ChatScreen() {
 
             }
         }
-        Box(modifier = Modifier.weight(0.8f)){
-            LazyColumn(
-                modifier = Modifier
-                    .padding(
-                        start = 12.dp,
-                        end = 12.dp
-                    ),
-            ){
-                items(messages){ message->
-                    // handel if message from user then make it in right side otherwise left side.
-                    if (message.isUser) {
-                        Row (
-                            modifier = Modifier.fillMaxSize()
-                        ){
-                            Spacer(modifier = Modifier.weight(1f))
-                            Spacer(modifier = Modifier.width(50.dp))
+
+        if (messages.isEmpty()){
+            Box(modifier = Modifier.weight(0.8f)){
+//                LottieAnimationShow(
+//                    animationResId = R.,
+//                    size = ,
+//                    padding = ,
+//                    paddingBottom =
+//                )
+            }
+
+        }else{
+            Box(modifier = Modifier.weight(0.8f)){
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(
+                            start = 12.dp,
+                            end = 12.dp
+                        ),
+                ){
+                    items(messages){ message->
+                        // handel if message from user then make it in right side otherwise left side.
+                        if (message.isUser) {
+                            Row (
+                                modifier = Modifier.fillMaxSize()
+                            ){
+                                Spacer(modifier = Modifier.weight(1f))
+                                Spacer(modifier = Modifier.width(50.dp))
+                                TextWithBackgroundColorAsCard(
+                                    text = message.message,
+                                    cardCornerTopEnd =  0 ,
+                                    cardCornerTopStart = 24,
+                                    cardCornerBottomEnd = 24,
+                                    cardCornerBottomStart = 0,
+                                )
+                            }
+                        }
+                        else{
                             TextWithBackgroundColorAsCard(
                                 text = message.message,
-                                cardCornerTopEnd =  0 ,
-                                cardCornerTopStart = 24,
-                                cardCornerBottomEnd = 24,
-                                cardCornerBottomStart = 0,
+                                modifier = Modifier.width(320.dp),
+                                backgroundColor = MaterialTheme.colorScheme.tertiary,
+                                cardCornerTopEnd = 24,
+                                cardCornerTopStart = 0,
+                                cardCornerBottomEnd = 0,
+                                cardCornerBottomStart = 24
                             )
                         }
-                    }
-                    else{
-                        TextWithBackgroundColorAsCard(
-                            text = message.message,
-                            modifier = Modifier.width(320.dp),
-                            backgroundColor = MaterialTheme.colorScheme.tertiary,
-                            cardCornerTopEnd = 24,
-                            cardCornerTopStart = 0,
-                            cardCornerBottomEnd = 0,
-                            cardCornerBottomStart = 24
-                        )
+
                     }
 
                 }
-
             }
         }
+
         Box(modifier = Modifier.weight(0.1f)){
             Row (
                 modifier = Modifier

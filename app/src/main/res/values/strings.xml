@@ -40,4 +40,10 @@
     <string name="press_again_to_exit">Press again to exit</string>
     <string name="ai_chat">AI Chat</string>
     <string name="message">Message</string>
+    <string name="medicine_name">"Medicine Name: "</string>
+    <string name="scientific_name">"Scientific Name: "</string>
+    <string name="medicine_classification">"Medicine Classification: "</string>
+    <string name="medicine_category">"Medicine Category: "</string>
+    <string name="medicine_description">"Medicine Description: "</string>
+    <string name="enter_name_of_drug">Enter name of Drug</string>
 </resources>
