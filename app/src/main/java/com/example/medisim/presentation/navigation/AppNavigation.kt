@@ -1,6 +1,8 @@
 package com.example.medisim.presentation.navigation
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,6 +21,22 @@ import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.Home
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.MedicalTestScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.MedicineScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.PredictionScreen
+import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatScreen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
+
+@Composable
+fun ChangeStatusBarColor(isHome:Boolean) {
+    val systemUiController = rememberSystemUiController()
+    var statusBarColor = MaterialTheme.colorScheme.background
+    if (isHome){
+         statusBarColor = MaterialTheme.colorScheme.tertiary // Set desired status bar color
+    }
+    SideEffect {
+        // Update the status bar color when the screen is first composed
+        systemUiController.setStatusBarColor(statusBarColor)
+    }
+}
 
 
 @Composable
@@ -60,10 +78,20 @@ fun AppNavigation() {
         }
         composable(route = Screens.Home.route){
             // Home screen
+            ChangeStatusBarColor(isHome = true)
             MainScreen(navController)
         }
         composable(route = Screens.PostDetails.route){
             // Post Details screen
+
+            ChangeStatusBarColor(isHome = false)
+
+        }
+        composable(route = Screens.ChatAI.route){
+            // Post Chat AI screen
+            ChatScreen()
+            ChangeStatusBarColor(isHome = false)
+
         }
 
     }
@@ -79,18 +107,28 @@ fun BottomNavigation(
     NavHost(navController = bottomNavController, startDestination = NavigationScreen.Home.route ){
         composable(route = NavigationScreen.Home.route){
             HomeScreen(appNavController)
+            ChangeStatusBarColor(isHome = true)
+
         }
         composable(route = NavigationScreen.Prediction.route){
             PredictionScreen()
+            ChangeStatusBarColor(isHome = false)
+
         }
         composable(route = NavigationScreen.MedicalTest.route){
             MedicalTestScreen()
+            ChangeStatusBarColor(isHome = false)
+
         }
         composable(route = NavigationScreen.Drug.route){
             MedicineScreen()
+            ChangeStatusBarColor(isHome = false)
+
         }
         composable(route = NavigationScreen.Calculator.route){
             CalculatorScreen()
+            ChangeStatusBarColor(isHome = false)
+
         }
 
     }

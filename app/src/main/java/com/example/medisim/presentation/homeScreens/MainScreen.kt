@@ -34,7 +34,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,40 +50,40 @@ import androidx.navigation.compose.rememberNavController
 import com.example.medisim.R
 import com.example.medisim.presentation.navigation.BottomNavigation
 import com.example.medisim.presentation.navigation.NavigationScreen
+import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.CommonComponent2
 import com.example.medisim.ui.theme.animatedShimmerColor
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun MainScreen(appNavController: NavHostController) {
 
-    val systemUiController = rememberSystemUiController()
-    val statusBarColor = MaterialTheme.colorScheme.tertiary // Set desired status bar color
-
-    SideEffect {
-        // Update the status bar color when the screen is first composed
-        systemUiController.setStatusBarColor(statusBarColor)
-    }
-
-
-
+    // use it when user need to exit app to show toast to click again to exit.
     var doubleBackToExitPressedOnce = false
+
+    // use it to close activity if user click he want to close app.
     val activity = LocalOnBackPressedDispatcherOwner.current as ComponentActivity
     val context = LocalContext.current
 
 
+    // navController for bottom navigation
     val navController = rememberNavController()
+
+    // list of Bottom navigation and take in your mind the middle
+    // navigation item is floating action button, so (it not in list of screens).
     val screens = listOf(
         NavigationScreen.Home,
         NavigationScreen.Prediction,
         NavigationScreen.Drug,
         NavigationScreen.Calculator
     )
+
+    // back stack & currentRoute to handel route of bottom navigation for user
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
 
     Scaffold (
+        // top app bar it contain user Profile and Chat Ai icons.
         topBar = {
             AnimatedVisibility(visible = currentRoute == NavigationScreen.Home.route) {
                 TopAppBar(
@@ -107,7 +106,7 @@ fun MainScreen(appNavController: NavHostController) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Outlined.Chat,
                                 modifier = Modifier.padding(end = 15.dp).clickable {
-
+                                    appNavController.navigate(Screens.ChatAI.route)
                                 },
                                 contentDescription = "",
                                 tint = MaterialTheme.colorScheme.primary
@@ -120,9 +119,11 @@ fun MainScreen(appNavController: NavHostController) {
             }
 
         },
+        // floating action button it for the item of bottom navigation
+        // we use it as center button in bottom navigation
         floatingActionButton = {
             Button (
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent,),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 enabled = true,
                 onClick = {
                     // navigate to
@@ -158,36 +159,9 @@ fun MainScreen(appNavController: NavHostController) {
                 }
 
             }
-//            FloatingActionButton(
-//                shape = CircleShape,
-//                containerColor = Color.Transparent,
-//                modifier = Modifier
-//                    .size(60.dp)
-//                    .clip(CircleShape)
-//                    .background(
-//                    animatedShimmerColor(
-//                        shimmerColors = listOf(
-//                            CommonComponent2.copy(0.8f),
-//                            CommonComponent2.copy(0.6f),
-//                            CommonComponent2.copy(0.8f)
-//                        ),
-//                        durationMillis = 3000
-//                    )
-//                ),
-//                onClick = {
-//                    // navigate to
-//                    navController.navigate(NavigationScreen.MedicalTest.route) {
-//                        popUpTo(navController.graph.findStartDestination().id)
-//                        launchSingleTop = true
-//                    }
-//                }) {
-//                Icon(
-//                    painter = painterResource(id = NavigationScreen.MedicalTest.icon),
-//                    tint = MaterialTheme.colorScheme.background,
-//                    contentDescription = "Add",
-//                )
-//            }
         },
+        // bottom navigation contain screens in list and empty item in middle
+        // to make space for fab.
         bottomBar = {
             BottomAppBar (
                 containerColor = MaterialTheme.colorScheme.tertiary,
@@ -195,6 +169,8 @@ fun MainScreen(appNavController: NavHostController) {
                     .height(60.dp)
             ){
                 screens.forEachIndexed { index,screen->
+                    // if this item is middle item then make empty item
+                    // to make fab free space
                     if (index == 2){
                         NavigationBarItem(
                             selected = false,
@@ -258,9 +234,12 @@ fun MainScreen(appNavController: NavHostController) {
 
         //Back Handler
         BackHandler(onBack = {
+            // show toast to user to click again if need to exit and make
+            // make time 2 seconds then reassign doubleBackToExitPressedOnce to false
             if (doubleBackToExitPressedOnce) {
                 finishAffinity(activity)
-            } else {
+            }
+            else {
                 doubleBackToExitPressedOnce = true
                 Toast.makeText(context,
                     context.getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT).show()

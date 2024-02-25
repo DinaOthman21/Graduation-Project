@@ -39,5 +39,7 @@
     <string name="yse">Yse</string>
     <string name="no">No</string>
     <string name="press_again_to_exit">Press again to exit</string>
+    <string name="ai_chat">AI Chat</string>
+    <string name="message">Message</string>
 
 </resources>

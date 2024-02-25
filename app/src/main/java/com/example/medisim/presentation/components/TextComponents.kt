@@ -1,10 +1,15 @@
 package com.example.medisim.presentation.components
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,6 +27,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medisim.R
+import com.example.medisim.ui.theme.CommonComponent2
 
 
 @Composable
@@ -136,4 +142,45 @@ fun TextWithBoldUnderLine(
             color = lineColor
         )
     }
+}
+
+
+@Composable
+fun TextWithBackgroundColorAsCard(
+    text:String,
+    modifier: Modifier = Modifier,
+    textColor:Color = MaterialTheme.colorScheme.primary,
+    backgroundColor:Color = CommonComponent2,
+    textFont: Int = 22,
+    textFontWight: FontWeight = FontWeight.Normal,
+    textLetterSpacing: Double = 1.5,
+    cardCornerTopEnd:Int = 16,
+    cardCornerTopStart:Int = 16,
+    cardCornerBottomEnd:Int = 16,
+    cardCornerBottomStart:Int = 16,
+) {
+    Card (
+        modifier = modifier
+            .padding(12.dp,top = 30.dp, bottom = 5.dp)
+            ,
+        elevation = 16.dp,
+        backgroundColor = backgroundColor,
+        shape = RoundedCornerShape(
+            topEnd = cardCornerTopEnd.dp,
+            topStart = cardCornerTopStart.dp,
+            bottomStart = cardCornerBottomStart.dp,
+            bottomEnd = cardCornerBottomEnd.dp
+        )
+        ){
+        Text(
+            text = text,
+            modifier = modifier.padding(horizontal = 8.dp, vertical = 10.dp),
+            fontSize = textFont.sp,
+            color = textColor,
+            fontWeight = textFontWight,
+            letterSpacing = textLetterSpacing.sp
+        )
+
+    }
+
 }

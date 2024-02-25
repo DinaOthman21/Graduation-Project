@@ -65,6 +65,46 @@ fun textFieldColors() : TextFieldColors {
 
 
 
+
+@Composable
+fun EditTextWithIcon(
+    text:String ,
+    modifier: Modifier = Modifier,
+    placeholderID: Int,
+    iconID:Int,
+    roundedCornerShapeValue:Int = 12,
+    editTextHeight: Int = 60,
+    editTextWidth: Int = 60,
+    onIconButtonClick:()->Unit,
+    onValueChange:(String) -> Unit) {
+    TextField(
+        placeholder = { Text(text = stringResource(placeholderID), fontSize = 16.sp,color = MaterialTheme.colorScheme.secondary) },
+        value = text,
+        onValueChange = {
+            onValueChange(it)
+        },
+        colors = textFieldColors(),
+        shape = RoundedCornerShape(roundedCornerShapeValue.dp),
+        modifier = modifier
+            .height(editTextHeight.dp)
+            .width(editTextWidth.dp)
+            .shadow(elevation = 24.dp),
+        trailingIcon = {
+            IconButton(onClick = {
+                onIconButtonClick()
+            }) {
+                Icon(
+                    painter = painterResource(id = iconID),
+                    contentDescription = "password icon",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+    )
+
+}
+
+
 @Composable
 fun UserNameEditText(
     userName:String ,
@@ -76,7 +116,7 @@ fun UserNameEditText(
     onValueChange:(String) -> Unit) {
     Column {
         TextField(
-            placeholder = { Text(text = stringResource(R.string.user_name), fontSize = 10.sp,color = MaterialTheme.colorScheme.secondary) },
+            placeholder = { Text(text = stringResource(R.string.user_name), fontSize = 16.sp,color = MaterialTheme.colorScheme.secondary) },
             value = userName,
             onValueChange = {
                 onValueChange(it)
@@ -114,7 +154,7 @@ fun NumberEditText(
     onValueChange:(String) -> Unit) {
     Column {
         TextField(
-            placeholder = { Text(text = stringResource(placeholderID), fontSize = 10.sp,color = MaterialTheme.colorScheme.secondary) },
+            placeholder = { Text(text = stringResource(placeholderID), fontSize = 16.sp,color = MaterialTheme.colorScheme.secondary) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             value = number,
             onValueChange = {
@@ -156,7 +196,7 @@ fun EmailEditText(
             placeholder = {
                 Text(
                     text = stringResource(R.string.example_gmail_com),
-                    fontSize = 10.sp,
+                    fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.secondary
                 )
             },
