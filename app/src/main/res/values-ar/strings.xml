@@ -47,5 +47,10 @@
     <string name="medicine_category">"Medicine Category: "</string>
     <string name="medicine_description">"Medicine Description: "</string>
     <string name="enter_name_of_drug">Enter name of Drug</string>
+    <string name="medical_tests">Medical Tests</string>
+    <string name="upload_test">Upload Test</string>
+    <string name="body_fat_percentage">body fat percentage</string>
+    <string name="estimated_blood_volume">Estimated blood volume</string>
+    <string name="creatinine_clearance">Creatinine clearance</string>
 
 </resources>
