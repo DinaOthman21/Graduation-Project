@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +35,9 @@ import com.example.medisim.presentation.navigation.Screens
 
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(navController: NavHostController,loginViewModel: LoginScreenViewModel) {
+    val state = loginViewModel.state.value
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -52,10 +55,11 @@ fun LoginScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
             )
         EmailEditText(
-            email = "",
-            isErrorEmail = false,
-            emailErrorMessage = "",
-            onValueChange = {})
+            email = state.email,
+            isErrorEmail = state.isErrorEmail,
+            emailErrorMessage = state.emailErrorMessage,
+            onValueChange = {newEmail->loginViewModel.onEmailChange(newEmail)}
+        )
         TextLabel(
             text = stringResource(R.string.password),
             modifier = Modifier.padding(top = 15.dp,bottom = 20.dp),
@@ -63,11 +67,11 @@ fun LoginScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         PasswordEditText(
-            password = "",
-            isErrorPassword = false,
-            passwordErrorMessage = "",
-            showPassword = false,
-            onValueChange = {}
+            password = state.password,
+            isErrorPassword = state.isErrorPassword,
+            passwordErrorMessage = state.passwordErrorMessage,
+            showPassword = state.showPassword,
+            onValueChange = {newPassword->loginViewModel.onPasswordChange(newPassword)}
         ) {
             
         }
@@ -101,7 +105,7 @@ fun LoginScreen(navController: NavHostController) {
             paddingValue = 30
         ) {
             // on login click
-            navController.navigate(Screens.Home.route)
+            loginViewModel.onLoginClick(navController,context)
         }
 
 

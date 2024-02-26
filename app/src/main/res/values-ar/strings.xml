@@ -52,5 +52,7 @@
     <string name="body_fat_percentage">body fat percentage</string>
     <string name="estimated_blood_volume">Estimated blood volume</string>
     <string name="creatinine_clearance">Creatinine clearance</string>
+    <string name="please_enter_your_email">Please enter your  email</string>
+    <string name="please_enter_your_password">Please enter your password</string>
 
 </resources>
