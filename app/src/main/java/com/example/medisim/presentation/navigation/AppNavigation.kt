@@ -12,6 +12,7 @@ import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswor
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordNewPassword
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordOto
 import com.example.medisim.presentation.authScreens.login.LoginScreen
+import com.example.medisim.presentation.authScreens.login.LoginScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpScreen
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserChronicScreen
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserInfoScreen
@@ -40,13 +41,13 @@ fun ChangeStatusBarColor(isHome:Boolean) {
 
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(loginViewModel: LoginScreenViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screens.Login.route){
         composable(route = Screens.Login.route){
             // login screen
-            LoginScreen(navController = navController)
+            LoginScreen(navController = navController,loginViewModel = loginViewModel)
         }
         composable(route = Screens.ForgotPassword.route){
             // ForgotPassword screen

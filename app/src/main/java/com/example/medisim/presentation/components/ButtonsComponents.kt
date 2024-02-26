@@ -10,6 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,7 +45,10 @@ fun CheckboxWithName(
             onCheckedChange = { checked ->
                 // Update the checked state when checkbox state changes
                 onToggleClick(checked)
-            }
+            },
+            colors = CheckboxDefaults.colors(
+                checkmarkColor = MaterialTheme.colorScheme.background
+            ),
         )
         TextLabel(text = checkBoxText, textFont = 16)
     }

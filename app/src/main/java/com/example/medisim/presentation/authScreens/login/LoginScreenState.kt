@@ -9,5 +9,6 @@ data class LoginScreenState(
     val isErrorPassword:Boolean = false ,
     val passwordErrorMessage:String = "",
 
+    val rememberMe: Boolean = false,
     val showPassword:Boolean = false,
 )

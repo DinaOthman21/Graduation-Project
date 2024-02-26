@@ -53,4 +53,6 @@
     <string name="creatinine_clearance">Creatinine clearance</string>
     <string name="please_enter_your_email">Please enter your  email</string>
     <string name="please_enter_your_password">Please enter your password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="please_enter_valid_email">Please enter valid email</string>
 </resources>

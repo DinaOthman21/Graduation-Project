@@ -72,16 +72,15 @@ fun LoginScreen(navController: NavHostController,loginViewModel: LoginScreenView
             passwordErrorMessage = state.passwordErrorMessage,
             showPassword = state.showPassword,
             onValueChange = {newPassword->loginViewModel.onPasswordChange(newPassword)}
-        ) {
-            
-        }
+        ) { loginViewModel.onIconButtonClick()}
+
         Row (
             verticalAlignment = Alignment.CenterVertically
         ){
             CheckboxWithName(
-                checkBoxText = "Remember me",
-                checkedState = false,
-                onToggleClick = {}
+                checkBoxText = stringResource(R.string.remember_me),
+                checkedState = state.rememberMe,
+                onToggleClick = {loginViewModel.onRememberMeClick()}
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(

@@ -48,6 +48,13 @@ class LoginScreenViewModel : ViewModel() {
         )
     }
 
+    fun onRememberMeClick(){
+        val newRememberMe = _state.rememberMe.not()
+        _state = _state.copy(
+            rememberMe = newRememberMe
+        )
+    }
+
 
     // user click on button to login
     // make check in data and then call login endpoint
@@ -60,6 +67,13 @@ class LoginScreenViewModel : ViewModel() {
             )
 
         }
+        if (isValidEmail(_state.email).not()){
+            _state=_state.copy(
+                isErrorEmail = true,
+                emailErrorMessage = context.getString(R.string.please_enter_valid_email)
+            )
+
+        }
         if (_state.password.isEmpty()){
             _state=_state.copy(
                 isErrorPassword = true,
@@ -68,7 +82,7 @@ class LoginScreenViewModel : ViewModel() {
 
         }
 
-        if (_state.password.isNotEmpty() && _state.email.isNotEmpty()){
+        if (_state.password.isNotEmpty() && _state.email.isNotEmpty() && isValidEmail(_state.email)){
 
 
 //            // try to login.
@@ -96,7 +110,7 @@ class LoginScreenViewModel : ViewModel() {
 //
 //
 //
-            // save token as example to save user
+            // save token as example to save user if user make Remember me true
 //            tokenManager.saveToken("token")
             navController.navigate(Screens.Home.route){
                 popUpTo(Screens.Login.route) {
@@ -105,6 +119,17 @@ class LoginScreenViewModel : ViewModel() {
             }
         }
 
+    }
+
+
+
+
+    private fun isValidEmail(email: String): Boolean {
+        // Regular expression pattern to validate the email format
+        val pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+
+        // Check if the provided email matches the pattern
+        return email.matches(Regex(pattern))
     }
 
 
