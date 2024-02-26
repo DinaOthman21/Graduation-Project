@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,7 +30,11 @@ import com.example.medisim.ui.theme.brush
 
 
 @Composable
-fun SignUpUserInfoScreen(navController: NavHostController) {
+fun SignUpUserInfoScreen(navController: NavHostController,signUpScreenViewModel: SignUpScreenViewModel) {
+    val state = signUpScreenViewModel.state.value
+    val context = LocalContext.current
+
+
     Column(
         modifier = Modifier.padding(12.dp),
     ) {
@@ -73,11 +78,11 @@ fun SignUpUserInfoScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         NumberEditText(
-            number = "",
+            number = state.height,
             placeholderID = R.string.enter_your_hight,
-            isNumberError = false,
-            numberErrorMessage = "",
-            onValueChange = {}
+            isNumberError = state.isErrorHeight,
+            numberErrorMessage = state.heightErrorMessage,
+            onValueChange = {newValue->signUpScreenViewModel.onHeightChange(newValue,context)}
         )
         TextLabel(
             text = stringResource(R.string.weight),
@@ -86,11 +91,11 @@ fun SignUpUserInfoScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         NumberEditText(
-            number = "",
+            number = state.weight,
             placeholderID = R.string.enter_your_weight,
-            isNumberError = false,
-            numberErrorMessage = "",
-            onValueChange = {}
+            isNumberError = state.isErrorWeight,
+            numberErrorMessage = state.weightErrorMessage,
+            onValueChange = {newValue->signUpScreenViewModel.onWeightChange(newValue,context)}
         )
         TextLabel(
             text = stringResource(R.string.age),
@@ -99,11 +104,11 @@ fun SignUpUserInfoScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         NumberEditText(
-            number = "",
+            number = state.age,
             placeholderID = R.string.enter_your_age,
-            isNumberError = false,
-            numberErrorMessage = "",
-            onValueChange = {}
+            isNumberError = state.isErrorAge,
+            numberErrorMessage = state.ageErrorMessage,
+            onValueChange = {newValue-> signUpScreenViewModel.onAgeChange(newValue,context)}
         )
 
         TextLabel(
@@ -117,13 +122,13 @@ fun SignUpUserInfoScreen(navController: NavHostController) {
         ){
             CheckboxWithName(
                 checkBoxText = stringResource(R.string.male),
-                checkedState = false,
-                onToggleClick = {}
+                checkedState = state.male,
+                onToggleClick = {signUpScreenViewModel.onGenderSelectMale()}
             )
             CheckboxWithName(
                 checkBoxText = stringResource(R.string.female),
-                checkedState = false,
-                onToggleClick = {}
+                checkedState = state.female,
+                onToggleClick = {signUpScreenViewModel.onGenderSelectFemale()}
             )
 
         }
@@ -132,10 +137,8 @@ fun SignUpUserInfoScreen(navController: NavHostController) {
         ButtonClickOn(
             buttonText = stringResource(R.string.next),
             paddingValue = 0) {
-            navController.navigate(Screens.UserChronic.route)
+            signUpScreenViewModel.onNextToLastScreen(navController,context)
         }
-
-
 
     }
 }

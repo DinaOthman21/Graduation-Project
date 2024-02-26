@@ -41,7 +41,7 @@ class LoginScreenViewModel : ViewModel() {
     }
 
     // when user need to make password is visible
-    fun onIconButtonClick(){
+    fun onIconShowPassword(){
         val newShowPassword = _state.showPassword.not()
         _state = _state.copy(
             showPassword = newShowPassword

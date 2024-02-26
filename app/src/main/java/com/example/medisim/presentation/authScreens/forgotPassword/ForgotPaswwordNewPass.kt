@@ -24,13 +24,12 @@ import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.PasswordEditText
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.brush
 
 
 @Composable
-fun ForgotPasswordNewPassword(navController: NavHostController) {
-
+fun ForgotPasswordNewPassword(navController: NavHostController,forgotPasswordViewModel: ForgotPasswordViewModel) {
+    val state = forgotPasswordViewModel.state.value
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -67,14 +66,12 @@ fun ForgotPasswordNewPassword(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         PasswordEditText(
-            password = "",
-            isErrorPassword = false,
-            passwordErrorMessage = "",
-            showPassword = false,
-            onValueChange = {}
-        ) {
-
-        }
+            password = state.password,
+            isErrorPassword = state.isErrorPassword,
+            passwordErrorMessage = state.passwordErrorMessage,
+            showPassword = state.showPassword,
+            onValueChange = {newPassword->forgotPasswordViewModel.onPasswordChange(newPassword)}
+        ) {forgotPasswordViewModel.onIconShowPassword()}
         TextLabel(
             text = stringResource(R.string.confirm_password),
             modifier = Modifier.padding(top = 20.dp,bottom = 20.dp),
@@ -82,21 +79,16 @@ fun ForgotPasswordNewPassword(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         PasswordEditText(
-            password = "",
-            isErrorPassword = false,
-            passwordErrorMessage = "",
-            showPassword = false,
-            onValueChange = {}
-        ) {
-
-        }
+            password = state.confirmPassword,
+            isErrorPassword = state.isErrorConfirmPassword,
+            passwordErrorMessage = state.confirmPasswordErrorMessage,
+            showPassword = state.showConfirmPassword,
+            onValueChange = {newConfirmPassword->forgotPasswordViewModel.onConfirmPasswordChange(newConfirmPassword)}
+        ) {forgotPasswordViewModel.onIconShowConfirmPassword()}
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.save),
-            paddingValue = 0) {
-            navController.navigate(Screens.Home.route)
-
-        }
+            paddingValue = 0) {forgotPasswordViewModel.onSaveClick(navController)}
 
 
 

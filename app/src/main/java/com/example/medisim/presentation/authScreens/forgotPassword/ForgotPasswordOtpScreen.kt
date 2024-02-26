@@ -24,12 +24,14 @@ import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.OtpEditText
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.brush
 
 
 @Composable
-fun ForgotPasswordOto(navController: NavHostController) {
+fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: ForgotPasswordViewModel) {
+
+//    val state = forgotPasswordViewModel.state.value
+//    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -70,11 +72,7 @@ fun ForgotPasswordOto(navController: NavHostController) {
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.submit),
-            paddingValue = 0) {
-            navController.navigate(Screens.ForgotPasswordNewPass.route)
-
-
-        }
+            paddingValue = 0) { forgotPasswordViewModel.onSendOtpToServer(navController) }
 
 
 

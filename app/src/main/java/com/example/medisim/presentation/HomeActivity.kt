@@ -8,13 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordViewModel
 import com.example.medisim.presentation.authScreens.login.LoginScreenViewModel
+import com.example.medisim.presentation.authScreens.signUp.SignUpScreenViewModel
 import com.example.medisim.presentation.navigation.AppNavigation
 import com.example.medisim.ui.theme.MediSimTheme
 
 
 class HomeActivity : ComponentActivity() {
     private val loginViewModel by viewModels<LoginScreenViewModel>()
+    private val signUpScreenViewModel by viewModels<SignUpScreenViewModel>()
+    private val forgotPasswordViewModel by viewModels<ForgotPasswordViewModel>()
 
 
 
@@ -33,7 +37,9 @@ class HomeActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     AppNavigation(
-                        loginViewModel = loginViewModel
+                        loginViewModel = loginViewModel,
+                        signUpScreenViewModel = signUpScreenViewModel,
+                        forgotPasswordViewModel = forgotPasswordViewModel
                     )
                 }
             }

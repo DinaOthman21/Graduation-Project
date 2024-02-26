@@ -72,7 +72,7 @@ fun LoginScreen(navController: NavHostController,loginViewModel: LoginScreenView
             passwordErrorMessage = state.passwordErrorMessage,
             showPassword = state.showPassword,
             onValueChange = {newPassword->loginViewModel.onPasswordChange(newPassword)}
-        ) { loginViewModel.onIconButtonClick()}
+        ) { loginViewModel.onIconShowPassword()}
 
         Row (
             verticalAlignment = Alignment.CenterVertically

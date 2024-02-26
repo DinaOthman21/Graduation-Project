@@ -11,9 +11,11 @@ import com.example.medisim.presentation.authScreens.RegistrationSuccessfullyScre
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPassword
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordNewPassword
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordOto
+import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordViewModel
 import com.example.medisim.presentation.authScreens.login.LoginScreen
 import com.example.medisim.presentation.authScreens.login.LoginScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpScreen
+import com.example.medisim.presentation.authScreens.signUp.SignUpScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserChronicScreen
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserInfoScreen
 import com.example.medisim.presentation.homeScreens.MainScreen
@@ -41,7 +43,11 @@ fun ChangeStatusBarColor(isHome:Boolean) {
 
 
 @Composable
-fun AppNavigation(loginViewModel: LoginScreenViewModel) {
+fun AppNavigation(
+    loginViewModel: LoginScreenViewModel,
+    signUpScreenViewModel: SignUpScreenViewModel,
+    forgotPasswordViewModel: ForgotPasswordViewModel
+) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screens.Login.route){
@@ -51,23 +57,23 @@ fun AppNavigation(loginViewModel: LoginScreenViewModel) {
         }
         composable(route = Screens.ForgotPassword.route){
             // ForgotPassword screen
-            ForgotPassword(navController = navController)
+            ForgotPassword(navController = navController,forgotPasswordViewModel = forgotPasswordViewModel)
         }
         composable(route = Screens.ForgotPasswordOTP.route){
             // Forgot Password OTP screen
-            ForgotPasswordOto(navController = navController)
+            ForgotPasswordOto(navController = navController,forgotPasswordViewModel = forgotPasswordViewModel)
         }
         composable(route = Screens.ForgotPasswordNewPass.route){
             // Forgot Password NewPassword screen
-            ForgotPasswordNewPassword(navController = navController)
+            ForgotPasswordNewPassword(navController = navController, forgotPasswordViewModel = forgotPasswordViewModel)
         }
         composable(route = Screens.SignUp.route){
             // signUp screen
-            SignUpScreen(navController = navController)
+            SignUpScreen(navController = navController,signUpScreenViewModel = signUpScreenViewModel)
         }
         composable(route = Screens.UserInfo.route){
             // User Information screen
-            SignUpUserInfoScreen(navController = navController)
+            SignUpUserInfoScreen(navController = navController,signUpScreenViewModel = signUpScreenViewModel)
         }
         composable(route = Screens.UserChronic.route){
             // User Chronic disease screen

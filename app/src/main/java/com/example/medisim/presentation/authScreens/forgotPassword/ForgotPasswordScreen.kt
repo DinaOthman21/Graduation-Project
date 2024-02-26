@@ -15,22 +15,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.EmailEditText
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.brush
 
 
 @Composable
-fun ForgotPassword(navController: NavHostController) {
+fun ForgotPassword(navController: NavHostController,forgotPasswordViewModel: ForgotPasswordViewModel) {
 
+    val state = forgotPasswordViewModel.state.value
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -67,19 +68,15 @@ fun ForgotPassword(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         EmailEditText(
-            email = "",
-            isErrorEmail = false,
-            emailErrorMessage = "",
-            onValueChange = {}
+            email = state.email,
+            isErrorEmail = state.isErrorEmail,
+            emailErrorMessage = state.emailErrorMessage,
+            onValueChange = {newEmail->forgotPasswordViewModel.onEmailChange(newEmail)}
         )
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.send),
-            paddingValue = 0) {
-            navController.navigate(Screens.ForgotPasswordOTP.route)
-
-
-        }
+            paddingValue = 0) {forgotPasswordViewModel.onSendOtpToEmail(navController, context)}
 
 
 

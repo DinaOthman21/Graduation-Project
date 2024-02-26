@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,7 +30,11 @@ import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.brush
 
 @Composable
-fun SignUpScreen(navController: NavHostController) {
+fun SignUpScreen(navController: NavHostController,signUpScreenViewModel: SignUpScreenViewModel) {
+
+    val state = signUpScreenViewModel.state.value
+    val context = LocalContext.current
+
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -72,10 +77,10 @@ fun SignUpScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         UserNameEditText(
-            userName = "",
-            isUserNameError = false,
-            userNameErrorMessage = "",
-            onValueChange = {}
+            userName = state.userName,
+            isUserNameError = state.isErrorUserName,
+            userNameErrorMessage = state.userNameErrorMessage,
+            onValueChange = {newUserName->signUpScreenViewModel.onUserNameChange(newUserName)}
         )
         TextLabel(
             text = stringResource(id = R.string.email),
@@ -84,10 +89,10 @@ fun SignUpScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         EmailEditText(
-            email = "",
-            isErrorEmail = false,
-            emailErrorMessage = "",
-            onValueChange = {}
+            email = state.email,
+            isErrorEmail = state.isErrorEmail,
+            emailErrorMessage = state.emailErrorMessage,
+            onValueChange = {newEmail->signUpScreenViewModel.onEmailChange(newEmail)}
         )
 
         TextLabel(
@@ -97,14 +102,12 @@ fun SignUpScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         PasswordEditText(
-            password = "",
-            isErrorPassword = false,
-            passwordErrorMessage = "",
-            showPassword = false,
-            onValueChange = {}
-        ) {
-
-        }
+            password = state.password,
+            isErrorPassword = state.isErrorPassword,
+            passwordErrorMessage = state.passwordErrorMessage,
+            showPassword = state.showPassword,
+            onValueChange = {newPassword->signUpScreenViewModel.onPasswordChange(newPassword)}
+        ) {signUpScreenViewModel.onIconShowPassword()}
         TextLabel(
             text = stringResource(R.string.confirm_password),
             modifier = Modifier.padding(bottom = 10.dp),
@@ -112,20 +115,17 @@ fun SignUpScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
         PasswordEditText(
-            password = "",
-            isErrorPassword = false,
-            passwordErrorMessage = "",
-            showPassword = false,
-            onValueChange = {}
-        ) {
-
-        }
+            password = state.confirmPassword,
+            isErrorPassword = state.isErrorConfirmPassword,
+            passwordErrorMessage = state.confirmPasswordErrorMessage,
+            showPassword = state.showConfirmPassword,
+            onValueChange = {newConfirmPassword->signUpScreenViewModel.onConfirmPasswordChange(newConfirmPassword)}
+        ) {signUpScreenViewModel.onIconShowConfirmPassword()}
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.next),
             paddingValue = 0) {
-            navController.navigate(Screens.UserInfo.route)
-
+            signUpScreenViewModel.onNextToSecondScreen(navController,context)
         }
 
 
