@@ -2,15 +2,21 @@ package com.example.medisim.presentation.components
 
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +33,7 @@ import com.example.medisim.ui.theme.BackgroundDark
 import com.example.medisim.ui.theme.CommonComponent
 import com.example.medisim.ui.theme.ComponentDark
 import com.example.medisim.ui.theme.animatedShimmerColor
+import com.example.medisim.ui.theme.brush
 
 @Composable
 fun CheckboxWithName(
@@ -89,4 +97,37 @@ fun ButtonClickOn(
 }
 
 
+@Composable
+fun BackIcon(onBackIconClick:()->Unit) {
+    CircleIconBackground(
+        imageVector = Icons.AutoMirrored.Default.ArrowBack,
+        modifier = Modifier.background(brush, shape = CircleShape),
+        contentDescription = "Arrow back"
+    ){
+        onBackIconClick()
+    }
+}
+
+
+@Composable
+fun CircleIconBackground(
+    imageVector: ImageVector,
+    modifier: Modifier = Modifier,
+    contentDescription:String = "Icon",
+    iconColor:Color = MaterialTheme.colorScheme.primary,
+    iconSize:Int = 50,
+    onBackIconClick:()->Unit = {}
+) {
+    Icon(
+        imageVector = imageVector,
+        contentDescription = contentDescription,
+        modifier
+            .size(iconSize.dp)
+            .padding(5.dp)
+            .clickable {
+                onBackIconClick()
+            },
+        tint = iconColor
+    )
+}
 

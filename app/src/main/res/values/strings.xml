@@ -63,4 +63,7 @@
     <string name="please_enter_your_height">Please enter your height</string>
     <string name="please_enter_your_weight">Please enter your Weight</string>
     <string name="please_enter_your_age">Please enter your Age</string>
+    <string name="general_settings">General Settings</string>
+    <string name="about">About</string>
+    <string name="account_settings">Account Settings</string>
 </resources>

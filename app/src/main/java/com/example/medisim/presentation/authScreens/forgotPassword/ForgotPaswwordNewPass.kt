@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
+import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.PasswordEditText
 import com.example.medisim.presentation.components.TextLabel
@@ -38,18 +39,8 @@ fun ForgotPasswordNewPassword(navController: NavHostController,forgotPasswordVie
             modifier = Modifier.padding(bottom = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                contentDescription = "Arrow back",
-                Modifier
-                    .size(50.dp)
-                    .padding(5.dp)
-                    .background(brush, shape = CircleShape)
-                    .clickable {
-                        navController.popBackStack()
-                    },
-                tint = MaterialTheme.colorScheme.primary
-            )
+            BackIcon{ navController.popBackStack()}
+
 
         }
 

@@ -26,6 +26,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Chat
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,6 +36,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,11 +50,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.medisim.R
+import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.NavigationDrawerBody
+import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.NavigationDrawerHeader
 import com.example.medisim.presentation.navigation.BottomNavigation
 import com.example.medisim.presentation.navigation.NavigationScreen
 import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.CommonComponent2
 import com.example.medisim.ui.theme.animatedShimmerColor
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(appNavController: NavHostController) {
@@ -81,8 +86,12 @@ fun MainScreen(appNavController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
 
     Scaffold (
+        scaffoldState = scaffoldState,
         // top app bar it contain user Profile and Chat Ai icons.
         topBar = {
             AnimatedVisibility(visible = currentRoute == NavigationScreen.Home.route) {
@@ -98,6 +107,9 @@ fun MainScreen(appNavController: NavHostController) {
                             Icon(
                                 imageVector = Icons.Outlined.Person,
                                 modifier = Modifier.clickable {
+                                    scope.launch {
+                                        scaffoldState.drawerState.open()
+                                    }
                                 },
                                 contentDescription = "",
                                 tint = MaterialTheme.colorScheme.primary
@@ -105,9 +117,11 @@ fun MainScreen(appNavController: NavHostController) {
                             Spacer(modifier = Modifier.weight(1f))
                             Icon(
                                 imageVector = Icons.AutoMirrored.Outlined.Chat,
-                                modifier = Modifier.padding(end = 15.dp).clickable {
-                                    appNavController.navigate(Screens.ChatAI.route)
-                                },
+                                modifier = Modifier
+                                    .padding(end = 15.dp)
+                                    .clickable {
+                                        appNavController.navigate(Screens.ChatAI.route)
+                                    },
                                 contentDescription = "",
                                 tint = MaterialTheme.colorScheme.primary
                             )
@@ -118,6 +132,14 @@ fun MainScreen(appNavController: NavHostController) {
                 )
             }
 
+        },
+
+        // Navigation drawer content
+        drawerContent = {
+            Column (Modifier.background(MaterialTheme.colorScheme.background)){
+                NavigationDrawerHeader()
+                NavigationDrawerBody()
+            }
         },
         // floating action button it for the item of bottom navigation
         // we use it as center button in bottom navigation
