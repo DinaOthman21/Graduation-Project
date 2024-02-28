@@ -28,19 +28,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
-val images = listOf(
-    "https://images.unsplash.com/photo-1599918805559-23cb83102f74?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1661167205913-4aeaa66a0445?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1620015092538-e33c665fc181?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://plus.unsplash.com/premium_photo-1661887262365-1d6a1cf3da22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1693108034943-fc8f19e7573c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1609955548274-d1f3f13519b8?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1599918805559-23cb83102f74?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1661167205913-4aeaa66a0445?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1620015092538-e33c665fc181?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://plus.unsplash.com/premium_photo-1661887262365-1d6a1cf3da22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1693108034943-fc8f19e7573c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1609955548274-d1f3f13519b8?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+@Parcelize
+data class Post(
+    val image: String
+): Parcelable
+
+
+
+
+val posts = listOf(
+    Post(    "https://images.unsplash.com/photo-1599918805559-23cb83102f74?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1661167205913-4aeaa66a0445?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1620015092538-e33c665fc181?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://plus.unsplash.com/premium_photo-1661887262365-1d6a1cf3da22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1693108034943-fc8f19e7573c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1609955548274-d1f3f13519b8?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1599918805559-23cb83102f74?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1661167205913-4aeaa66a0445?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1620015092538-e33c665fc181?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://plus.unsplash.com/premium_photo-1661887262365-1d6a1cf3da22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1693108034943-fc8f19e7573c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1609955548274-d1f3f13519b8?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 )
 
 
@@ -49,15 +59,17 @@ val images = listOf(
 
 
 @Composable
-fun ScreenLazyRow(images: List<String>) {
+fun ScreenLazyRow(posts: List<Post>,onPostClick:(Post)->Unit) {
     Column {
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 4.dp, vertical = 16.dp)
         ) {
 
-            items(images) { image->
-                HorizontalAdviceCard(image)
+            items(posts) { post->
+                HorizontalAdviceCard(post){
+                    onPostClick(it)
+                }
             }
 
         }
@@ -66,7 +78,7 @@ fun ScreenLazyRow(images: List<String>) {
 }
 
 @Composable
-fun HorizontalAdviceCard(image:String) {
+fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {
     Box ( modifier = Modifier
         .width(300.dp)
         .height(220.dp)
@@ -74,12 +86,13 @@ fun HorizontalAdviceCard(image:String) {
         .clip(RoundedCornerShape(16.dp))
         .clickable {
             // here when user click on Advice post
+            onPostClick(post)
         }
     )
     {
 
         ViewImage(
-            image = image,
+            image = post.image,
             contentDescription ="Advice image"
         )
 
@@ -113,7 +126,7 @@ fun HorizontalAdviceCard(image:String) {
 
 
 @Composable
-fun VerticalAvoidCard(image:String) {
+fun VerticalAvoidCard(post: Post,onPostClick:(Post)->Unit) {
     Card(
         modifier = Modifier
             .padding(10.dp)
@@ -121,6 +134,7 @@ fun VerticalAvoidCard(image:String) {
             .clip(RoundedCornerShape(16.dp))
             .clickable {
                 // here when user click on Avoid post
+                onPostClick(post)
             }
     ) {
         Row (
@@ -130,7 +144,7 @@ fun VerticalAvoidCard(image:String) {
 
         ){
             ViewImage(
-                image = image,
+                image = post.image,
                 modifier = Modifier
                     .weight(0.5f)
                     .height(160.dp),

@@ -18,12 +18,14 @@ import com.example.medisim.presentation.authScreens.signUp.SignUpScreen
 import com.example.medisim.presentation.authScreens.signUp.SignUpScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserChronicScreen
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserInfoScreen
+import com.example.medisim.presentation.components.Post
 import com.example.medisim.presentation.homeScreens.MainScreen
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.CalculatorScreen
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.HomeScreen
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.MedicalTestScreen
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.MedicineScreen
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.PredictionScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.MainCalculatorScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.PostDetails
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.PredictionScreen
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -90,13 +92,17 @@ fun AppNavigation(
         }
         composable(route = Screens.PostDetails.route){
             // Post Details screen
+            val post: Post? = navController.previousBackStackEntry?.savedStateHandle?.get("post")
+            post?.let {
+                PostDetails(post = it,navController = navController)
+                ChangeStatusBarColor(isHome = false)
+            }
 
-            ChangeStatusBarColor(isHome = false)
 
         }
         composable(route = Screens.ChatAI.route){
             // Post Chat AI screen
-            ChatScreen()
+            ChatScreen(navController = navController)
             ChangeStatusBarColor(isHome = false)
 
         }
@@ -133,7 +139,7 @@ fun BottomNavigation(
 
         }
         composable(route = NavigationScreen.Calculator.route){
-            CalculatorScreen()
+            MainCalculatorScreen()
             ChangeStatusBarColor(isHome = false)
 
         }

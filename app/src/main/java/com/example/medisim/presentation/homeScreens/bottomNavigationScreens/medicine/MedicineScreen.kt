@@ -1,9 +1,10 @@
-package com.example.medisim.presentation.homeScreens.bottomNavigationScreens
+package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,13 +16,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medisim.R
 import com.example.medisim.presentation.components.EditTextWithIcon
+import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.TextTitle
 import com.example.medisim.presentation.components.ViewImage
 
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun MedicineScreen() {
     Column (modifier = Modifier.padding(12.dp)){
@@ -43,19 +47,44 @@ fun MedicineScreen() {
                 onValueChange = {}
             )
         }
-//        if (medicineDrug == null){
-//            // show animation
-//        }else{
-//            // show medicine
-//        }
-        MedicineDetails(medicineDrug)
-    }
+
+        }
+        if (medicineDrug == null){
+            Column (
+                modifier = Modifier.fillMaxWidth().fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ){
+                // show animation
+                Row (
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ){
+                    LottieAnimationShow(
+                        animationResId = R.raw.search_animation,
+                        size = 250,
+                        padding = 12,
+                        paddingBottom = 0
+                    )
+                }
+                TextLabel(
+                    text = "Enter The Medicine Name You Search For",
+                    textFontWight = FontWeight.Bold,
+                    textFont = 16
+                )
+            }
+        }else{
+            // show medicine
+            MedicineDetails(medicineDrug!!)
+
+        }
+
 }
 
 
 
 @Composable
-fun MedicineDetails(medicine: Medicine ) {
+fun MedicineDetails(medicine: Medicine) {
     val configuration = LocalConfiguration.current
     val isArabicLang = configuration.locales[0].language == "ar"
 
@@ -155,9 +184,9 @@ data class Medicine(
 
 
 
+val medicineDrug = null
 
-
-val medicineDrug = Medicine(
+val medicineDrug1 = Medicine(
     imageLink = "https://cdn.altibbi.com/cdn/cache/large/image/2023/10/26/1b4bed6391fdb5af607e9b3e4934ad94.webp",
     medicineEnName = "Panadol",
     medicineArName = "بنادول" ,

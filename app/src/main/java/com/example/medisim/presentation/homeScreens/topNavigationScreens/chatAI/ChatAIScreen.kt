@@ -27,15 +27,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.EditTextWithIcon
+import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.TextWithBackgroundColorAsCard
 import com.example.medisim.ui.theme.brush
 
 data class Message(val message:String,val isUser:Boolean)
 
-
+//val messages = listOf<Message>()
 val messages = listOf(
     Message("Hello chat",true),
     Message("Hello User, you are welcome, Hello User, you are welcome, Hello User, you are welcome",false),
@@ -50,9 +52,8 @@ val messages = listOf(
 
 )
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ChatScreen() {
+fun ChatScreen(navController:NavHostController) {
     Column{
         Box(modifier = Modifier.weight(0.1f)){
             Row(
@@ -74,7 +75,7 @@ fun ChatScreen() {
                         .padding(5.dp)
                         .background(brush, shape = CircleShape)
                         .clickable {
-                            // navController.popBackStack()
+                            navController.popBackStack()
                         },
                     tint = MaterialTheme.colorScheme.primary
                 )
@@ -89,13 +90,16 @@ fun ChatScreen() {
         }
 
         if (messages.isEmpty()){
-            Box(modifier = Modifier.weight(0.8f)){
-//                LottieAnimationShow(
-//                    animationResId = R.,
-//                    size = ,
-//                    padding = ,
-//                    paddingBottom =
-//                )
+            Box(
+                modifier = Modifier.fillMaxWidth().weight(0.8f),
+                contentAlignment = Alignment.Center
+                ){
+                LottieAnimationShow(
+                    animationResId = R.raw.chat_animation,
+                    size = 320,
+                    padding = 12,
+                    paddingBottom = 0
+                )
             }
 
         }else{
