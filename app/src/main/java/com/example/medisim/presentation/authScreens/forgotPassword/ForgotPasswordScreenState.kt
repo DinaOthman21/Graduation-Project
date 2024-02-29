@@ -11,7 +11,8 @@ data class ForgotPasswordScreenState(
 
     // second screen to enter otp
 
-    val code:String = "",
+    val otpNumber:String = "",
+    val otpErrorMessage:String = "",
 
 
     // last screen to update password

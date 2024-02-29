@@ -1,17 +1,10 @@
 package com.example.medisim.presentation.authScreens.forgotPassword
 
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,15 +16,14 @@ import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.ButtonClickOn
-import com.example.medisim.presentation.components.OtpEditText
+import com.example.medisim.presentation.components.OtpTextField
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.ui.theme.brush
 
 
 @Composable
 fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: ForgotPasswordViewModel) {
 
-//    val state = forgotPasswordViewModel.state.value
+    val state = forgotPasswordViewModel.state.value
 //    val context = LocalContext.current
 
     Column(
@@ -58,12 +50,18 @@ fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: 
             textFont = 16,
             textColor = MaterialTheme.colorScheme.secondary,
         )
-        OtpEditText()
+        OtpTextField(
+            otpText = state.otpNumber,
+            otpErrorMessage = state.otpErrorMessage
+        ) {newOtp->
+            forgotPasswordViewModel.onOtpCodeChange(newOtp)
+        }
 
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.submit),
-            paddingValue = 0) { forgotPasswordViewModel.onSendOtpToServer(navController) }
+            paddingValue = 0
+        ) { forgotPasswordViewModel.onSendOtpToServer(navController) }
 
 
 

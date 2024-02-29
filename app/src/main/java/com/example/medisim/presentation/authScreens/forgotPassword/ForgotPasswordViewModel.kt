@@ -68,10 +68,19 @@ class ForgotPasswordViewModel : ViewModel() {
     /////// second screen
 
 
+    fun onOtpCodeChange(newOtp: String) {
+        _state = _state.copy(
+            otpNumber = newOtp,
+            otpErrorMessage = ""
+        )
+    }
+
     fun onSendOtpToServer(navController: NavHostController){
      // go to new password screen if server return valid otp
         navController.navigate(Screens.ForgotPasswordNewPass.route)
     }
+
+
 
     /////////////////////////////////////////////////
     ////// last screen
@@ -124,7 +133,6 @@ class ForgotPasswordViewModel : ViewModel() {
             }
         }
     }
-
 
 
 }

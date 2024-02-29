@@ -2,6 +2,7 @@ package com.example.medisim.presentation.components
 
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,15 +22,22 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -127,6 +136,7 @@ fun UserNameEditText(
                 .height(editTextHeight.dp)
                 .fillMaxWidth()
                 .shadow(elevation = 24.dp),
+            singleLine = true,
             isError = isUserNameError,
         )
         Row {
@@ -166,6 +176,7 @@ fun NumberEditText(
                 .height(editTextHeight.dp)
                 .fillMaxWidth()
                 .shadow(elevation = 24.dp),
+            singleLine = true,
             isError = isNumberError,
         )
         Row {
@@ -212,6 +223,7 @@ fun EmailEditText(
                 .height(editTextHeight.dp)
                 .fillMaxWidth()
                 .shadow(elevation = 24.dp),
+            singleLine = true,
             isError = isErrorEmail,
 
             )
@@ -254,6 +266,7 @@ fun PasswordEditText(
                 .height(editTextHeight.dp)
                 .fillMaxWidth()
                 .shadow(elevation = 24.dp),
+            singleLine = true,
             trailingIcon = {
                 IconButton(onClick = {
                     onIconButtonClick()
@@ -278,53 +291,104 @@ fun PasswordEditText(
 
 
 
-
-
 @Composable
 fun OtpBox(
     number:String ,
     modifier: Modifier = Modifier,
     editTextHeight: Int = 80,
     editTextWidth: Int = 80,
-    onValueChange:(String) -> Unit
 ) {
-    Column {
-
-        TextField(
-            value = number,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = {
-                onValueChange(it)
-            },
-            colors = textFieldColors(),
-            shape = RoundedCornerShape(12.dp),
-            modifier = modifier
-                .height(editTextHeight.dp)
-                .width(editTextWidth.dp)
-                .shadow(elevation = 24.dp),
-            textStyle =  TextStyle(
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 35.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
+    TextField(
+        value = number,
+        onValueChange = {},
+        enabled = false,
+        readOnly = true,
+        colors = textFieldColors(),
+        shape = RoundedCornerShape(12.dp),
+        modifier = modifier
+            .height(editTextHeight.dp)
+            .width(editTextWidth.dp)
+            .shadow(elevation = 24.dp),
+        textStyle =  TextStyle(
+            color = MaterialTheme.colorScheme.primary,
+            fontSize = 35.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
-    }
+    )
 }
 
 
+
+
+
 @Composable
-fun OtpEditText() {
-    Row (
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ){
-        repeat(4){
-            OtpBox(
-                number = "1",
-            ){}
-            Spacer(modifier = Modifier.width(15.dp))
+fun OtpTextField(
+    otpText: String,
+    modifier: Modifier = Modifier,
+    otpErrorMessage:String ,
+    otpLength:Int = 4,
+    onOtpTextChange:(String)->Unit,
+
+) {
+    // used it to check if user input is Integer number or not.
+    var isValid by remember { mutableStateOf(true) }
+
+    // make state for textField to save cursor in the end
+    // by make selection equal to otpText length.
+    val textFieldValueState = remember {
+        mutableStateOf(
+            TextFieldValue(
+            text = otpText,
+            selection = TextRange(otpText.length)
+        ))
+    }
+
+    Column {
+        BasicTextField(
+            value = textFieldValueState.value,
+            modifier = modifier
+                .background(MaterialTheme.colorScheme.background)
+                .fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            onValueChange = {
+
+
+                // Validate if the new text is a valid integer
+                isValid = it.text.isEmpty() || it.text.toIntOrNull() != null
+
+                // make change if value integer and length
+                // smaller than otp length.
+                if (it.text.length <= otpLength && isValid){
+                    onOtpTextChange(it.text)
+                    textFieldValueState.value = it
+                }
+            },
+            cursorBrush = Brush.verticalGradient(listOf(Color.Red, Color.Yellow))
+        ) {
+            Row (
+                horizontalArrangement = Arrangement.spacedBy(14.dp)
+            ){
+                repeat(otpLength){index->
+                    val number = when{
+                        index >= otpText.length -> ""
+                        else -> otpText[index]
+                    }
+                    OtpBox(number = number.toString()  )
+                }
+            }
+        }
+
+        Row {
+            Text(
+                otpErrorMessage, style = MaterialTheme.typography.bodyMedium, modifier = Modifier
+                    .padding(top = 3.dp, start = 25.dp), color = Color.Red
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
         }
     }
+
+
+
 }
