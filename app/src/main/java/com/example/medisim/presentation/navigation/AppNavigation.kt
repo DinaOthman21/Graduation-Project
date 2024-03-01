@@ -26,7 +26,9 @@ import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.PredictionScreen
+import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatAIViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatScreen
+import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.ProfileViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
@@ -48,7 +50,9 @@ fun ChangeStatusBarColor(isHome:Boolean) {
 fun AppNavigation(
     loginViewModel: LoginScreenViewModel,
     signUpScreenViewModel: SignUpScreenViewModel,
-    forgotPasswordViewModel: ForgotPasswordViewModel
+    forgotPasswordViewModel: ForgotPasswordViewModel,
+    chatAIViewModel: ChatAIViewModel,
+    profileViewModel: ProfileViewModel
 ) {
     val navController = rememberNavController()
 
@@ -88,7 +92,7 @@ fun AppNavigation(
         composable(route = Screens.Home.route){
             // Home screen
             ChangeStatusBarColor(isHome = true)
-            MainScreen(navController)
+            MainScreen(navController,profileViewModel)
         }
         composable(route = Screens.PostDetails.route){
             // Post Details screen
@@ -102,7 +106,7 @@ fun AppNavigation(
         }
         composable(route = Screens.ChatAI.route){
             // Post Chat AI screen
-            ChatScreen(navController = navController)
+            ChatScreen(navController = navController,chatAIViewModel =chatAIViewModel)
             ChangeStatusBarColor(isHome = false)
 
         }

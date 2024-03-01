@@ -1,7 +1,6 @@
 package com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,21 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
@@ -34,29 +30,14 @@ import com.example.medisim.presentation.components.EditTextWithIcon
 import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.TextWithBackgroundColorAsCard
-import com.example.medisim.ui.theme.brush
 
-data class Message(val message:String,val isUser:Boolean)
-
-//val messages = listOf<Message>()
-val messages = listOf(
-    Message("Hello chat",true),
-    Message("Hello User, you are welcome, Hello User, you are welcome, Hello User, you are welcome",false),
-    Message("how are you to day? how are you to day? how are you to day?",true),
-    Message("i am fine, what about you!!",false),
-    Message("مرحبا بك",true),
-    Message("Hello chat",true),
-    Message("Hello User, you are welcome, Hello User, you are welcome, Hello User, you are welcome",false),
-    Message("how are you to day? how are you to day? how are you to day?",true),
-    Message("i am fine, what about you!!",false),
-    Message("مرحبا بك",true),
-
-)
 
 @Composable
-fun ChatScreen(navController:NavHostController) {
-    Column{
-        Box(modifier = Modifier.weight(0.1f)){
+fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel) {
+    val messages by chatAIViewModel.allMessages.collectAsState()
+    val state = chatAIViewModel.state.value
+    Scaffold (
+        topBar = {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -77,40 +58,65 @@ fun ChatScreen(navController:NavHostController) {
                 )
 
             }
-        }
-
-        if (messages.isEmpty()){
-            Box(
-                modifier = Modifier.fillMaxWidth().weight(0.8f),
-                contentAlignment = Alignment.Center
-                ){
-                LottieAnimationShow(
-                    animationResId = R.raw.chat_animation,
-                    size = 320,
-                    padding = 12,
-                    paddingBottom = 0
+        },
+        bottomBar = {
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(bottom = 5.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.Bottom
+            ){
+                EditTextWithIcon(
+                    text = state.message,
+                    placeholderID = R.string.message,
+                    iconID = R.drawable.baseline_send_24,
+                    editTextWidth = 370,
+                    roundedCornerShapeValue = 28,
+                    isIconEnabled = state.isIconEnable,
+                    onIconButtonClick = { chatAIViewModel.sendMessage() },
+                    onValueChange = {newMessage->chatAIViewModel.onMessageChange(newMessage)}
                 )
             }
+        }
 
-        }else{
-            Box(modifier = Modifier.weight(0.8f)){
+    ){
+        Column(modifier = Modifier.padding(it)){
+            if (messages.isEmpty()){
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ){
+                    LottieAnimationShow(
+                        animationResId = R.raw.chat_animation,
+                        size = 320,
+                        padding = 12,
+                        paddingBottom = 0
+                    )
+                }
+
+            }else{
                 LazyColumn(
                     modifier = Modifier
                         .padding(
                             start = 12.dp,
-                            end = 12.dp
+                            end = 12.dp,
+                            bottom = 12.dp
                         ),
                 ){
                     items(messages){ message->
                         // handel if message from user then make it in right side otherwise left side.
-                        if (message.isUser) {
+                        if (message.role == "user") {
                             Row (
                                 modifier = Modifier.fillMaxSize()
                             ){
                                 Spacer(modifier = Modifier.weight(1f))
                                 Spacer(modifier = Modifier.width(50.dp))
                                 TextWithBackgroundColorAsCard(
-                                    text = message.message,
+                                    text = message.content,
                                     cardCornerTopEnd =  0 ,
                                     cardCornerTopStart = 24,
                                     cardCornerBottomEnd = 24,
@@ -118,9 +124,9 @@ fun ChatScreen(navController:NavHostController) {
                                 )
                             }
                         }
-                        else{
+                        else {
                             TextWithBackgroundColorAsCard(
-                                text = message.message,
+                                text = message.content,
                                 modifier = Modifier.width(320.dp),
                                 backgroundColor = MaterialTheme.colorScheme.tertiary,
                                 cardCornerTopEnd = 24,
@@ -134,30 +140,8 @@ fun ChatScreen(navController:NavHostController) {
 
                 }
             }
-        }
 
-        Box(modifier = Modifier.weight(0.1f)){
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .background(MaterialTheme.colorScheme.background),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Bottom
-            ){
-                EditTextWithIcon(
-                    text = "",
-                    placeholderID = R.string.message,
-                    iconID = R.drawable.baseline_send_24,
-                    editTextWidth = 370,
-                    roundedCornerShapeValue = 28,
-                    onIconButtonClick = { /*TODO*/ },
-                    onValueChange = {}
-                )
-
-
-
-            }
         }
     }
+
 }

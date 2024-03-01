@@ -44,6 +44,7 @@ fun MedicineScreen() {
                 editTextWidth = 370,
                 roundedCornerShapeValue = 28,
                 onIconButtonClick = { /*TODO*/ },
+                isIconEnabled = true,
                 onValueChange = {}
             )
         }

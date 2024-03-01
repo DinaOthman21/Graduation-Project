@@ -1,7 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
     id ("kotlin-parcelize")
+    id ("dagger.hilt.android.plugin")
 
 }
 
@@ -73,7 +75,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // preview
-    debugImplementation("androidx.compose.ui:ui-tooling-preview:1.6.1")
+    debugImplementation("androidx.compose.ui:ui-tooling-preview:1.6.2")
 
     // splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -88,10 +90,28 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
     // Icons
-    implementation("androidx.compose.material:material-icons-extended:1.6.1")
+    implementation("androidx.compose.material:material-icons-extended:1.6.2")
 
     // lottie animation
     implementation("com.airbnb.android:lottie-compose:6.1.0")
+
+    // viewModel Compose LifeCycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+
+    //Hilt
+    implementation ("com.google.dagger:hilt-android:2.46")
+    kapt ("com.google.dagger:hilt-android-compiler:2.46")
 
 
 }

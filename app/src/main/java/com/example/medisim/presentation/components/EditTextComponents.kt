@@ -84,6 +84,7 @@ fun EditTextWithIcon(
     roundedCornerShapeValue:Int = 12,
     editTextHeight: Int = 60,
     editTextWidth: Int = 60,
+    isIconEnabled:Boolean,
     onIconButtonClick:()->Unit,
     onValueChange:(String) -> Unit) {
     TextField(
@@ -99,7 +100,8 @@ fun EditTextWithIcon(
             .width(editTextWidth.dp)
             .shadow(elevation = 24.dp),
         trailingIcon = {
-            IconButton(onClick = {
+            IconButton(enabled = isIconEnabled,
+                onClick = {
                 onIconButtonClick()
             }) {
                 Icon(

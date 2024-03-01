@@ -175,6 +175,7 @@ fun TextWithBackgroundColorAsCard(
             fontSize = textFont.sp,
             color = textColor,
             fontWeight = textFontWight,
+            textAlign = TextAlign.Justify,
             letterSpacing = textLetterSpacing.sp
         )
 

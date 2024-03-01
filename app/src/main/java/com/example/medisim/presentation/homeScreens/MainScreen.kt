@@ -52,6 +52,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.medisim.R
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.NavigationDrawerBody
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.NavigationDrawerHeader
+import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.ProfileViewModel
 import com.example.medisim.presentation.navigation.BottomNavigation
 import com.example.medisim.presentation.navigation.NavigationScreen
 import com.example.medisim.presentation.navigation.Screens
@@ -60,7 +61,7 @@ import com.example.medisim.ui.theme.animatedShimmerColor
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen(appNavController: NavHostController) {
+fun MainScreen(appNavController: NavHostController, profileViewModel: ProfileViewModel) {
 
     // use it when user need to exit app to show toast to click again to exit.
     var doubleBackToExitPressedOnce = false
@@ -138,7 +139,7 @@ fun MainScreen(appNavController: NavHostController) {
         drawerContent = {
             Column (Modifier.background(MaterialTheme.colorScheme.background)){
                 NavigationDrawerHeader()
-                NavigationDrawerBody()
+                NavigationDrawerBody(appNavController,profileViewModel)
             }
         },
         // floating action button it for the item of bottom navigation

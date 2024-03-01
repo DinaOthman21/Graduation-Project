@@ -26,14 +26,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.medisim.R
+import com.example.medisim.di.App
 import com.example.medisim.presentation.components.CircleIconBackground
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.ViewImage
+import com.example.medisim.presentation.navigation.Screens
 
 
 @Preview(showSystemUi = true, showBackground = true)
@@ -85,18 +89,9 @@ fun NavigationDrawerHeader() {
 }
 
 
-@Preview
 @Composable
-fun NavigationDrawerBody() {
-    val items = listOf(
-        DrawerItem.Language,
-        DrawerItem.Mode,
-        DrawerItem.TermsAndConditions,
-        DrawerItem.License,
-        DrawerItem.Rate,
-        DrawerItem.Share,
-        DrawerItem.Logout,
-    )
+fun NavigationDrawerBody(navController: NavHostController,profileViewModel: ProfileViewModel) {
+    val state = profileViewModel.state.value
     LazyColumn(Modifier.fillMaxSize()){
         item {
             TextLabel(
@@ -106,41 +101,50 @@ fun NavigationDrawerBody() {
                 textFont = 18,
                 textColor = MaterialTheme.colorScheme.secondary
             )
-        }
-        itemsIndexed(items){ index,item ->
             BodyItem(
-                item = item,
-                iconColor = item.color,
+                item = DrawerItem.Language,
+                iconColor = DrawerItem.Language.color,
                 onRowClick = {}
-            ) { }
-            if (index== 1 || index==5){
-                Divider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp, bottom = 5.dp, start =  18.dp,end = 18.dp),
-                    color = MaterialTheme.colorScheme.primary
-                )
-                if (index==1){
-                    TextLabel(
-                        text = stringResource(R.string.about),
-                        modifier = Modifier.padding(start = 3.dp,bottom = 10.dp),
-                        textFontWight = FontWeight.Bold,
-                        textFont = 18,
-                        textColor = MaterialTheme.colorScheme.secondary
-                    )
-                }else{
-                    TextLabel(
-                        text = stringResource(R.string.account_settings),
-                        modifier = Modifier.padding(start = 3.dp,bottom = 10.dp),
-                        textFontWight = FontWeight.Bold,
-                        textFont = 18,
-                        textColor = MaterialTheme.colorScheme.secondary
-                    )
+            )
 
+            BodyItem(
+                item = DrawerItem.Mode,
+                iconColor = DrawerItem.Mode.color,
+                isDark = state.isDark,
+                onRowClick = {}
+            ){profileViewModel.onChangeMode()}
+            LineWithText(stringId = R.string.about)
+
+            BodyItem(
+                item = DrawerItem.TermsAndConditions,
+                iconColor = DrawerItem.TermsAndConditions.color,
+                onRowClick = {}
+            )
+            BodyItem(
+                item = DrawerItem.License,
+                iconColor = DrawerItem.License.color,
+                onRowClick = {}
+            )
+            BodyItem(
+                item = DrawerItem.Rate,
+                iconColor = DrawerItem.Rate.color,
+                onRowClick = {}
+            )
+            BodyItem(
+                item = DrawerItem.Share,
+                iconColor = DrawerItem.Share.color,
+                onRowClick = {}
+            )
+            LineWithText(stringId = R.string.account_settings)
+            BodyItem(
+                item = DrawerItem.Logout,
+                iconColor = DrawerItem.Logout.color,
+                onRowClick = {
+                    profileViewModel.onLogoutClick(navController)
                 }
-            }
-
+            )
         }
+
     }
 
 }
@@ -150,8 +154,9 @@ fun NavigationDrawerBody() {
 fun BodyItem(
     item: DrawerItem,
     iconColor:Long,
+    isDark:Boolean = true,
     onRowClick:()->Unit,
-    onModeSwitch:()->Unit
+    onModeSwitch:()->Unit = {}
 ) {
     Row (
         modifier = Modifier
@@ -184,12 +189,30 @@ fun BodyItem(
                 )
             }else{
                 Switch(
-                    checked = false,
+                    checked = isDark,
                     onCheckedChange = { onModeSwitch() }
                 )
             }
         }
 
     }
+
+}
+
+@Composable
+fun LineWithText(stringId:Int) {
+    Divider(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, bottom = 5.dp, start = 18.dp, end = 18.dp),
+        color = MaterialTheme.colorScheme.primary
+    )
+    TextLabel(
+        text = stringResource(stringId),
+        modifier = Modifier.padding(start = 3.dp,bottom = 10.dp),
+        textFontWight = FontWeight.Bold,
+        textFont = 18,
+        textColor = MaterialTheme.colorScheme.secondary
+    )
 
 }
