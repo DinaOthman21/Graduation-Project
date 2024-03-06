@@ -40,7 +40,7 @@
     <string name="no">No</string>
     <string name="press_again_to_exit">Press again to exit</string>
     <string name="ai_chat">AI Chat</string>
-    <string name="message">Message</string>
+    <string name="message">Type a message…</string>
     <string name="medicine_name">"Medicine Name: "</string>
     <string name="scientific_name">"Scientific Name: "</string>
     <string name="medicine_classification">"Medicine Classification: "</string>
@@ -67,5 +67,7 @@
     <string name="general_settings">General Settings</string>
     <string name="about">About</string>
     <string name="account_settings">Account Settings</string>
+    <string name="change_language">Change Language</string>
+    <string name="empty_string" />
 
 </resources>

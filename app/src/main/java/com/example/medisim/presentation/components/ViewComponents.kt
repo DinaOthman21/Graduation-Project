@@ -39,7 +39,7 @@ data class Post(
 
 
 val posts = listOf(
-    Post(    "https://images.unsplash.com/photo-1599918805559-23cb83102f74?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    Post(    "https://images.unsplash.com/photo-1702893576128-21feb60299d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
     Post(    "https://images.unsplash.com/photo-1661167205913-4aeaa66a0445?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
     Post(    "https://images.unsplash.com/photo-1620015092538-e33c665fc181?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
     Post(    "https://plus.unsplash.com/premium_photo-1661887262365-1d6a1cf3da22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
@@ -104,9 +104,9 @@ fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.DarkGray,
-                        Color.Transparent,
-                        Color.DarkGray,
+                        Color.DarkGray.copy(0.7f),
+                        Color.Gray.copy(0.4f),
+                        Color.DarkGray.copy(0.7f),
                     )
                 )
             ),

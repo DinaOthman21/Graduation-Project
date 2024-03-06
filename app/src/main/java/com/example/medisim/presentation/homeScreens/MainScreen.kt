@@ -135,6 +135,11 @@ fun MainScreen(appNavController: NavHostController, profileViewModel: ProfileVie
 
         },
 
+
+        // make Navigation drawer not open using horizontal swap,
+        // in any screen not home
+        drawerGesturesEnabled = currentRoute == NavigationScreen.Home.route,
+
         // Navigation drawer content
         drawerContent = {
             Column (Modifier.background(MaterialTheme.colorScheme.background)){

@@ -13,7 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,8 +22,8 @@ import com.example.medisim.R
 import com.example.medisim.presentation.components.EditTextWithIcon
 import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.presentation.components.TextTitle
 import com.example.medisim.presentation.components.ViewImage
+import com.example.medisim.ui.theme.CommonComponent2
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
@@ -48,11 +48,11 @@ fun MedicineScreen() {
                 onValueChange = {}
             )
         }
-
-        }
         if (medicineDrug == null){
             Column (
-                modifier = Modifier.fillMaxWidth().fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ){
@@ -79,6 +79,8 @@ fun MedicineScreen() {
             MedicineDetails(medicineDrug!!)
 
         }
+    }
+
 
 }
 
@@ -86,8 +88,7 @@ fun MedicineScreen() {
 
 @Composable
 fun MedicineDetails(medicine: Medicine) {
-    val configuration = LocalConfiguration.current
-    val isArabicLang = configuration.locales[0].language == "ar"
+
 
     LazyColumn(modifier = Modifier.padding(top = 10.dp)){
         item {
@@ -98,66 +99,33 @@ fun MedicineDetails(medicine: Medicine) {
                         .fillMaxWidth()
                         .height(300.dp)
                 )
-                Column ( modifier = Modifier.padding(top = 10.dp) ){
-                    TextLabel(
-                        text = stringResource(R.string.medicine_name),
-                        textFont = 22,
-                        textFontWight = FontWeight.Bold
-                    )
-                    TextLabel(
-                        text = if (isArabicLang)medicine.medicineArName else medicine.medicineEnName,
-                        textFont = 18
-                    )
-                }
+                TextPartOfMedicine(
+                    partNameId = R.string.medicine_name,
+                    enPart = medicine.medicineEnName,
+                    arPart = medicine.medicineArName
+                )
 
-                Column ( modifier = Modifier.padding(top = 10.dp) ){
-                    TextLabel(
-                        text = stringResource(R.string.scientific_name),
-                        textFont = 22,
-                        textFontWight = FontWeight.Bold
-                    )
-                    TextLabel(
-                        text = if (isArabicLang)medicine.arScientificName else medicine.enScientificName,
-                        textFont = 18
-                    )
-                }
+                TextPartOfMedicine(
+                    partNameId = R.string.scientific_name,
+                    enPart = medicine.enScientificName,
+                    arPart = medicine.arScientificName
+                )
+                TextPartOfMedicine(
+                    partNameId = R.string.medicine_classification,
+                    enPart =  medicine.enMedicineClassification,
+                    arPart = medicine.arMedicineClassification
+                )
 
-                Column ( modifier = Modifier.padding(top = 10.dp) ){
-                    TextLabel(
-                        text = stringResource(R.string.medicine_classification),
-                        textFont = 22,
-                        textFontWight = FontWeight.Bold
-                    )
-                    TextLabel(
-                        text = if (isArabicLang)medicine.arMedicineClassification else medicine.enMedicineClassification,
-                        textFont = 18
-                    )
-                }
-                Column ( modifier = Modifier.padding(top = 10.dp) ){
-                    TextLabel(
-                        text = stringResource(R.string.medicine_category),
-                        textFont = 22,
-                        textFontWight = FontWeight.Bold
-                    )
-                    TextLabel(
-                        text = if (isArabicLang)medicine.arCategory else medicine.enCategory,
-                        textFont = 18
-                    )
-                }
-                Column ( modifier = Modifier.padding(top = 10.dp) ){
-                    TextLabel(
-                        text = stringResource(R.string.medicine_description),
-                        textFont = 22,
-                        textFontWight = FontWeight.Bold
-                    )
-                    TextTitle(
-                        text = if (isArabicLang)medicine.arDescription else medicine.enDescription,
-                        maxLines = 500,
-                    )
-                }
-
-
-
+                TextPartOfMedicine(
+                    partNameId = R.string.medicine_category,
+                    enPart = medicine.enCategory,
+                    arPart =medicine.arCategory
+                )
+                TextPartOfMedicine(
+                    partNameId = R.string.medicine_description,
+                    enPart = medicine.enDescription,
+                    arPart = medicine.arDescription
+                )
 
             }
 
@@ -165,6 +133,35 @@ fun MedicineDetails(medicine: Medicine) {
     }
 
 }
+
+
+@Composable
+fun TextPartOfMedicine(
+    partNameId:Int,
+    enPart:String,
+    arPart:String
+) {
+    val context = LocalContext.current
+    // Now can access resources using the context
+    val resources = context.resources
+    val isArabicLang = resources.configuration.locales[0].language == "ar"
+
+
+    Column ( modifier = Modifier.padding(top = 10.dp) ){
+        TextLabel(
+            text = stringResource(partNameId),
+            textFont = 22,
+            textFontWight = FontWeight.Bold,
+            textColor = CommonComponent2
+        )
+        TextLabel(
+            text = if (isArabicLang) arPart else enPart,
+            textFont = 18
+        )
+    }
+    
+}
+
 
 
 
@@ -185,9 +182,9 @@ data class Medicine(
 
 
 
-val medicineDrug = null
+val medicineDrug1 = null
 
-val medicineDrug1 = Medicine(
+val medicineDrug = Medicine(
     imageLink = "https://cdn.altibbi.com/cdn/cache/large/image/2023/10/26/1b4bed6391fdb5af607e9b3e4934ad94.webp",
     medicineEnName = "Panadol",
     medicineArName = "بنادول" ,

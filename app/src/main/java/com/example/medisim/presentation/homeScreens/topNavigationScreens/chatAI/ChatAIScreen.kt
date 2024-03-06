@@ -1,5 +1,8 @@
 package com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI
 
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +23,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,11 +35,16 @@ import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.TextWithBackgroundColorAsCard
 
-
 @Composable
 fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel) {
     val messages by chatAIViewModel.allMessages.collectAsState()
     val state = chatAIViewModel.state.value
+
+    val context = LocalContext.current
+    val activity = (context as? ComponentActivity)?.window?.decorView?.rootView
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+
     Scaffold (
         topBar = {
             Row(
@@ -63,7 +72,6 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
                     .background(MaterialTheme.colorScheme.background)
                     .padding(bottom = 5.dp),
                 horizontalArrangement = Arrangement.Center,
@@ -76,7 +84,10 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
                     editTextWidth = 370,
                     roundedCornerShapeValue = 28,
                     isIconEnabled = state.isIconEnable,
-                    onIconButtonClick = { chatAIViewModel.sendMessage() },
+                    onIconButtonClick = {
+                        chatAIViewModel.sendMessage()
+                        inputMethodManager.hideSoftInputFromWindow(activity?.windowToken, 0)
+                    },
                     onValueChange = {newMessage->chatAIViewModel.onMessageChange(newMessage)}
                 )
             }
@@ -104,11 +115,13 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
                         .padding(
                             start = 12.dp,
                             end = 12.dp,
-                            bottom = 12.dp
+                            bottom = 12.dp,
+
                         ),
                 ){
                     items(messages){ message->
-                        // handel if message from user then make it in right side otherwise left side.
+                        // handel if message from user then make it in right side
+                        // otherwise left side.
                         if (message.role == "user") {
                             Row (
                                 modifier = Modifier.fillMaxSize()
@@ -145,3 +158,6 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
     }
 
 }
+
+
+

@@ -1,6 +1,7 @@
 package com.example.medisim.di
 
 import android.app.Application
+import android.content.res.Resources
 import com.example.medisim.data.Constants
 import com.example.medisim.data.remote.ChatApiServices
 import com.example.medisim.data.repository.ChatApiRepositoryImpl
@@ -44,5 +45,11 @@ object AppModule {
     fun provideSharedPreferencesInstance(application: Application): SharedPreferences {
         return SharedPreferences(application)
     }
+
+
+//    @Provides
+//    fun provideResources(application: Application): Resources {
+//        return application.resources
+//    }
 
 }

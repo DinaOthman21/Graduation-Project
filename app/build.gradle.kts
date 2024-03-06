@@ -114,4 +114,9 @@ dependencies {
     kapt ("com.google.dagger:hilt-android-compiler:2.46")
 
 
+    //language
+//    implementation("com.zeugmasolutions.localehelper:locale-helper-android:1.5.1")
+
+
+
 }
