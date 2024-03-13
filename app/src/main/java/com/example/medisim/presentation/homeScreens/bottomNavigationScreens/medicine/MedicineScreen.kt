@@ -11,23 +11,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medisim.R
+import com.example.medisim.data.remote.dto.Medicine
 import com.example.medisim.presentation.components.EditTextWithIcon
 import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.ViewImage
 import com.example.medisim.ui.theme.CommonComponent2
 
-@Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun MedicineScreen() {
+fun MedicineScreen(medicineViewModel: MedicineScreenViewModel) {
+    val searchQuery = medicineViewModel.searchQuery.collectAsState().value
+
+
     Column (modifier = Modifier.padding(12.dp)){
         Row (
             modifier = Modifier
@@ -38,17 +41,17 @@ fun MedicineScreen() {
             verticalAlignment = Alignment.Bottom
         ){
             EditTextWithIcon(
-                text = "",
+                text = searchQuery,
                 placeholderID = R.string.enter_name_of_drug,
                 iconID = R.drawable.baseline_search_24,
                 editTextWidth = 370,
                 roundedCornerShapeValue = 28,
-                onIconButtonClick = { /*TODO*/ },
+                onIconButtonClick = {medicineViewModel.onIconSearchClick() },
                 isIconEnabled = true,
-                onValueChange = {}
+                onValueChange = {newValue-> medicineViewModel.onSearchEditTextChange(newValue)}
             )
         }
-        if (medicineDrug == null){
+        if (medicineViewModel.medicine.value == null){
             Column (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -69,14 +72,14 @@ fun MedicineScreen() {
                     )
                 }
                 TextLabel(
-                    text = "Enter The Medicine Name You Search For",
+                    text = stringResource(R.string.enter_the_medicine_name_you_search_for),
                     textFontWight = FontWeight.Bold,
                     textFont = 16
                 )
             }
         }else{
             // show medicine
-            MedicineDetails(medicineDrug!!)
+            MedicineDetails(medicineViewModel.medicine.value!!)
 
         }
     }
@@ -165,26 +168,12 @@ fun TextPartOfMedicine(
 
 
 
-data class Medicine(
-    val imageLink:String ,
-    val medicineEnName:String,
-    val medicineArName:String,
-    val enScientificName:String,
-    val arScientificName:String,
-    val enMedicineClassification:String,
-    val arMedicineClassification:String,
-    val enCategory:String,
-    val arCategory:String,
-    val enDescription:String,
-    val arDescription:String
-)
 
 
 
 
-val medicineDrug1 = null
 
-val medicineDrug = Medicine(
+val medicineDrugFound = Medicine(
     imageLink = "https://cdn.altibbi.com/cdn/cache/large/image/2023/10/26/1b4bed6391fdb5af607e9b3e4934ad94.webp",
     medicineEnName = "Panadol",
     medicineArName = "بنادول" ,

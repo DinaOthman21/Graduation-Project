@@ -69,5 +69,7 @@
     <string name="account_settings">Account Settings</string>
     <string name="change_language">Change Language</string>
     <string name="empty_string" />
+    <string name="predict">Predict</string>
+    <string name="enter_the_medicine_name_you_search_for">Enter The Medicine Name You Search For</string>
 
 </resources>

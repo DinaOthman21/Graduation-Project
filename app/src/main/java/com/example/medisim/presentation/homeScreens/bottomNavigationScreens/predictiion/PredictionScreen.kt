@@ -24,5 +24,5 @@ val list = listOf(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PredictionScreen() {
-
+    DiseasePredictionScreen()
 }

@@ -113,10 +113,10 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.46")
     kapt ("com.google.dagger:hilt-android-compiler:2.46")
 
-
-    //language
-//    implementation("com.zeugmasolutions.localehelper:locale-helper-android:1.5.1")
-
+    // tab layout
+    implementation ("com.google.accompanist:accompanist-pager:0.21.0-beta")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.21.0-beta")
+    implementation("androidx.compose.foundation:foundation:1.0.4")
 
 
 }
