@@ -93,13 +93,11 @@ fun MedicalTestScreen(medicalTestViewModel: MedicalTestScreenViewModel) {
                 textFont = 16
             )
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.UploadFile,
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
+            Icon(
+                imageVector = Icons.Default.UploadFile,
+                contentDescription = "",
+                tint = MaterialTheme.colorScheme.primary
+            )
 
         }
         Spacer(modifier = Modifier.weight(1f))
