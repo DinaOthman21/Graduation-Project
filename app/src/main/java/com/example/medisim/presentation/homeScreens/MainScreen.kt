@@ -1,10 +1,12 @@
 package com.example.medisim.presentation.homeScreens
 
+import android.os.Build
 import android.os.Handler
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -50,6 +52,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.medisim.R
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease.SkinDiseaseScreenViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.NavigationDrawerBody
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.NavigationDrawerHeader
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.ProfileViewModel
@@ -60,8 +66,16 @@ import com.example.medisim.ui.theme.CommonComponent2
 import com.example.medisim.ui.theme.animatedShimmerColor
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun MainScreen(appNavController: NavHostController, profileViewModel: ProfileViewModel) {
+fun MainScreen(
+    appNavController: NavHostController,
+    profileViewModel: ProfileViewModel,
+    predictionViewModel: PredictionViewModel,
+    medicineViewModel: MedicineScreenViewModel,
+    skinDiseaseViewModel: SkinDiseaseScreenViewModel,
+    medicalTestViewModel: MedicalTestScreenViewModel
+) {
 
     // use it when user need to exit app to show toast to click again to exit.
     var doubleBackToExitPressedOnce = false
@@ -256,7 +270,14 @@ fun MainScreen(appNavController: NavHostController, profileViewModel: ProfileVie
         Box(modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
             .padding(it)){
-            BottomNavigation(bottomNavController = navController, appNavController = appNavController)
+            BottomNavigation(
+                bottomNavController = navController,
+                appNavController = appNavController,
+                medicineViewModel = medicineViewModel,
+                predictionViewModel = predictionViewModel,
+                skinDiseaseViewModel = skinDiseaseViewModel,
+                medicalTestViewModel = medicalTestViewModel
+            )
         }
 
 

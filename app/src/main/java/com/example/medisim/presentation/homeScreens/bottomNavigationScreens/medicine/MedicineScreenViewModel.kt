@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 
 class MedicineScreenViewModel : ViewModel() {
-    private var _medicine by mutableStateOf<Medicine?>(null)
+    private var _medicine by mutableStateOf<Medicine?>(medicineDrugFound)
     val medicine: State<Medicine?>
         get() = derivedStateOf { _medicine }
 

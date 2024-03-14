@@ -2,12 +2,23 @@ package com.example.medisim.presentation.components
 
 
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -15,9 +26,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -397,19 +413,29 @@ fun DropdownMenuExample(
     items:List<String>,
     editTextHeight:Int = 60,
     onValueChange:(String)->Unit,
-    onDropDownListDismissRequest:()->Unit,
     onSelectItem:(String)->Unit
 ) {
 
 
     Column {
+        TextLabel(
+            text = stringResource(R.string.enter_your_symptoms),
+            textFont = 22,
+            textFontWight = FontWeight.Bold
+        )
         // Dropdown menu button
         Row(
             verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(top = 20.dp)
         ) {
 
             TextField(
                 value = selectedItem,
+                placeholder = {
+                    TextLabel(
+                        text = stringResource(R.string.write_symptom_name),
+                        textFont = 16
+                        ) },
                 onValueChange = {
                      onValueChange(it)
                 },
@@ -423,25 +449,38 @@ fun DropdownMenuExample(
             )
         }
 
-        // Dropdown menu
-        DropdownMenu(
-            expanded = expanded,
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.onBackground)
-                .height(250.dp),
-            onDismissRequest = { onDropDownListDismissRequest() }
-        ) {
-            items.forEach { item ->
-                DropdownMenuItem(
-                    onClick = {
-                        onSelectItem(item)
-                        onDropDownListDismissRequest()
+        AnimatedVisibility(visible = expanded) {
+            LazyColumn (
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.onBackground)
+                    .padding(10.dp)
+            ){
+                itemsIndexed(items){index,item->
+
+                    Column (
+                        modifier = Modifier
+                            .padding(vertical = 6.dp)
+                            .clickable {
+                            onSelectItem(item)
+                        }
+                    ){
+                        TextLabel(
+                            text = item,
+                            textFont = 18
+                        )
+                        if (index!=items.size-1){
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 5.dp, bottom = 5.dp),
+                                color = MaterialTheme.colorScheme.primary.copy(0.4f)
+                            )
+                        }
                     }
-                ) {
-                    TextLabel(
-                        text = item,
-                        textFont = 18,
-                    )
+
                 }
             }
         }

@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,23 +30,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
 import com.example.medisim.R
-import com.example.medisim.di.App
 import com.example.medisim.presentation.components.CircleIconBackground
 import com.example.medisim.presentation.components.ImageButtonClick
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.ViewImage
-import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.CommonComponent2
-
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
@@ -104,6 +98,7 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
     val context = LocalContext.current
     // Now can access resources using the context
     val resources = context.resources
+
 
     val localeOptions = mapOf(
         R.string.en to "en",
@@ -163,7 +158,10 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
             )
         }
         item{
-            AnimatedVisibility(visible = state.isBottomSheetShow) {
+
+            AnimatedVisibility(
+                visible = state.isBottomSheetShow,
+                ) {
                 LanguageBottomSheet(
                     isArabic = state.isArabic,
                     onDismissRequest = { profileViewModel.onDismissRequest() },

@@ -71,5 +71,13 @@
     <string name="empty_string" />
     <string name="predict">Predict</string>
     <string name="enter_the_medicine_name_you_search_for">Enter The Medicine Name You Search For</string>
+    <string name="write_symptom_name">write symptom name..</string>
+    <string name="enter_your_symptoms">Enter your symptoms</string>
+    <string name="upload_skin_disease_image">Upload skin disease image</string>
+    <string name="disease_prediction">Disease Prediction</string>
+    <string name="disease">Disease</string>
+    <string name="skin_disease">Skin Disease</string>
+    <string name="detect">Detect</string>
+    <string name="upload_test_pdf_file">Upload test pdf file</string>
 
 </resources>

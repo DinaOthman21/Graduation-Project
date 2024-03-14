@@ -1,27 +1,26 @@
 package com.example.medisim.presentation
 
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordViewModel
 import com.example.medisim.presentation.authScreens.login.LoginScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpScreenViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease.SkinDiseaseScreenViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatAIViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.ProfileViewModel
 import com.example.medisim.presentation.navigation.AppNavigation
@@ -36,7 +35,12 @@ class HomeActivity : ComponentActivity() {
     private val signUpScreenViewModel by viewModels<SignUpScreenViewModel>()
     private val forgotPasswordViewModel by viewModels<ForgotPasswordViewModel>()
     private val chatAIViewModel by viewModels<ChatAIViewModel>()
+    private val medicineViewModel by viewModels<MedicineScreenViewModel>()
+    private val predictionViewModel by viewModels<PredictionViewModel>()
+    private val skinDiseaseViewModel by viewModels<SkinDiseaseScreenViewModel>()
+    private val medicalTestViewModel by viewModels<MedicalTestScreenViewModel>()
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -81,7 +85,11 @@ class HomeActivity : ComponentActivity() {
                             signUpScreenViewModel = signUpScreenViewModel,
                             forgotPasswordViewModel = forgotPasswordViewModel,
                             chatAIViewModel = chatAIViewModel,
-                            profileViewModel = profileViewModel
+                            profileViewModel = profileViewModel,
+                            medicineViewModel = medicineViewModel,
+                            predictionViewModel = predictionViewModel,
+                            skinDiseaseViewModel = skinDiseaseViewModel,
+                            medicalTestViewModel = medicalTestViewModel
                         )
                     }
 

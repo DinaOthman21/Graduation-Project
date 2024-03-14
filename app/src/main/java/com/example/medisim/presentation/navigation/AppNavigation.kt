@@ -1,5 +1,7 @@
 package com.example.medisim.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -25,7 +27,11 @@ import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.PostDetails
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.PredictionScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease.SkinDiseaseScreenViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatAIViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatScreen
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.ProfileViewModel
@@ -46,13 +52,18 @@ fun ChangeStatusBarColor(isHome:Boolean) {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun AppNavigation(
     loginViewModel: LoginScreenViewModel,
     signUpScreenViewModel: SignUpScreenViewModel,
     forgotPasswordViewModel: ForgotPasswordViewModel,
     chatAIViewModel: ChatAIViewModel,
-    profileViewModel: ProfileViewModel
+    profileViewModel: ProfileViewModel,
+    medicineViewModel: MedicineScreenViewModel,
+    predictionViewModel: PredictionViewModel,
+    skinDiseaseViewModel: SkinDiseaseScreenViewModel,
+    medicalTestViewModel: MedicalTestScreenViewModel
 ) {
     val navController = rememberNavController()
 
@@ -92,7 +103,14 @@ fun AppNavigation(
         composable(route = Screens.Home.route){
             // Home screen
             ChangeStatusBarColor(isHome = true)
-            MainScreen(navController,profileViewModel)
+            MainScreen(
+                navController,
+                profileViewModel,
+                predictionViewModel,
+                medicineViewModel,
+                skinDiseaseViewModel,
+                medicalTestViewModel
+            )
         }
         composable(route = Screens.PostDetails.route){
             // Post Details screen
@@ -115,10 +133,15 @@ fun AppNavigation(
 }
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun BottomNavigation(
     bottomNavController: NavHostController,
     appNavController: NavHostController,
+    medicineViewModel: MedicineScreenViewModel,
+    predictionViewModel: PredictionViewModel,
+    skinDiseaseViewModel: SkinDiseaseScreenViewModel,
+    medicalTestViewModel:MedicalTestScreenViewModel
 
     ) {
     NavHost(navController = bottomNavController, startDestination = NavigationScreen.Home.route ){
@@ -128,17 +151,20 @@ fun BottomNavigation(
 
         }
         composable(route = NavigationScreen.Prediction.route){
-            PredictionScreen()
+            PredictionScreen(
+                predictionViewModel = predictionViewModel,
+                skinDiseaseViewModel = skinDiseaseViewModel
+            )
             ChangeStatusBarColor(isHome = false)
 
         }
         composable(route = NavigationScreen.MedicalTest.route){
-            MedicalTestScreen()
+            MedicalTestScreen(medicalTestViewModel = medicalTestViewModel)
             ChangeStatusBarColor(isHome = false)
 
         }
         composable(route = NavigationScreen.Drug.route){
-            MedicineScreen()
+            MedicineScreen(medicineViewModel = medicineViewModel)
             ChangeStatusBarColor(isHome = false)
 
         }
@@ -151,3 +177,5 @@ fun BottomNavigation(
     }
 
 }
+
+
