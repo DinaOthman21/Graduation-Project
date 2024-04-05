@@ -1,7 +1,6 @@
 package com.example.medisim.di
 
 import android.app.Application
-import android.content.res.Resources
 import com.example.medisim.data.Constants
 import com.example.medisim.data.remote.ChatApiServices
 import com.example.medisim.data.repository.ChatApiRepositoryImpl
@@ -24,7 +23,7 @@ object AppModule {
     @Singleton
     fun providesRetrofit (): Retrofit = Retrofit
         .Builder()
-        .baseUrl(Constants.Chat_Api_Services_Url_Base)
+        .baseUrl(Constants.CHAT_API_SERVICES_URL_BASE)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

@@ -2,6 +2,8 @@ package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.pre
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,12 +18,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
+import com.example.medisim.presentation.components.CustomChip
 import com.example.medisim.presentation.components.DropdownMenuExample
 import com.example.medisim.presentation.components.LottieAnimationShow
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
     val listOfSymptoms = predictionViewModel.listOfSymptoms.collectAsState().value
+    val listOfSelectedSymptoms = predictionViewModel.listOfSelectedSymptoms.collectAsState().value
 
     val state = predictionViewModel.state.value
 
@@ -69,8 +74,15 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
             items = predictionViewModel.filter(compatibleListOfSymptoms,state.editTextSymptom),
             onValueChange = {
                 newValue -> predictionViewModel.onSymptomNameChange(newValue)},
-            ) {
-
+            ) {selectedSymptom->
+            predictionViewModel.addSymptomToSelectedList(selectedSymptom)
+        }
+        FlowRow{
+            for (symptomItem in listOfSelectedSymptoms){
+                CustomChip(text = symptomItem) {
+                    predictionViewModel.deleteFromSelectedList(it)
+                }
+            }
         }
         // selected items here
         Spacer(modifier = Modifier.weight(1f))

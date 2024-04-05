@@ -119,4 +119,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.0.4")
 
 
+    // ML Kit document scanner
+    implementation("com.google.android.gms:play-services-mlkit-document-scanner:16.0.0-beta1")
+
 }

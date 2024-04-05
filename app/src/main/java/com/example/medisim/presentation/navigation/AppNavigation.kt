@@ -9,6 +9,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
+import com.example.medisim.data.Constants
 import com.example.medisim.presentation.authScreens.RegistrationSuccessfullyScreen
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPassword
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordNewPassword
@@ -39,10 +41,10 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @Composable
-fun ChangeStatusBarColor(isHome:Boolean) {
+fun ChangeStatusBarColor(isBackgroundColor:Boolean) {
     val systemUiController = rememberSystemUiController()
     var statusBarColor = MaterialTheme.colorScheme.background
-    if (isHome){
+    if (isBackgroundColor){
          statusBarColor = MaterialTheme.colorScheme.tertiary // Set desired status bar color
     }
     SideEffect {
@@ -102,7 +104,7 @@ fun AppNavigation(
         }
         composable(route = Screens.Home.route){
             // Home screen
-            ChangeStatusBarColor(isHome = true)
+            ChangeStatusBarColor(isBackgroundColor = true)
             MainScreen(
                 navController,
                 profileViewModel,
@@ -112,12 +114,14 @@ fun AppNavigation(
                 medicalTestViewModel
             )
         }
-        composable(route = Screens.PostDetails.route){
+        composable(
+            route = Screens.PostDetails.route,
+            ){
             // Post Details screen
             val post: Post? = navController.previousBackStackEntry?.savedStateHandle?.get("post")
             post?.let {
                 PostDetails(post = it,navController = navController)
-                ChangeStatusBarColor(isHome = false)
+                ChangeStatusBarColor(isBackgroundColor = false)
             }
 
 
@@ -125,7 +129,7 @@ fun AppNavigation(
         composable(route = Screens.ChatAI.route){
             // Post Chat AI screen
             ChatScreen(navController = navController,chatAIViewModel =chatAIViewModel)
-            ChangeStatusBarColor(isHome = false)
+            ChangeStatusBarColor(isBackgroundColor = false)
 
         }
 
@@ -147,7 +151,7 @@ fun BottomNavigation(
     NavHost(navController = bottomNavController, startDestination = NavigationScreen.Home.route ){
         composable(route = NavigationScreen.Home.route){
             HomeScreen(appNavController)
-            ChangeStatusBarColor(isHome = true)
+            ChangeStatusBarColor(isBackgroundColor = true)
 
         }
         composable(route = NavigationScreen.Prediction.route){
@@ -155,22 +159,22 @@ fun BottomNavigation(
                 predictionViewModel = predictionViewModel,
                 skinDiseaseViewModel = skinDiseaseViewModel
             )
-            ChangeStatusBarColor(isHome = false)
+            ChangeStatusBarColor(isBackgroundColor = false)
 
         }
         composable(route = NavigationScreen.MedicalTest.route){
             MedicalTestScreen(medicalTestViewModel = medicalTestViewModel)
-            ChangeStatusBarColor(isHome = false)
+            ChangeStatusBarColor(isBackgroundColor = false)
 
         }
         composable(route = NavigationScreen.Drug.route){
             MedicineScreen(medicineViewModel = medicineViewModel)
-            ChangeStatusBarColor(isHome = false)
+            ChangeStatusBarColor(isBackgroundColor = false)
 
         }
         composable(route = NavigationScreen.Calculator.route){
             MainCalculatorScreen()
-            ChangeStatusBarColor(isHome = false)
+            ChangeStatusBarColor(isBackgroundColor = false)
 
         }
 

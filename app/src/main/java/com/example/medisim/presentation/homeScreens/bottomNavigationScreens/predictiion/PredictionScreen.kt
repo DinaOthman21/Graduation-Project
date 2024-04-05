@@ -54,7 +54,8 @@ fun PredictionScreen(
     val unSelectedTabColor = MaterialTheme.colorScheme.background
 
     Column(
-
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.background),
     ) {
         TabRow(
             selectedTabIndex = pagerState.currentPage,
@@ -112,7 +113,7 @@ fun PredictionScreen(
             count = tabItemRoute.size, state = pagerState,
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.White),
+                .background(color = MaterialTheme.colorScheme.background),
             verticalAlignment = Alignment.Top,
 
             ) { index ->

@@ -5,6 +5,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import com.example.medisim.data.remote.dto.Symptom
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +31,25 @@ class PredictionViewModel : ViewModel() {
     private val _listOfSymptoms  = MutableStateFlow(list)
     val listOfSymptoms : StateFlow<List<Symptom>> = _listOfSymptoms
 
+    private val _listOfSelectedSymptoms  = MutableStateFlow(emptyList<String>())
+    val listOfSelectedSymptoms : StateFlow<List<String>> = _listOfSelectedSymptoms
+
+
+    fun addSymptomToSelectedList(symptomName:String){
+        val currentList = _listOfSelectedSymptoms.value.toMutableList()
+        currentList.add(symptomName)
+        _listOfSelectedSymptoms.value = currentList.toList()
+
+        _state = _state.copy(
+            editTextSymptom = "",
+            dropDownState = false
+        )
+    }
+    fun deleteFromSelectedList(symptomName:String){
+        val currentList = _listOfSelectedSymptoms.value.toMutableList()
+        currentList.remove(symptomName)
+        _listOfSelectedSymptoms.value = currentList.toList()
+    }
 
 
     fun onSymptomNameChange(newSymptomName:String){
@@ -62,7 +82,7 @@ class PredictionViewModel : ViewModel() {
     }
 
     fun filter(list:List<String>, filterQuery:String):List<String>{
-        return list.filter { it.contains(filterQuery) }
+        return list.filter { it.toLowerCase().contains(filterQuery.toLowerCase()) }
     }
 
     fun onPredictClick(){

@@ -105,7 +105,7 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
         R.string.ar to "ar",
     ).mapKeys { stringResource(it.key) }
 
-    LazyColumn(Modifier.fillMaxSize()){
+    LazyColumn(Modifier.fillMaxSize().padding(start = 12.dp)){
         item {
             TextLabel(
                 text = stringResource(R.string.general_settings),

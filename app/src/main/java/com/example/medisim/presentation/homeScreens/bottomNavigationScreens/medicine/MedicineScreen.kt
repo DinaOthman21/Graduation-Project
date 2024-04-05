@@ -35,7 +35,7 @@ fun MedicineScreen(medicineViewModel: MedicineScreenViewModel) {
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(70.dp)
                 .background(MaterialTheme.colorScheme.background),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.Bottom

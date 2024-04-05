@@ -31,7 +31,7 @@ fun MainCalculatorScreen() {
               horizontalArrangement = Arrangement.Center
           ){
               LottieAnimationShow(
-                  animationResId = R.raw.calculator_animation,
+                  animationResId = R.raw.calculatoranimation,
                   size = 180,
                   padding = 12,
                   paddingBottom = 0
