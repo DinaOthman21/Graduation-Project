@@ -47,7 +47,9 @@ fun LoginScreen(navController: NavHostController,loginViewModel: LoginScreenView
             start = 15.dp,
             top =35.dp,
             bottom = 20.dp
-        ))
+        ),
+            showAiString = true
+        )
         TextLabel(
             text = stringResource(R.string.email),
             modifier = Modifier.padding(bottom = 20.dp),

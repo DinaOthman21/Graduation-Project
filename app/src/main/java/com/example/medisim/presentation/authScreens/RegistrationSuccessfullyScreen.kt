@@ -32,7 +32,7 @@ fun RegistrationSuccessfullyScreen (navController: NavHostController){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LottieAnimationShow(
-            animationResId = R.raw.confirm_animation,
+            animationResId = R.raw.conf,
             size = 400,
             padding = 12,
             paddingBottom = 0

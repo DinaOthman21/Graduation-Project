@@ -1,9 +1,13 @@
 package com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Rect
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,12 +25,21 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.LifecycleObserver
 import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.BackIcon
@@ -44,57 +57,39 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
     val activity = (context as? ComponentActivity)?.window?.decorView?.rootView
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+    var expanded by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
-    Scaffold (
-        topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        top = 5.dp,
-                        bottom = 10.dp,
-                        start = 12.dp,
-                        end = 12.dp
-                    ),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BackIcon{ navController.popBackStack()}
-                Spacer(modifier = Modifier.width(90.dp))
-                TextLabel(
-                    text = stringResource(R.string.ai_chat),
-                    textFont = 26,
-                    textFontWight = FontWeight.Bold
-                )
+    
 
-            }
-        },
-        bottomBar = {
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(bottom = 5.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Bottom
-            ){
-                EditTextWithIcon(
-                    text = state.message,
-                    placeholderID = R.string.message,
-                    iconID = R.drawable.baseline_send_24,
-                    editTextWidth = 370,
-                    roundedCornerShapeValue = 28,
-                    isIconEnabled = state.isIconEnable,
-                    onIconButtonClick = {
-                        chatAIViewModel.sendMessage()
-                        inputMethodManager.hideSoftInputFromWindow(activity?.windowToken, 0)
-                    },
-                    onValueChange = {newMessage->chatAIViewModel.onMessageChange(newMessage)}
-                )
-            }
-        }
 
+    Column(
+        modifier = Modifier
+            .padding(top = if(expanded) 290.dp else 0.dp)
     ){
-        Column(modifier = Modifier.padding(it)){
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = 5.dp,
+                    bottom = 10.dp,
+                    start = 12.dp,
+                    end = 12.dp
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            BackIcon{ navController.popBackStack()}
+            Spacer(modifier = Modifier.width(90.dp))
+            TextLabel(
+                text = stringResource(R.string.ai_chat),
+                textFont = 26,
+                textFontWight = FontWeight.Bold
+            )
+
+        }
+        Column (
+            modifier = Modifier.weight(1f).border(1.dp,Color.White)
+        ){
             if (messages.isEmpty()){
                 Box(
                     modifier = Modifier
@@ -109,7 +104,8 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
                     )
                 }
 
-            }else{
+            }
+            else{
                 LazyColumn(
                     modifier = Modifier
                         .padding(
@@ -117,7 +113,7 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
                             end = 12.dp,
                             bottom = 12.dp,
 
-                        ),
+                            ),
                 ){
                     items(messages){ message->
                         // handel if message from user then make it in right side
@@ -153,8 +149,33 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
 
                 }
             }
-
         }
+
+
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(bottom = 5.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Bottom
+        ){
+            EditTextWithIcon(
+                text = state.message,
+                placeholderID = R.string.message,
+                iconID = R.drawable.baseline_send_24,
+                editTextWidth = 370,
+                roundedCornerShapeValue = 28,
+                isIconEnabled = state.isIconEnable,
+                onIconButtonClick = {
+                    chatAIViewModel.sendMessage()
+                    inputMethodManager.hideSoftInputFromWindow(activity?.windowToken, 0)
+                    expanded = false
+                },
+                onValueChange = {newMessage->chatAIViewModel.onMessageChange(newMessage)}
+            )
+        }
+
     }
 
 }

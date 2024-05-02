@@ -46,12 +46,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.medisim.R
+import com.example.medisim.presentation.components.AppNameWithHiatusFont
+import com.example.medisim.presentation.components.TextWithHiatusFont
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
@@ -119,9 +122,12 @@ fun MainScreen(
                         Row (
                             verticalAlignment = Alignment.CenterVertically,
                         ){
+                            //AppNameWithHiatusFont(showAiString = false, colorText = CommonComponent2, fontSize = 50)
+                            TextWithHiatusFont("MediSim")
+                            Spacer(modifier = Modifier.weight(1f))
                             Icon(
                                 imageVector = Icons.Outlined.Person,
-                                modifier = Modifier.clickable {
+                                modifier = Modifier.padding(8.dp).clickable {
                                     scope.launch {
                                         scaffoldState.drawerState.open()
                                     }
@@ -129,11 +135,11 @@ fun MainScreen(
                                 contentDescription = "",
                                 tint = MaterialTheme.colorScheme.primary
                             )
-                            Spacer(modifier = Modifier.weight(1f))
+
                             Icon(
                                 imageVector = Icons.AutoMirrored.Outlined.Chat,
                                 modifier = Modifier
-                                    .padding(end = 15.dp)
+                                    .padding(8.dp,end = 15.dp)
                                     .clickable {
                                         appNavController.navigate(Screens.ChatAI.route)
                                     },
@@ -244,9 +250,11 @@ fun MainScreen(
                                 Spacer(modifier = Modifier.width(2.dp))
                                 Text(
                                     text = screen.title,
+                                    fontSize = 16.sp,
+                                    modifier = Modifier,
                                     color = if(screen.route == currentRoute) CommonComponent2
                                     else Color.White,
-                                    softWrap = false
+                                    softWrap = false,
                                 )
 
                             }

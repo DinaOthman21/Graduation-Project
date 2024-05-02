@@ -78,10 +78,6 @@ fun MedicalTestScreen(medicalTestViewModel: MedicalTestScreenViewModel) {
 
     val scanner = GmsDocumentScanning.getClient(options)
 
-    var selectedImageUri by remember {
-        mutableStateOf(Uri.EMPTY)
-    }
-
     val scannerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult()
     ) {result->

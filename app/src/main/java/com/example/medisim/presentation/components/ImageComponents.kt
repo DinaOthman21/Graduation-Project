@@ -4,11 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -24,8 +25,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -33,6 +34,7 @@ import coil.request.ImageRequest
 import com.example.medisim.ui.theme.HelperColor1
 import com.example.medisim.ui.theme.HelperColor2
 import com.example.medisim.ui.theme.animatedShimmerColor
+import kotlin.random.Random
 
 
 @Composable
@@ -153,4 +155,59 @@ fun ImageButtonWithText(
 
     }
 
+}
+
+
+
+
+
+
+
+@Composable
+fun CircleInitials(
+    name: String,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
+    size: Int = 70
+) {
+    val initials = extractInitials(name)
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(size.dp)
+            .background(color = backgroundColor, shape = CircleShape)
+    ) {
+        TextLabel(
+            text = initials,
+            modifier = Modifier.align(Alignment.Center),
+            textColor = randomDarkColor(),
+            textFont = (size/2)
+
+        )
+    }
+}
+
+
+fun randomDarkColor(): Color {
+    // Generate random RGB values with a max of 128 for darker shades
+    val red = Random.nextInt(128) // 0-127
+    val green = Random.nextInt(128) // 0-127
+    val blue = Random.nextInt(128) // 0-127
+    return Color(red, green, blue)
+}
+
+
+fun extractInitials(fullName: String): String {
+    return fullName.split(" ")
+        .filter { it.isNotEmpty() }
+        .mapNotNull { it.firstOrNull()?.uppercase() }
+        .joinToString("")
+}
+
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun PreviewCircleInitials() {
+    MaterialTheme {
+        CircleInitials("Mahmoud Adel")
+    }
 }

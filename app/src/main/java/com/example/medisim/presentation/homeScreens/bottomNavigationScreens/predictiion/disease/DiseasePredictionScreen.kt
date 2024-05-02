@@ -62,7 +62,7 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
             horizontalArrangement = Arrangement.Center
         ){
             LottieAnimationShow(
-                animationResId = R.raw.files_animation,
+                animationResId = R.raw.predic,
                 size = 200,
                 padding = 12,
                 paddingBottom = 0

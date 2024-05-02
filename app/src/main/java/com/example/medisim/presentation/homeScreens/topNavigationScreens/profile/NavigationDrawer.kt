@@ -1,5 +1,7 @@
 package com.example.medisim.presentation.homeScreens.topNavigationScreens.profile
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.CircleIconBackground
+import com.example.medisim.presentation.components.CircleInitials
 import com.example.medisim.presentation.components.ImageButtonClick
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.ViewImage
@@ -62,13 +65,13 @@ fun NavigationDrawerHeader() {
             modifier = Modifier.padding(20.dp,top = 50.dp),
             verticalAlignment = Alignment.CenterVertically
         ){
-            ViewImage(
-                image = "https://media.istockphoto.com/id/1138364436/vector/user-icon-green-vector-icon.jpg?s=2048x2048&w=is&k=20&c=nZQ0mPUQadDvjw0CVrFmkNVM5oh0LmoG1e_pTFKpIaM=",
-                modifier = Modifier
-                    .size(70.dp)
-                    .clip(CircleShape)
-            )
-
+//            ViewImage(
+//                image = "https://media.istockphoto.com/id/1138364436/vector/user-icon-green-vector-icon.jpg?s=2048x2048&w=is&k=20&c=nZQ0mPUQadDvjw0CVrFmkNVM5oh0LmoG1e_pTFKpIaM=",
+//                modifier = Modifier
+//                    .size(70.dp)
+//                    .clip(CircleShape)
+//            )
+            CircleInitials(name = "Mahmoud Adel")
             Column (
                 modifier = Modifier.padding(start = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -105,7 +108,10 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
         R.string.ar to "ar",
     ).mapKeys { stringResource(it.key) }
 
-    LazyColumn(Modifier.fillMaxSize().padding(start = 12.dp)){
+    LazyColumn(
+        Modifier
+            .fillMaxSize()
+            .padding(start = 12.dp)){
         item {
             TextLabel(
                 text = stringResource(R.string.general_settings),
@@ -146,7 +152,9 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
             BodyItem(
                 item = DrawerItem.Share,
                 iconColor = DrawerItem.Share.color,
-                onRowClick = {}
+                onRowClick = {
+                    shareText(context, "Check out this app!", "https://play.google.com/store/search?q=medithen+ai&c=apps")
+                }
             )
             LineWithText(stringId = R.string.account_settings)
             BodyItem(
@@ -281,9 +289,11 @@ fun LanguageBottomSheetContent(
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Outlined.HighlightOff,
-                modifier = Modifier.size(35.dp).clickable {
-                    onDismissRequest()
-                },
+                modifier = Modifier
+                    .size(35.dp)
+                    .clickable {
+                        onDismissRequest()
+                    },
                 contentDescription = "",
                 tint = CommonComponent2
             )
@@ -354,4 +364,20 @@ fun LangCard(
             )
         }
     }
+}
+
+
+
+fun shareText(context: Context, text: String, url: String) {
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, "$text \n $url")
+        putExtra(Intent.EXTRA_STREAM, R.drawable.logooo)
+        type = "text/plain"
+
+        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+
+    }
+    val shareIntent = Intent.createChooser(sendIntent, "Share App Via:")
+    context.startActivity(shareIntent)
 }

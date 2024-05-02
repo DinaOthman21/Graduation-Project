@@ -40,33 +40,41 @@ import com.example.medisim.ui.theme.CommonComponent2
 fun TextWithHiatusFont(
     text: String,
     modifier: Modifier = Modifier,
-    textFont: Int = 18,
+    textFont: Int = 26,
     textColor: Color = MaterialTheme.colorScheme.primary
 ) {
     Text(
         text = text,
         modifier = modifier,
         fontSize = textFont.sp,
-        fontFamily = FontFamily(Font(R.font.hiatus2)),
-        color = textColor
+        fontFamily = FontFamily(Font(R.font.abel)),
+        color = textColor,
+        fontWeight = FontWeight.Bold,
     )
 
 }
 
 @Composable
-fun AppNameWithHiatusFont(modifier: Modifier = Modifier) {
+fun AppNameWithHiatusFont(
+    modifier: Modifier = Modifier,
+    fontSize:Int = 90,
+    colorText:Color = Color(0xFF097AC7),
+    showAiString:Boolean) {
     Text(
         text = buildAnnotatedString {
-            withStyle(style = SpanStyle(color = Color(0xFF097AC7))) {
+            withStyle(style = SpanStyle(color = colorText)) {
                 append("MediSim")
             }
-            append(" ")
-            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                append("AI")
+            if (showAiString){
+                append(" ")
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
+                    append("AI")
+                }
             }
+
         },
         modifier = modifier,
-        fontSize = 90.sp,
+        fontSize = fontSize.sp,
         fontFamily = FontFamily(Font(R.font.hiatus2)),
     )
 

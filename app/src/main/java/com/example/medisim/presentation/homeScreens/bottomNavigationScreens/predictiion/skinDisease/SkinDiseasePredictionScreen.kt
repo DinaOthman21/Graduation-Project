@@ -1,16 +1,16 @@
 package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease
 
-import android.app.Activity
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -30,45 +30,37 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.ui.theme.brush
-import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
-import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
-import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_PDF
-import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.SCANNER_MODE_FULL
-import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
-import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
-import java.net.URL
 
 
 fun setImage(url: Uri,context:Context,onImageSelected:(Bitmap)->Unit){
     var bitmap:Bitmap? = null
 
-    if (Build.VERSION.SDK_INT < 28) {
-        bitmap = MediaStore.Images
+    bitmap = if (Build.VERSION.SDK_INT < 28) {
+        MediaStore.Images
             .Media.getBitmap(context.contentResolver,url)
 
     } else {
         val source = ImageDecoder
             .createSource(context.contentResolver,url)
-        bitmap = ImageDecoder.decodeBitmap(source)
+        ImageDecoder.decodeBitmap(source)
     }
 
     bitmap?.let {  btm ->
@@ -82,6 +74,7 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
     val context = LocalContext.current
 
 
+
     // to upload image from mobile
     val launcher = rememberLauncherForActivityResult(contract =
     ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -93,6 +86,35 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
         }
     }
 
+    // take image using camera
+//    var capturedImage by mutableStateOf<ImageBitmap?>(null)
+    var capturedImage:ImageBitmap? = null
+
+
+    val takePictureLauncher  = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) {result->
+        if (result.resultCode == RESULT_OK){
+            result.data?.extras?.get("data")?.let { bitmap ->
+                // Handle the captured image here, you may convert it to a bitmap
+                val imageBitmap = (bitmap as? Bitmap)?.asImageBitmap()?.asAndroidBitmap()
+                // Update the UI or do something with the imageBitmap
+                skinDiseaseViewModel.onSelectImage(imageBitmap)
+            }
+        }
+
+    }
+
+    // request permission for camera
+    val requestPermissionLauncher   = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) {isGranted->
+        if (isGranted){
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            takePictureLauncher.launch(intent)
+        }
+
+    }
 
 
 
@@ -106,7 +128,7 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
             horizontalArrangement = Arrangement.Center
         ){
             LottieAnimationShow(
-                animationResId = R.raw.files_animation,
+                animationResId = R.raw.predic,
                 size = 200,
                 padding = 12,
                 paddingBottom = 0
@@ -131,7 +153,17 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
             )
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = {
-
+                if (ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.CAMERA
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    takePictureLauncher.launch(intent)
+                }
+                else {
+                    requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+                }
             }) {
                 Icon(
                     imageVector = Icons.Default.PhotoCamera,
@@ -171,3 +203,6 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
 
     }
 }
+
+
+
