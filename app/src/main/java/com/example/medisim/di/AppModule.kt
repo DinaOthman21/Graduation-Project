@@ -2,9 +2,12 @@ package com.example.medisim.di
 
 import android.app.Application
 import com.example.medisim.data.Constants
+import com.example.medisim.data.remote.ApiServices
 import com.example.medisim.data.remote.ChatApiServices
+import com.example.medisim.data.repository.ApiServicesRepositoryImpl
 import com.example.medisim.data.repository.ChatApiRepositoryImpl
 import com.example.medisim.domain.SharedPreferences
+import com.example.medisim.domain.repository.ApiServicesRepository
 import com.example.medisim.domain.repository.ChatApiRepository
 import dagger.Module
 import dagger.Provides
@@ -19,6 +22,29 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
     // general Api services
+    @Provides
+    @Singleton
+    fun providesGeneralRetrofit (): Retrofit = Retrofit
+        .Builder()
+        .baseUrl(Constants.API_SERVICES_URL_BASE)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    @Provides
+    @Singleton
+    fun providesGeneralApiServices () : ApiServices = providesGeneralRetrofit().create(ApiServices::class.java)
+
+
+
+    @Provides
+    @Singleton
+    fun providesGeneralApiRepository(): ApiServicesRepository = ApiServicesRepositoryImpl(providesGeneralApiServices())
+
+
+
+
+
+    // chat AI api services
     @Provides
     @Singleton
     fun providesRetrofit (): Retrofit = Retrofit
@@ -45,10 +71,5 @@ object AppModule {
         return SharedPreferences(application)
     }
 
-
-//    @Provides
-//    fun provideResources(application: Application): Resources {
-//        return application.resources
-//    }
 
 }

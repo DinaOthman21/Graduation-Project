@@ -7,11 +7,27 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.medisim.R
+import com.example.medisim.data.remote.dto.auth.SignUpBody
+import com.example.medisim.data.remote.dto.main.ChronicDisease
+import com.example.medisim.domain.SharedPreferences
+import com.example.medisim.domain.repository.ApiServicesRepository
 import com.example.medisim.presentation.navigation.Screens
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SignUpScreenViewModel :ViewModel() {
+@HiltViewModel
+class SignUpScreenViewModel @Inject constructor(
+    private val repo : ApiServicesRepository,
+    private val pref: SharedPreferences
+):ViewModel() {
 
     private var _state by mutableStateOf(
        SignUpScreenState()
@@ -19,6 +35,26 @@ class SignUpScreenViewModel :ViewModel() {
 
     val state: State<SignUpScreenState>
         get() = derivedStateOf { _state }
+
+
+    private val _chronicDiseasesList = MutableStateFlow(emptyList<ChronicDisease>())
+    val chronicDiseasesList: StateFlow<List<ChronicDisease>> = _chronicDiseasesList
+
+    private val selectedChronicDiseasesIds: MutableList<Int> = mutableListOf()
+
+    init {
+        getAllChronics()
+    }
+
+    private fun getAllChronics() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.getChronicDiseases().collect{
+                _chronicDiseasesList.value = it
+            }
+
+        }
+
+    }
 
 
 
@@ -44,7 +80,8 @@ class SignUpScreenViewModel :ViewModel() {
         _state = _state.copy(
             userName = userName,
             isErrorEmail  = false,
-            userNameErrorMessage = ""
+            userNameErrorMessage = "",
+            errorMessage = ""
         )
     }
 
@@ -54,7 +91,8 @@ class SignUpScreenViewModel :ViewModel() {
         _state = _state.copy(
             email = email,
             isErrorEmail  = false,
-            emailErrorMessage = ""
+            emailErrorMessage = "",
+            errorMessage = ""
         )
     }
 
@@ -63,7 +101,8 @@ class SignUpScreenViewModel :ViewModel() {
         _state = _state.copy(
             password = password,
             isErrorPassword = false,
-            passwordErrorMessage = ""
+            passwordErrorMessage = "",
+            errorMessage = ""
         )
 
     }
@@ -74,7 +113,8 @@ class SignUpScreenViewModel :ViewModel() {
         _state = _state.copy(
             confirmPassword = password,
             isErrorConfirmPassword  = false,
-            confirmPasswordErrorMessage = ""
+            confirmPasswordErrorMessage = "",
+            errorMessage = ""
         )
 
     }
@@ -150,7 +190,8 @@ class SignUpScreenViewModel :ViewModel() {
             _state.copy(
                 height = height,
                 isErrorHeight = false,
-                heightErrorMessage = ""
+                heightErrorMessage = "",
+                errorMessage = ""
             )
         } else {
             _state.copy(
@@ -164,7 +205,8 @@ class SignUpScreenViewModel :ViewModel() {
             _state.copy(
                 weight = weight,
                 isErrorWeight = false,
-                weightErrorMessage = ""
+                weightErrorMessage = "",
+                errorMessage = ""
             )
         } else {
             _state.copy(
@@ -178,12 +220,13 @@ class SignUpScreenViewModel :ViewModel() {
             _state.copy(
                 age = age,
                 isErrorAge = false,
-                ageErrorMessage = ""
+                ageErrorMessage = "",
+                errorMessage = ""
             )
         } else {
             _state.copy(
                 isErrorAge = true,
-                ageErrorMessage = context.getString(R.string.please_enter_a_valid_age)
+                ageErrorMessage = context.getString(R.string.please_enter_a_valid_age),
             )
         }
     }
@@ -195,7 +238,9 @@ class SignUpScreenViewModel :ViewModel() {
         val newMaleValue = _state.male.not()
         _state = _state.copy(
             male  = newMaleValue,
-            female = newMaleValue.not()
+            female = newMaleValue.not(),
+            genderErrorMessage = "",
+            errorMessage = ""
         )
     }
 
@@ -205,7 +250,9 @@ class SignUpScreenViewModel :ViewModel() {
         val newFemaleValue = _state.female.not()
         _state = _state.copy(
             male  = newFemaleValue.not(),
-            female = newFemaleValue
+            female = newFemaleValue,
+            genderErrorMessage = "",
+            errorMessage = ""
         )
     }
 
@@ -228,6 +275,11 @@ class SignUpScreenViewModel :ViewModel() {
                 ageErrorMessage = context.getString(R.string.please_enter_your_age)
             )
         }
+        if ( _state.male == _state.female){
+            _state=_state.copy(
+                genderErrorMessage = context.getString(R.string.please_select_your_gender)
+            )
+        }
 
         if (_state.height.isNotEmpty()&&
             _state.weight.isNotEmpty()&&
@@ -240,10 +292,63 @@ class SignUpScreenViewModel :ViewModel() {
     }
 
     /////////////////////////////////////////////////////////
-    /////
 
-    fun onSignUpClick(){
 
+    fun onSelectChronic(chronicDisease: ChronicDisease){
+        chronicDisease.isSelected = chronicDisease.isSelected.not()
+        _state = _state.copy(
+            errorMessage = ""
+        )
+        if (chronicDisease.isSelected){
+            selectedChronicDiseasesIds.add(chronicDisease.id)
+        }else{
+            selectedChronicDiseasesIds.remove(chronicDisease.id)
+        }
+
+    }
+
+    fun onSignUpClick(navController: NavHostController) {
+        viewModelScope.launch(Dispatchers.IO){
+            val signUpResponse = repo.signUp(
+                SignUpBody(
+                    _state.userName,
+                    _state.email,
+                    _state.password,
+                    _state.height.toDouble(),
+                    _state.weight.toDouble(),
+                    _state.age.toInt(),
+                    _state.male,
+                    selectedChronicDiseasesIds,
+                )
+            )
+
+            if (signUpResponse.token.isNotEmpty()){
+                pref.setSharedPreferences("token",signUpResponse.token)
+                pref.setSharedPreferences("userName",_state.userName)
+                pref.setSharedPreferences("email",_state.email)
+                pref.setSharedPreferences("rememberMe",signUpResponse.token)
+
+                _state = _state.copy(
+                    errorMessage = ""
+                )
+
+                // go to home screen after save token in sharedPreferences
+                withContext(Dispatchers.Main){
+                    navController.navigate(Screens.RegistrationSuccessfully.route){
+                        popUpTo(Screens.UserChronic.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+
+
+
+            }else{
+                _state = _state.copy(
+                    errorMessage = "some error happened please try again*"
+                )
+            }
+        }
     }
 
 

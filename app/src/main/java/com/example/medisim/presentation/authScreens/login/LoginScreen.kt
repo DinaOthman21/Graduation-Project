@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -101,12 +102,21 @@ fun LoginScreen(navController: NavHostController,loginViewModel: LoginScreenView
 
         }
 
+
         ButtonClickOn(
             buttonText = stringResource(R.string.login),
             paddingValue = 30
         ) {
             // on login click
             loginViewModel.onLoginClick(navController,context)
+        }
+        Row {
+            Text(
+                state.errorMessage, style = MaterialTheme.typography.bodyMedium, modifier = Modifier
+                    .padding(top = 3.dp, start = 25.dp), color = Color.Red
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
         }
 
 

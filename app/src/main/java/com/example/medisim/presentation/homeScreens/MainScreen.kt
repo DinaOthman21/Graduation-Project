@@ -55,6 +55,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.AppNameWithHiatusFont
 import com.example.medisim.presentation.components.TextWithHiatusFont
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
@@ -73,6 +74,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     appNavController: NavHostController,
+    homeViewModel:HomeViewModel,
     profileViewModel: ProfileViewModel,
     predictionViewModel: PredictionViewModel,
     medicineViewModel: MedicineScreenViewModel,
@@ -163,7 +165,7 @@ fun MainScreen(
         // Navigation drawer content
         drawerContent = {
             Column (Modifier.background(MaterialTheme.colorScheme.background)){
-                NavigationDrawerHeader()
+                NavigationDrawerHeader(profileViewModel)
                 NavigationDrawerBody(appNavController,profileViewModel)
             }
         },
@@ -281,6 +283,7 @@ fun MainScreen(
             BottomNavigation(
                 bottomNavController = navController,
                 appNavController = appNavController,
+                homeViewModel = homeViewModel,
                 medicineViewModel = medicineViewModel,
                 predictionViewModel = predictionViewModel,
                 skinDiseaseViewModel = skinDiseaseViewModel,

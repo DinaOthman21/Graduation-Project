@@ -17,11 +17,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.presentation.components.BackIcon
-import com.example.medisim.presentation.components.Post
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.TextTitle
 import com.example.medisim.presentation.components.ViewImage
@@ -29,7 +30,13 @@ import com.example.medisim.ui.theme.brush
 
 
 @Composable
-fun PostDetails(post: Post,navController: NavHostController) {
+fun PostDetails(post: Post, navController: NavHostController) {
+    val context = LocalContext.current
+    // Now can access resources using the context
+    val resources = context.resources
+    val isArabicLang = resources.configuration.locales[0].language == "ar"
+
+
     Column(
         modifier = Modifier.padding(12.dp),
     ) {
@@ -45,21 +52,20 @@ fun PostDetails(post: Post,navController: NavHostController) {
             horizontalArrangement = Arrangement.Center
         ){
             TextLabel(
-                text = "post title",
+                text = if (isArabicLang) post.arTitle else post.enTitle,
                 textFont = 22,
                 textFontWight = FontWeight.Bold
             )
         }
         ViewImage(
-            image = post.image,
+            image = post.imgLink,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(260.dp)
                 .padding(vertical = 15.dp),
         )
         TextTitle(
-            text = "Post description here and all content will be here ew kalam keter awy 3shan ana msh fady, Post description here and all content will be here ew kalam keter awy 3shan ana msh fady" +
-                    "Post description here and all content will be here ew kalam keter awy 3shan ana msh fady, Post description here and all content will be here ew kalam keter awy 3shan ana msh fady",
+            text = if (isArabicLang) post.arDescription else post.enDescription,
             maxLines = 500
             )
 

@@ -1,47 +1,42 @@
 package com.example.medisim.presentation.authScreens.signUp
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
+import com.example.medisim.data.remote.dto.main.ChronicDisease
 import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.presentation.navigation.Screens
-import com.example.medisim.ui.theme.brush
 
 
-val chronics = listOf(
-    "chronic disease 1",
-    "chronic disease 2",
-    "chronic disease 3",
-    "chronic disease 4",
-    "chronic disease 5",
-    "chronic disease 6"
-)
 @Composable
-fun SignUpUserChronicScreen(navController: NavHostController) {
+fun SignUpUserChronicScreen(navController: NavHostController,signUpScreenViewModel: SignUpScreenViewModel) {
+    val chronicDiseases = signUpScreenViewModel.chronicDiseasesList.collectAsState().value
+    val state = signUpScreenViewModel.state.value
+
     Column (
         modifier = Modifier.padding(12.dp),
 
@@ -66,11 +61,12 @@ fun SignUpUserChronicScreen(navController: NavHostController) {
             textColor = MaterialTheme.colorScheme.secondary
         )
         LazyColumn(modifier = Modifier.padding(top = 20.dp)){
-            items(chronics){
+            items(chronicDiseases){
                 ChronicDiseaseCard(
-                    chronicDiseaseName = it,
-                    chronicDiseaseState = true,
-                    onSelectChronic = {}
+                    chronicDisease = it,
+                    onSelectChronic = {
+                        signUpScreenViewModel.onSelectChronic(it)
+                    },
                 )
             }
         }
@@ -81,8 +77,18 @@ fun SignUpUserChronicScreen(navController: NavHostController) {
         ButtonClickOn(
             buttonText = stringResource(R.string.create_account),
             paddingValue = 0) {
-            navController.navigate(Screens.RegistrationSuccessfully.route)
+            signUpScreenViewModel.onSignUpClick(navController)
+
         }
+        Row {
+            Text(
+                state.errorMessage, style = MaterialTheme.typography.bodyMedium, modifier = Modifier
+                    .padding(top = 3.dp, start = 25.dp), color = Color.Red
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
+        }
+
 
 
 
@@ -92,27 +98,32 @@ fun SignUpUserChronicScreen(navController: NavHostController) {
 
 @Composable
 fun ChronicDiseaseCard(
-    chronicDiseaseName:String,
-    chronicDiseaseState:Boolean,
-    onSelectChronic:()->Unit
+    chronicDisease:ChronicDisease,
+    onSelectChronic:(ChronicDisease)->Unit,
 ) {
+    val context = LocalContext.current
+    // Now can access resources using the context
+    val resources = context.resources
+    val isArabicLang = resources.configuration.locales[0].language == "ar"
+
+
     Row (
-        modifier = Modifier.padding(vertical = 15.dp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
-        TextLabel(text = chronicDiseaseName, textFont = 18)
+        TextLabel(text = if (isArabicLang) chronicDisease.arName else chronicDisease.enName, textFont = 18)
         Spacer(modifier = Modifier.width(26.dp))
-        SelectedIconWithName(
-            name = stringResource(R.string.yse),
-            selectedState = chronicDiseaseState,
-            onSelect = { onSelectChronic() }
-
-        )
+//        SelectedIconWithName(
+//            name = stringResource(R.string.yse),
+//            selectedState = chronicDiseaseState,
+//            onSelect = { onSelectChronic() }
+//
+//        )
         Spacer(modifier = Modifier.width(22.dp))
         SelectedIconWithName(
-            name = stringResource(R.string.no),
-            selectedState = chronicDiseaseState.not(),
-            onSelect = { onSelectChronic() }
+            name = stringResource(R.string.empty_string),
+            selectedState = chronicDisease.isSelected,
+            onSelect = { onSelectChronic(chronicDisease) }
 
         )
     }

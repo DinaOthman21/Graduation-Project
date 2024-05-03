@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordViewModel
 import com.example.medisim.presentation.authScreens.login.LoginScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpScreenViewModel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
@@ -31,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
     private val profileViewModel by viewModels<ProfileViewModel>()
+    private val homeViewModel by viewModels<HomeViewModel>()
     private val loginViewModel by viewModels<LoginScreenViewModel>()
     private val signUpScreenViewModel by viewModels<SignUpScreenViewModel>()
     private val forgotPasswordViewModel by viewModels<ForgotPasswordViewModel>()
@@ -81,6 +83,7 @@ class HomeActivity : ComponentActivity() {
                     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                         // UI code here, call app navigation to start application
                         AppNavigation(
+                            homeViewModel = homeViewModel,
                             loginViewModel = loginViewModel,
                             signUpScreenViewModel = signUpScreenViewModel,
                             forgotPasswordViewModel = forgotPasswordViewModel,

@@ -1,4 +1,4 @@
-package com.example.medisim.data.remote.dto
+package com.example.medisim.data.remote.dto.main
 
 data class Medicine(
     val imageLink:String ,

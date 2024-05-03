@@ -27,10 +27,14 @@ class ProfileViewModel @Inject constructor(private val pref:SharedPreferences): 
 
     init {
         val codeIsArabic =  pref.getSharedPreferences("language","") == "ar"
+        val userName = pref.getSharedPreferences("userName","")
+        val email = pref.getSharedPreferences("email","")
         _state = _state.copy(
             isDark = pref.getBooleanSharedPreferences("mode", true),
             isArabic  =  codeIsArabic ,
-            isRtlDirection = codeIsArabic
+            isRtlDirection = codeIsArabic,
+            userName = userName,
+            email = email
         )
     }
     fun onCreateChangeLanguage(

@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
 import com.example.medisim.data.Constants
+import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.presentation.authScreens.RegistrationSuccessfullyScreen
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPassword
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPasswordNewPassword
@@ -22,10 +23,10 @@ import com.example.medisim.presentation.authScreens.signUp.SignUpScreen
 import com.example.medisim.presentation.authScreens.signUp.SignUpScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserChronicScreen
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserInfoScreen
-import com.example.medisim.presentation.components.Post
 import com.example.medisim.presentation.homeScreens.MainScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.MainCalculatorScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.PostDetails
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreen
@@ -57,6 +58,7 @@ fun ChangeStatusBarColor(isBackgroundColor:Boolean) {
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun AppNavigation(
+    homeViewModel:HomeViewModel,
     loginViewModel: LoginScreenViewModel,
     signUpScreenViewModel: SignUpScreenViewModel,
     forgotPasswordViewModel: ForgotPasswordViewModel,
@@ -96,7 +98,7 @@ fun AppNavigation(
         }
         composable(route = Screens.UserChronic.route){
             // User Chronic disease screen
-            SignUpUserChronicScreen(navController = navController)
+            SignUpUserChronicScreen(navController = navController,signUpScreenViewModel=signUpScreenViewModel)
         }
         composable(route = Screens.RegistrationSuccessfully.route){
             // Registration Successfully screen
@@ -107,6 +109,7 @@ fun AppNavigation(
             ChangeStatusBarColor(isBackgroundColor = true)
             MainScreen(
                 navController,
+                homeViewModel,
                 profileViewModel,
                 predictionViewModel,
                 medicineViewModel,
@@ -142,6 +145,7 @@ fun AppNavigation(
 fun BottomNavigation(
     bottomNavController: NavHostController,
     appNavController: NavHostController,
+    homeViewModel:HomeViewModel,
     medicineViewModel: MedicineScreenViewModel,
     predictionViewModel: PredictionViewModel,
     skinDiseaseViewModel: SkinDiseaseScreenViewModel,
@@ -150,7 +154,7 @@ fun BottomNavigation(
     ) {
     NavHost(navController = bottomNavController, startDestination = NavigationScreen.Home.route ){
         composable(route = NavigationScreen.Home.route){
-            HomeScreen(appNavController)
+            HomeScreen(appNavController,homeViewModel)
             ChangeStatusBarColor(isBackgroundColor = true)
 
         }

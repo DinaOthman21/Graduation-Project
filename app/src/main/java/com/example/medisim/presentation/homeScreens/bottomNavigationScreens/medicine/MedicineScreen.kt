@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.medisim.R
-import com.example.medisim.data.remote.dto.Medicine
+import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.presentation.components.EditTextWithIcon
 import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel

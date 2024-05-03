@@ -79,5 +79,7 @@
     <string name="skin_disease">Skin Disease</string>
     <string name="detect">Detect</string>
     <string name="upload_test_pdf_file">Upload test pdf file</string>
+    <string name="please_enter_valid_password_8_char"><![CDATA[Please enter valid password (>=8 char)*]]></string>
+    <string name="please_select_your_gender">Please select your gender</string>
 
 </resources>

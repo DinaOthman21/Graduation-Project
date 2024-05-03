@@ -39,7 +39,12 @@ data class SignUpScreenState(
 
     val male:Boolean = false,
     val female:Boolean = false,
+    val genderErrorMessage:String = "",
 
 
-    // chronic disease for user (will be handel in next time).
+    val errorMessage:String = "",
+
+
+
+
 )

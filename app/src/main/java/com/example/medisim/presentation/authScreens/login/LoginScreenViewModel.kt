@@ -1,17 +1,31 @@
 package com.example.medisim.presentation.authScreens.login
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.medisim.R
+import com.example.medisim.data.remote.dto.auth.LoginBody
+import com.example.medisim.domain.SharedPreferences
+import com.example.medisim.domain.repository.ApiServicesRepository
 import com.example.medisim.presentation.navigation.Screens
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LoginScreenViewModel : ViewModel() {
+@HiltViewModel
+class LoginScreenViewModel @Inject constructor(
+    private val repo : ApiServicesRepository,
+    private val pref: SharedPreferences
+): ViewModel() {
 
     private var _state by mutableStateOf(
         LoginScreenState()
@@ -26,7 +40,8 @@ class LoginScreenViewModel : ViewModel() {
         _state = _state.copy(
             email = email,
             isErrorEmail  = false,
-            emailErrorMessage = ""
+            emailErrorMessage = "",
+            errorMessage = ""
         )
     }
 
@@ -35,7 +50,8 @@ class LoginScreenViewModel : ViewModel() {
         _state = _state.copy(
             password = password,
             isErrorPassword = false,
-            passwordErrorMessage = ""
+            passwordErrorMessage = "",
+            errorMessage = ""
         )
 
     }
@@ -81,42 +97,49 @@ class LoginScreenViewModel : ViewModel() {
             )
 
         }
+        if (!isValidPassword(_state.password)){
+            _state=_state.copy(
+                isErrorPassword = true,
+                passwordErrorMessage = context.getString(R.string.please_enter_valid_password_8_char)
+            )
 
-        if (_state.password.isNotEmpty() && _state.email.isNotEmpty() && isValidEmail(_state.email)){
+        }
 
+        if (_state.password.isNotEmpty() && _state.email.isNotEmpty() && isValidEmail(_state.email) && isValidPassword(_state.password)){
 
-//            // try to login.
-//            viewModelScope.launch(Dispatchers.IO){
-//               val loginResponse =  authApiRepository.login(
-//                    LoginRequestBody(
-//                    _state.phoneNumber,
-//                    _state.password
-//                ))
-//
-//                if (loginResponse.token.isNotEmpty()){
-//                    tokenManager.saveToken(loginResponse.token)
-//
-//                    // go to home screen after save token in sharedPreferences
-//                    withContext(Dispatchers.Main){
-//                        navController.navigate(Screens.Home.route){
-//                            popUpTo(Screens.Login.route) {
-//                                inclusive = true
-//                            }
-//                        }
-//                    }
-//                }
-//
-//            }
-//
-//
-//
-            // save token as example to save user if user make Remember me true
-//            tokenManager.saveToken("token")
-            navController.navigate(Screens.Home.route){
-                popUpTo(Screens.Login.route) {
-                    inclusive = true
+            viewModelScope.launch(Dispatchers.IO){
+                Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login vm 1")
+                val loginResponse = repo.login(LoginBody(_state.email,_state.password))
+                Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login vm 2")
+
+                if (loginResponse.token!=""){
+                    Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login vm 3")
+
+                    pref.setSharedPreferences("token",loginResponse.token)
+                    pref.setSharedPreferences("userName",loginResponse.userName)
+                    pref.setSharedPreferences("email",_state.email)
+
+                    if (_state.rememberMe){
+                        pref.setSharedPreferences("rememberMe",loginResponse.token)
+                    }
+                    _state = _state.copy(
+                        errorMessage = ""
+                    )
+                    // go to home screen after save token in sharedPreferences
+                    withContext(Dispatchers.Main){
+                        navController.navigate(Screens.Home.route){
+                            popUpTo(Screens.Login.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                }else{
+                    _state = _state.copy(
+                        errorMessage = "make sure email and password true*"
+                    )
                 }
             }
+
         }
 
     }
@@ -132,6 +155,11 @@ class LoginScreenViewModel : ViewModel() {
         return email.matches(Regex(pattern))
     }
 
+
+
+    private fun isValidPassword(password: String): Boolean {
+        return password.length >= 8
+    }
 
 
 }

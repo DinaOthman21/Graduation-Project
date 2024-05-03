@@ -56,7 +56,11 @@ fun RegistrationSuccessfullyScreen (navController: NavHostController){
         ButtonClickOn(
             buttonText = stringResource(R.string.start_now),
             paddingValue = 0) {
-            navController.navigate(Screens.Home.route)
+            navController.navigate(Screens.Home.route){
+                popUpTo(Screens.RegistrationSuccessfully.route) {
+                    inclusive = true
+                }
+            }
         }
     }
 

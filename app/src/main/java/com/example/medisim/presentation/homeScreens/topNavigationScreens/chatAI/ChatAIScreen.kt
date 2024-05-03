@@ -88,7 +88,7 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
 
         }
         Column (
-            modifier = Modifier.weight(1f).border(1.dp,Color.White)
+            modifier = Modifier.weight(1f)
         ){
             if (messages.isEmpty()){
                 Box(

@@ -46,9 +46,9 @@ import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.ViewImage
 import com.example.medisim.ui.theme.CommonComponent2
 
-@Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun NavigationDrawerHeader() {
+fun NavigationDrawerHeader(profileViewModel: ProfileViewModel) {
+    val state = profileViewModel.state.value
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,19 +71,19 @@ fun NavigationDrawerHeader() {
 //                    .size(70.dp)
 //                    .clip(CircleShape)
 //            )
-            CircleInitials(name = "Mahmoud Adel")
+            CircleInitials(name = state.userName)
             Column (
                 modifier = Modifier.padding(start = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
 
                 ){
                 TextLabel(
-                    text = "Mahmoud Adel",
+                    text = state.userName,
                     textFont = 18,
                     textFontWight = FontWeight.Bold
                 )
                 TextLabel(
-                    text = "Mahmoudadel5556@gmail.com",
+                    text = state.email,
                     modifier = Modifier.padding(top = 10.dp),
                     textFont = 13,
                     textFontWight = FontWeight.Bold

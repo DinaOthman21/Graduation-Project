@@ -29,29 +29,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 import android.os.Parcelable
+import androidx.compose.ui.platform.LocalContext
+import com.example.medisim.data.remote.dto.main.Post
 import kotlinx.parcelize.Parcelize
-@Parcelize
-data class Post(
-    val image: String
-): Parcelable
 
-
-
-
-val posts = listOf(
-    Post(    "https://images.unsplash.com/photo-1702893576128-21feb60299d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1661167205913-4aeaa66a0445?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1620015092538-e33c665fc181?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://plus.unsplash.com/premium_photo-1661887262365-1d6a1cf3da22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1693108034943-fc8f19e7573c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1609955548274-d1f3f13519b8?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1599918805559-23cb83102f74?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1661167205913-4aeaa66a0445?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1620015092538-e33c665fc181?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://plus.unsplash.com/premium_photo-1661887262365-1d6a1cf3da22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1693108034943-fc8f19e7573c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-    Post(    "https://images.unsplash.com/photo-1609955548274-d1f3f13519b8?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-)
 
 
 
@@ -59,7 +40,7 @@ val posts = listOf(
 
 
 @Composable
-fun ScreenLazyRow(posts: List<Post>,onPostClick:(Post)->Unit) {
+fun ScreenLazyRow(posts: List<Post>, onPostClick:(Post)->Unit) {
     Column {
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
@@ -79,6 +60,11 @@ fun ScreenLazyRow(posts: List<Post>,onPostClick:(Post)->Unit) {
 
 @Composable
 fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {
+    val context = LocalContext.current
+    // Now can access resources using the context
+    val resources = context.resources
+    val isArabicLang = resources.configuration.locales[0].language == "ar"
+
     Box ( modifier = Modifier
         .width(300.dp)
         .height(220.dp)
@@ -92,7 +78,7 @@ fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {
     {
 
         ViewImage(
-            image = post.image,
+            image = post.imgLink,
             contentDescription ="Advice image"
         )
 
@@ -113,7 +99,7 @@ fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {
             contentAlignment = Alignment.Center
         ){
             TextTitle(
-                text = "Post title here",
+                text = if (isArabicLang) post.arTitle else post.enTitle,
                 textFont = 24,
                 textFontWight = FontWeight.Bold,
                 textColor = Color.White
@@ -127,6 +113,11 @@ fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {
 
 @Composable
 fun VerticalAvoidCard(post: Post,onPostClick:(Post)->Unit) {
+    val context = LocalContext.current
+    // Now can access resources using the context
+    val resources = context.resources
+    val isArabicLang = resources.configuration.locales[0].language == "ar"
+
     Card(
         modifier = Modifier
             .padding(10.dp)
@@ -144,7 +135,7 @@ fun VerticalAvoidCard(post: Post,onPostClick:(Post)->Unit) {
 
         ){
             ViewImage(
-                image = post.image,
+                image = post.imgLink,
                 modifier = Modifier
                     .weight(0.5f)
                     .height(160.dp),
@@ -162,13 +153,13 @@ fun VerticalAvoidCard(post: Post,onPostClick:(Post)->Unit) {
             ){
 
                 TextTitle(
-                    text = "Post title here",
+                    text =  if (isArabicLang) post.arTitle else post.enTitle,
                     modifier = Modifier.padding(top = 10.dp),
                     textFontWight = FontWeight.Bold,
                     textColor = MaterialTheme.colorScheme.primary
                 )
                 TextTitle(
-                    text = "Post description here and all content will be here ew kalam keter awy 3shan ana msh fady, Post description here and all content will be here ew kalam keter awy 3shan ana msh fady",
+                    text =  if (isArabicLang) post.arDescription else post.enDescription,
                     modifier = Modifier.padding(top = 8.dp),
                     textFont = 16,
                     textFontWight = FontWeight.Bold,

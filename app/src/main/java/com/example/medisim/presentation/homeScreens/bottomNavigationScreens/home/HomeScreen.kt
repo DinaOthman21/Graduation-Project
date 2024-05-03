@@ -6,24 +6,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
-import com.example.medisim.presentation.components.Post
 import com.example.medisim.presentation.components.ScreenLazyRow
 import com.example.medisim.presentation.components.TextWithBoldUnderLine
 import com.example.medisim.presentation.components.VerticalAvoidCard
-import com.example.medisim.presentation.components.posts
 import com.example.medisim.presentation.navigation.Screens
 
 
-
 @Composable
-fun HomeScreen(navController: NavHostController) {
-
+fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
+    val posts = homeViewModel.postsList.collectAsState().value
 
     LazyColumn(
         modifier = Modifier.padding(top = 10.dp)
