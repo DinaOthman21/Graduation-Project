@@ -58,6 +58,7 @@ fun ChangeStatusBarColor(isBackgroundColor:Boolean) {
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun AppNavigation(
+    currentUserState:Boolean,
     homeViewModel:HomeViewModel,
     loginViewModel: LoginScreenViewModel,
     signUpScreenViewModel: SignUpScreenViewModel,
@@ -71,7 +72,7 @@ fun AppNavigation(
 ) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screens.Login.route){
+    NavHost(navController = navController, startDestination = if (currentUserState) Screens.Home.route else Screens.Login.route ){
         composable(route = Screens.Login.route){
             // login screen
             LoginScreen(navController = navController,loginViewModel = loginViewModel)

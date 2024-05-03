@@ -16,7 +16,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +33,7 @@ import com.example.medisim.data.remote.dto.main.ChronicDisease
 import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.TextLabel
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -64,8 +68,8 @@ fun SignUpUserChronicScreen(navController: NavHostController,signUpScreenViewMod
             items(chronicDiseases){
                 ChronicDiseaseCard(
                     chronicDisease = it,
-                    onSelectChronic = {
-                        signUpScreenViewModel.onSelectChronic(it)
+                    onSelectChronic = {cd->
+                        signUpScreenViewModel.onSelectChronic(cd)
                     },
                 )
             }
@@ -108,7 +112,9 @@ fun ChronicDiseaseCard(
 
 
     Row (
-        modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 15.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
         TextLabel(text = if (isArabicLang) chronicDisease.arName else chronicDisease.enName, textFont = 18)
@@ -119,11 +125,11 @@ fun ChronicDiseaseCard(
 //            onSelect = { onSelectChronic() }
 //
 //        )
-        Spacer(modifier = Modifier.width(22.dp))
+        Spacer(modifier = Modifier.weight(1f))
         SelectedIconWithName(
             name = stringResource(R.string.empty_string),
-            selectedState = chronicDisease.isSelected,
-            onSelect = { onSelectChronic(chronicDisease) }
+            chronicDisease = chronicDisease,
+            onSelect = { cd-> onSelectChronic(cd) }
 
         )
     }
@@ -133,13 +139,13 @@ fun ChronicDiseaseCard(
 @Composable
 fun SelectedIconWithName(
     name:String,
-    selectedState:Boolean,
-    onSelect:()->Unit
+    chronicDisease: ChronicDisease,
+    onSelect:(ChronicDisease)->Unit
 ) {
     Icon(
-        imageVector = if (selectedState)Icons.Default.CheckCircle else Icons.Outlined.Circle,
+        imageVector = if (chronicDisease.isSelected)Icons.Default.CheckCircle else Icons.Outlined.Circle,
         modifier = Modifier.clickable {
-          onSelect()
+          onSelect(chronicDisease)
         },
         contentDescription = "select icon",
         tint = MaterialTheme.colorScheme.primary

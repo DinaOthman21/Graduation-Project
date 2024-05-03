@@ -165,6 +165,7 @@ fun VerticalAvoidCard(post: Post,onPostClick:(Post)->Unit) {
                     textFontWight = FontWeight.Bold,
                     textColor = MaterialTheme.colorScheme.secondary,
                     maxLines = 4,
+                    isJustify = false
                 )
 
             }

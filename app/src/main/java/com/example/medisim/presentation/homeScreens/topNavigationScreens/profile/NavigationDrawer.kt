@@ -48,6 +48,7 @@ import com.example.medisim.ui.theme.CommonComponent2
 
 @Composable
 fun NavigationDrawerHeader(profileViewModel: ProfileViewModel) {
+    profileViewModel.getUserInfo()
     val state = profileViewModel.state.value
     Box(
         modifier = Modifier
@@ -65,12 +66,6 @@ fun NavigationDrawerHeader(profileViewModel: ProfileViewModel) {
             modifier = Modifier.padding(20.dp,top = 50.dp),
             verticalAlignment = Alignment.CenterVertically
         ){
-//            ViewImage(
-//                image = "https://media.istockphoto.com/id/1138364436/vector/user-icon-green-vector-icon.jpg?s=2048x2048&w=is&k=20&c=nZQ0mPUQadDvjw0CVrFmkNVM5oh0LmoG1e_pTFKpIaM=",
-//                modifier = Modifier
-//                    .size(70.dp)
-//                    .clip(CircleShape)
-//            )
             CircleInitials(name = state.userName)
             Column (
                 modifier = Modifier.padding(start = 10.dp),

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.medisim.R
+import com.example.medisim.data.Constants
 import com.example.medisim.data.remote.dto.auth.LoginBody
 import com.example.medisim.domain.SharedPreferences
 import com.example.medisim.domain.repository.ApiServicesRepository
@@ -115,12 +116,16 @@ class LoginScreenViewModel @Inject constructor(
                 if (loginResponse.token!=""){
                     Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login vm 3")
 
-                    pref.setSharedPreferences("token",loginResponse.token)
-                    pref.setSharedPreferences("userName",loginResponse.userName)
-                    pref.setSharedPreferences("email",_state.email)
+                    pref.setSharedPreferences(Constants.TOKEN,loginResponse.token)
+                    pref.setSharedPreferences(Constants.USER_NAME,loginResponse.userName)
+                    pref.setSharedPreferences(Constants.EMAIL,_state.email)
+                    // set token not first time that can not be null again.
+                    if (pref.getBooleanSharedPreferences(Constants.FIRST_TIME_TOKEN,true)){
+                        pref.setBooleanSharedPreferences(Constants.FIRST_TIME_TOKEN,false)
+                    }
 
                     if (_state.rememberMe){
-                        pref.setSharedPreferences("rememberMe",loginResponse.token)
+                        pref.setSharedPreferences(Constants.REMEMBER_ME,loginResponse.token)
                     }
                     _state = _state.copy(
                         errorMessage = ""

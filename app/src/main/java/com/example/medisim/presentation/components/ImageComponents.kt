@@ -190,7 +190,7 @@ fun CircleInitials(
 
 fun randomDarkColor(): Color {
     // Generate random RGB values for darker shades
-    val red = Random.nextInt(100,140)
+    val red = Random.nextInt(60,120)
     val green = Random.nextInt(100,140)
     val blue = Random.nextInt(100,140)
     return Color(red, green, blue)

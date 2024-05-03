@@ -111,6 +111,7 @@ fun TextTitle(
     textFontWight: FontWeight = FontWeight.Normal,
     maxLines: Int = 1,
     textLetterSpacing: Double = 0.5,
+    isJustify:Boolean = true
 ) {
     Text(
         text = text,
@@ -120,7 +121,7 @@ fun TextTitle(
         color = textColor,
         letterSpacing = textLetterSpacing.sp,
         overflow = TextOverflow.Ellipsis,
-        textAlign = TextAlign.Justify,
+        textAlign = if (isJustify) TextAlign.Justify else null,
         maxLines = maxLines,
     )
 

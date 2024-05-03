@@ -1,6 +1,7 @@
 package com.example.medisim.presentation.authScreens.signUp
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.medisim.R
+import com.example.medisim.data.Constants
 import com.example.medisim.data.remote.dto.auth.SignUpBody
 import com.example.medisim.data.remote.dto.main.ChronicDisease
 import com.example.medisim.domain.SharedPreferences
@@ -19,6 +21,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -38,9 +42,8 @@ class SignUpScreenViewModel @Inject constructor(
 
 
     private val _chronicDiseasesList = MutableStateFlow(emptyList<ChronicDisease>())
-    val chronicDiseasesList: StateFlow<List<ChronicDisease>> = _chronicDiseasesList
+    val chronicDiseasesList = _chronicDiseasesList.asStateFlow()
 
-    private val selectedChronicDiseasesIds: MutableList<Int> = mutableListOf()
 
     init {
         getAllChronics()
@@ -295,19 +298,30 @@ class SignUpScreenViewModel @Inject constructor(
 
 
     fun onSelectChronic(chronicDisease: ChronicDisease){
-        chronicDisease.isSelected = chronicDisease.isSelected.not()
+        Log.d("Tag","_________________>>>>>>>>>>>>>>>>>>>>>>>>>>>>> onSelectChronic ")
+        val updatedList = _chronicDiseasesList.value.map { cd ->
+            if (cd.id == chronicDisease.id) ChronicDisease(chronicDisease.id,chronicDisease.enName,chronicDisease.arName,chronicDisease.isSelected.not())
+            else cd
+        }
+        _chronicDiseasesList.value = updatedList.toMutableList()
+
+
+
         _state = _state.copy(
             errorMessage = ""
         )
-        if (chronicDisease.isSelected){
-            selectedChronicDiseasesIds.add(chronicDisease.id)
-        }else{
-            selectedChronicDiseasesIds.remove(chronicDisease.id)
-        }
 
     }
 
     fun onSignUpClick(navController: NavHostController) {
+        val selectedChronicDiseasesIds: MutableList<Int> = mutableListOf()
+        for (cd in _chronicDiseasesList.value){
+            if (cd.isSelected){
+                selectedChronicDiseasesIds.add(cd.id)
+            }
+        }
+        Log.d("Tag","_________________>>>>>>>>>>>>>>>>>>>>>>>>>>>>> onSignUpClick ${selectedChronicDiseasesIds.size} ")
+
         viewModelScope.launch(Dispatchers.IO){
             val signUpResponse = repo.signUp(
                 SignUpBody(
@@ -323,11 +337,14 @@ class SignUpScreenViewModel @Inject constructor(
             )
 
             if (signUpResponse.token.isNotEmpty()){
-                pref.setSharedPreferences("token",signUpResponse.token)
-                pref.setSharedPreferences("userName",_state.userName)
-                pref.setSharedPreferences("email",_state.email)
-                pref.setSharedPreferences("rememberMe",signUpResponse.token)
-
+                pref.setSharedPreferences(Constants.TOKEN,signUpResponse.token)
+                pref.setSharedPreferences(Constants.USER_NAME,_state.userName)
+                pref.setSharedPreferences(Constants.EMAIL,_state.email)
+                pref.setSharedPreferences(Constants.REMEMBER_ME,signUpResponse.token)
+                // set token not first time that can not be null again.
+                if (pref.getBooleanSharedPreferences(Constants.FIRST_TIME_TOKEN,true)){
+                    pref.setBooleanSharedPreferences(Constants.FIRST_TIME_TOKEN,false)
+                }
                 _state = _state.copy(
                     errorMessage = ""
                 )

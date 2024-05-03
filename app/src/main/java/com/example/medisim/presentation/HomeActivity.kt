@@ -59,18 +59,7 @@ class HomeActivity : ComponentActivity() {
             // and need the state here to change app directly on change any of them
             val state = profileViewModel.state.value
             MediSimTheme (darkTheme = state.isDark){
-//                 val context = LocalContext.current
-//
-//                LaunchedEffect(true){
-//                    // Now can access resources using the context
-//                    val resources = context.resources
-//                    // make app language like language in SharedPreferences
-//                    profileViewModel.onCreateChangeLanguage(
-//                        resources = resources,
-//                        systemLanguage = getCurrentLanguage()
-//                    )
-//                    // Toast.makeText(context,"current language ${getCurrentLanguage()}",Toast.LENGTH_SHORT).show()
-//                }
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -81,8 +70,10 @@ class HomeActivity : ComponentActivity() {
                     // Set layout direction, all app screens inside CompositionLocalProvider
                     // to change it if language changed
                     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+                        val currentUserState = profileViewModel.getLoginState()
                         // UI code here, call app navigation to start application
                         AppNavigation(
+                            currentUserState = currentUserState,
                             homeViewModel = homeViewModel,
                             loginViewModel = loginViewModel,
                             signUpScreenViewModel = signUpScreenViewModel,
