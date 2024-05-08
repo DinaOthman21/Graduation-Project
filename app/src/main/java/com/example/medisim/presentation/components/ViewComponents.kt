@@ -175,3 +175,6 @@ fun VerticalAvoidCard(post: Post,onPostClick:(Post)->Unit) {
 }
 
 
+
+
+

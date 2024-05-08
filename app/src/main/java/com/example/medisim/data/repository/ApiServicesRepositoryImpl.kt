@@ -27,17 +27,17 @@ class ApiServicesRepositoryImpl @Inject constructor(
 ) : ApiServicesRepository {
     override suspend fun login(loginData: LoginBody): LoginResponse {
         var loginResponse = LoginResponse("","")
-        Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login")
+        /// Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login")
         try {
             val response = api.login()
             if (response.isSuccessful){
                 loginResponse = response.body()!!
-                Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login s")
+                // Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login s")
             }
 
         }catch (e:Exception){
             e.printStackTrace()
-            Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login f")
+            // Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login f")
             return loginResponse
         }
 

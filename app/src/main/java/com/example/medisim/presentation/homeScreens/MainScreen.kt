@@ -27,7 +27,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Chat
-import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -53,7 +53,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.medisim.R
-import com.example.medisim.presentation.components.AppNameWithHiatusFont
 import com.example.medisim.presentation.components.TextWithHiatusFont
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
@@ -128,7 +127,7 @@ fun MainScreen(
                             TextWithHiatusFont("MediSim")
                             Spacer(modifier = Modifier.weight(1f))
                             Icon(
-                                imageVector = Icons.Outlined.Person,
+                                imageVector = Icons.Default.Person,
                                 modifier = Modifier.padding(8.dp).clickable {
                                     scope.launch {
                                         scaffoldState.drawerState.open()
@@ -141,7 +140,7 @@ fun MainScreen(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Outlined.Chat,
                                 modifier = Modifier
-                                    .padding(8.dp,end = 15.dp)
+                                    .padding(8.dp,end = 16.dp)
                                     .clickable {
                                         appNavController.navigate(Screens.ChatAI.route)
                                     },

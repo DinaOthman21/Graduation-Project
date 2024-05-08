@@ -25,8 +25,8 @@ import com.example.medisim.presentation.components.LottieAnimationShow
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
-    val listOfSymptoms = predictionViewModel.listOfSymptoms.collectAsState().value
     val listOfSelectedSymptoms = predictionViewModel.listOfSelectedSymptoms.collectAsState().value
+    val dropDownList = predictionViewModel.dropDownList.collectAsState().value
 
     val state = predictionViewModel.state.value
 
@@ -35,22 +35,6 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
     val resources = context.resources
     val isArabicLang = resources.configuration.locales[0].language == "ar"
 
-
-    val compatibleListOfSymptoms = remember {
-        mutableStateListOf<String>()
-    }
-
-    if (isArabicLang){
-        compatibleListOfSymptoms.clear()
-        listOfSymptoms.forEach{
-            compatibleListOfSymptoms.add(it.arName)
-        }
-    }else{
-        compatibleListOfSymptoms.clear()
-        listOfSymptoms.forEach{
-            compatibleListOfSymptoms.add(it.enName)
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -71,16 +55,21 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
         DropdownMenuExample(
             selectedItem = state.editTextSymptom,
             expanded = state.dropDownState,
-            items = predictionViewModel.filter(compatibleListOfSymptoms,state.editTextSymptom),
+            items = dropDownList,
+            isArabic = isArabicLang,
             onValueChange = {
-                newValue -> predictionViewModel.onSymptomNameChange(newValue)},
+                newValue -> predictionViewModel.onSymptomNameChange(newValue,isArabicLang)},
             ) {selectedSymptom->
             predictionViewModel.addSymptomToSelectedList(selectedSymptom)
         }
-        FlowRow{
-            for (symptomItem in listOfSelectedSymptoms){
-                CustomChip(text = symptomItem) {
-                    predictionViewModel.deleteFromSelectedList(it)
+        if (state.predictionDiseaseResponse!=null){
+
+        }else{
+            FlowRow{
+                for (symptomItem in listOfSelectedSymptoms){
+                    CustomChip(text = if (isArabicLang) symptomItem.arName else symptomItem.enName) {
+                        predictionViewModel.deleteFromSelectedList(symptomItem)
+                    }
                 }
             }
         }

@@ -50,6 +50,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medisim.R
+import com.example.medisim.data.remote.dto.main.Symptom
 
 
 @Composable
@@ -410,10 +411,11 @@ fun OtpTextField(
 fun DropdownMenuExample(
     selectedItem:String,
     expanded:Boolean,
-    items:List<String>,
+    items:List<Symptom>,
+    isArabic:Boolean,
     editTextHeight:Int = 60,
     onValueChange:(String)->Unit,
-    onSelectItem:(String)->Unit
+    onSelectItem:(Symptom)->Unit
 ) {
 
 
@@ -452,23 +454,24 @@ fun DropdownMenuExample(
         AnimatedVisibility(visible = expanded) {
             LazyColumn (
                 modifier = Modifier
-                    .padding(top = 10.dp)
+                    .padding(top = if(items.isEmpty()) 0.dp else  10.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.onBackground)
-                    .padding(10.dp)
+                    .padding(if(items.isEmpty()) 0.dp else  10.dp)
             ){
                 itemsIndexed(items){index,item->
 
                     Column (
                         modifier = Modifier
                             .padding(vertical = 6.dp)
+                            .fillMaxWidth()
                             .clickable {
                             onSelectItem(item)
                         }
                     ){
                         TextLabel(
-                            text = item,
+                            text = if (isArabic) item.arName else item.enName,
                             textFont = 18
                         )
                         if (index!=items.size-1){

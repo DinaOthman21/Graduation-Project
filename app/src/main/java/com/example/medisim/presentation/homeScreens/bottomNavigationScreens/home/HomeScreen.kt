@@ -34,7 +34,7 @@ fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
                 )
 
                 // this for the Horizontal Advices posts
-                ScreenLazyRow(posts = posts){post->
+                ScreenLazyRow(posts = posts.filter { it.isAdvice }){post->
                     // on user click on post to show its details
                     // navController.currentBackStackEntry?.arguments?.putParcelable("user", user) // old
                     navController.currentBackStackEntry?.savedStateHandle?.set("post", post) // new
@@ -50,7 +50,7 @@ fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
             }
         }
         // this items for Avoid posts
-        items(posts){
+        items(posts.filter { it.isAdvice.not() }){
             VerticalAvoidCard(it){post->
                 // on user click on post to show its details
                 navController.currentBackStackEntry?.savedStateHandle?.set("post", post) // new

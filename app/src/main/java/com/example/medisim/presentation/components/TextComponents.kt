@@ -1,6 +1,7 @@
 package com.example.medisim.presentation.components
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -34,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medisim.R
 import com.example.medisim.ui.theme.CommonComponent2
+import com.example.medisim.ui.theme.brush2
 
 
 @Composable
@@ -206,8 +210,8 @@ fun TextWithBackgroundColorAsCard(
 fun CustomChip(
     text:String,
     modifier: Modifier = Modifier,
-    textColor:Color = MaterialTheme.colorScheme.primary,
-    backgroundColor:Color = CommonComponent2,
+    textColor:Color = Color.White,
+    backgroundColor:Brush = brush2 ,
     textFont: Int = 14,
     textFontWight: FontWeight = FontWeight.Normal,
     textLetterSpacing: Double = 1.5,
@@ -216,9 +220,11 @@ fun CustomChip(
     Card (
         modifier = modifier
             .padding(6.dp)
+            .clip( RoundedCornerShape(16.dp))
+            .background(backgroundColor)
         ,
         elevation = 16.dp,
-        backgroundColor = backgroundColor,
+        backgroundColor = Color.Transparent,
         shape = RoundedCornerShape(16.dp)
     ){
         Row (

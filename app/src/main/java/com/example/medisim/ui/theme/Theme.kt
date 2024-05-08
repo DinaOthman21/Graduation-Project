@@ -33,7 +33,7 @@ private val LightColorScheme = lightColorScheme(
     secondary = TextHintLight,
     tertiary = ComponentLight,
     onPrimary = CommonComponent,
-    onSecondary = HelperColor
+    onSecondary = HelperColor,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

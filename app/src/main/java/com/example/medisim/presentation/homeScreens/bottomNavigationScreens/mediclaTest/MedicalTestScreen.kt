@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -154,6 +155,12 @@ fun MedicalTestScreen(medicalTestViewModel: MedicalTestScreenViewModel) {
                 )
             }
 
+        }
+        AnimatedVisibility(visible = medicalTestViewModel.fileName.value!=null) {
+            TextLabel(
+                text = medicalTestViewModel.fileName.value!!,
+                textFont = 16
+            )
         }
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(

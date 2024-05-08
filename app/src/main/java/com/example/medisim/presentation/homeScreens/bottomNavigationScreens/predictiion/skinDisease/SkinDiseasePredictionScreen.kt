@@ -10,6 +10,7 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -85,10 +86,6 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
             }
         }
     }
-
-    // take image using camera
-//    var capturedImage by mutableStateOf<ImageBitmap?>(null)
-    var capturedImage:ImageBitmap? = null
 
 
     val takePictureLauncher  = rememberLauncherForActivityResult(
@@ -173,9 +170,9 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
             }
 
         }
-        AnimatedVisibility(visible = state != null) {
+        AnimatedVisibility(visible = state.image != null) {
             Image(
-                bitmap = state!!.asImageBitmap(),
+                bitmap = state.image!!.asImageBitmap(),
                 contentDescription ="",
                 modifier = Modifier
                     .padding(top = 20.dp)
@@ -199,6 +196,12 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
             modifier = Modifier.padding(bottom = 41.dp),
             paddingValue = 0
         ) {
+            if (state.image == null){
+                Toast.makeText(context, context.getString(R.string.please_scan_or_select_you_image),Toast.LENGTH_SHORT).show()
+            }else{
+                skinDiseaseViewModel.onDetectClick()
+            }
+
         }
 
     }

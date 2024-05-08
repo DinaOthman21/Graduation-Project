@@ -1,4 +1,7 @@
 package com.example.medisim.data.remote.dto.main
 
-class SkinDiseaseBody {
-}
+import android.graphics.Bitmap
+
+data class SkinDiseaseBody (
+    val image: Bitmap
+)

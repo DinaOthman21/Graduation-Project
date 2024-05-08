@@ -81,5 +81,6 @@
     <string name="upload_test_pdf_file">Upload test pdf file</string>
     <string name="please_enter_valid_password_8_char"><![CDATA[Please enter valid password (>=8 char)*]]></string>
     <string name="please_select_your_gender">Please select your gender</string>
+    <string name="please_scan_or_select_you_image">Please scan or select you image.</string>
 
 </resources>
