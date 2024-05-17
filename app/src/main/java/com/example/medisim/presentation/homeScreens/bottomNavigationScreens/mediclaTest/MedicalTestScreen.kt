@@ -44,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.LottieAnimationShow
+import com.example.medisim.presentation.components.ResultPredictionDialog
+import com.example.medisim.presentation.components.SkinDialogContent
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease.setImage
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
@@ -170,6 +172,23 @@ fun MedicalTestScreen(medicalTestViewModel: MedicalTestScreenViewModel) {
         ) {
 
         }
+
+//        AnimatedVisibility(visible = state.dialogState) {
+//            state.skinDiseaseResponse?.let {
+//                ResultPredictionDialog(content = {
+//                    SkinDialogContent(
+//                        diseaseName = if (isArabicLang) it.arDiseaseName
+//                        else it.enDiseaseName,
+//                        diseaseDescription = if (isArabicLang) it.arDiseaseDescription
+//                        else it.enDiseaseDescription
+//                    ) {
+//                        skinDiseaseViewModel.onDialogDismiss()
+//                    }
+//                }, image = R.drawable.skin) {
+//                    skinDiseaseViewModel.onDialogDismiss()
+//                }
+//            }
+//        }
 
     }
 }

@@ -5,5 +5,6 @@ import com.example.medisim.data.remote.dto.main.SkinDiseaseResponse
 
 data class SkinDiseaseState(
     val image: Bitmap? = null,
-    val skinDiseaseResponse: SkinDiseaseResponse? = null
+    val skinDiseaseResponse: SkinDiseaseResponse? = null,
+    val dialogState:Boolean = false
 )

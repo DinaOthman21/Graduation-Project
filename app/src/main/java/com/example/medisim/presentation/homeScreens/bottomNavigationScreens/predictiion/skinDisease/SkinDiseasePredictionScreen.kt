@@ -47,6 +47,9 @@ import androidx.core.content.ContextCompat
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.LottieAnimationShow
+import com.example.medisim.presentation.components.PredictionDialogContent
+import com.example.medisim.presentation.components.ResultPredictionDialog
+import com.example.medisim.presentation.components.SkinDialogContent
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.ui.theme.brush
 
@@ -73,6 +76,10 @@ fun setImage(url: Uri,context:Context,onImageSelected:(Bitmap)->Unit){
 fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
     val state = skinDiseaseViewModel.state.value
     val context = LocalContext.current
+
+    // Now can access resources using the context
+    val resources = context.resources
+    val isArabicLang = resources.configuration.locales[0].language == "ar"
 
 
 
@@ -202,6 +209,23 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
                 skinDiseaseViewModel.onDetectClick()
             }
 
+        }
+
+        AnimatedVisibility(visible = state.dialogState) {
+            state.skinDiseaseResponse?.let {
+                ResultPredictionDialog(content = {
+                    SkinDialogContent(
+                        diseaseName = if (isArabicLang) it.arDiseaseName
+                        else it.enDiseaseName,
+                        diseaseDescription = if (isArabicLang) it.arDiseaseDescription
+                        else it.enDiseaseDescription
+                    ) {
+                        skinDiseaseViewModel.onDialogDismiss()
+                    }
+                }, image = R.drawable.skin) {
+                    skinDiseaseViewModel.onDialogDismiss()
+                }
+            }
         }
 
     }

@@ -120,8 +120,9 @@ fun ImageButtonWithText(
             painter = painterResource(id = image),
             modifier = Modifier
                 .height(height.dp)
-                .background(MaterialTheme.colorScheme.background)
                 .clip(RoundedCornerShape(16.dp))
+                .background(MaterialTheme.colorScheme.background)
+
             ,
             contentDescription = "",
             contentScale = ContentScale.Crop

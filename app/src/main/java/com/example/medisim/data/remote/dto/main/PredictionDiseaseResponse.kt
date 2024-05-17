@@ -5,6 +5,6 @@ data class PredictionDiseaseResponse(
     val arDiseaseName:String,
     val enDiseaseDescription:String,
     val arDiseaseDescription:String,
-    val anAdvices:List<String>,
+    val enAdvices:List<String>,
     val arAdvices:List<String>,
 )

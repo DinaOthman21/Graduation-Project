@@ -1,5 +1,7 @@
 package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease
 
+import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -10,8 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -21,6 +21,8 @@ import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.CustomChip
 import com.example.medisim.presentation.components.DropdownMenuExample
 import com.example.medisim.presentation.components.LottieAnimationShow
+import com.example.medisim.presentation.components.PredictionDialogContent
+import com.example.medisim.presentation.components.ResultPredictionDialog
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -80,7 +82,32 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
             modifier = Modifier.padding(bottom = 41.dp),
             paddingValue = 0
         ) {
-            predictionViewModel.onPredictClick()
+            if (listOfSelectedSymptoms.isEmpty()){
+                Toast.makeText(context, context.getString(R.string.please_select_your_symptoms),
+                    Toast.LENGTH_SHORT).show()
+            }else{
+                predictionViewModel.onPredictClick()
+            }
+
+        }
+
+        AnimatedVisibility(visible = state.dialogState) {
+           state.predictionDiseaseResponse?.let {
+               ResultPredictionDialog(content = {
+                   PredictionDialogContent(
+                       diseaseName = if (isArabicLang) it.arDiseaseName
+                       else it.enDiseaseName,
+                       diseaseDescription = if (isArabicLang) it.arDiseaseDescription
+                       else it.enDiseaseDescription,
+                       advices = if (isArabicLang) it.arAdvices
+                       else it.enAdvices
+                   ) {
+                       predictionViewModel.onDialogDismiss()
+                   }
+               }, image = R.drawable.human_ai) {
+                   predictionViewModel.onDialogDismiss()
+               }
+           }
         }
 
     }

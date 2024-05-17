@@ -30,10 +30,20 @@ class SkinDiseaseScreenViewModel @Inject constructor(private val repo:ApiService
         )
     }
 
+    fun onDialogDismiss(){
+        _state = _state.copy(
+            dialogState = false
+        )
+    }
 
     fun onDetectClick(){
         viewModelScope.launch(Dispatchers.IO){
-            repo.skinDetect(SkinDiseaseBody(_state.image!!))
+            val result = repo.skinDetect(SkinDiseaseBody(_state.image!!))
+            _state = _state.copy(
+                skinDiseaseResponse = result,
+                dialogState = true
+            )
+
         }
     }
 

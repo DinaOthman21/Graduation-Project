@@ -133,6 +133,12 @@ class PredictionViewModel @Inject constructor(private val repo:ApiServicesReposi
         return list
     }
 
+    fun onDialogDismiss(){
+        _state = _state.copy(
+            dialogState = false
+        )
+    }
+
     fun onPredictClick(){
         val list = mutableListOf<Int>()
         _listOfSelectedSymptoms.value.forEach {
@@ -141,7 +147,8 @@ class PredictionViewModel @Inject constructor(private val repo:ApiServicesReposi
         viewModelScope.launch(Dispatchers.IO){
             val result = repo.predict(PredictionDiseaseBody(selectedSymptomIDs = list))
             _state = _state.copy(
-                predictionDiseaseResponse = result
+                predictionDiseaseResponse = result,
+                dialogState = true
             )
             resetSelectedList()
         }

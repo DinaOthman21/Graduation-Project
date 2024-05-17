@@ -82,5 +82,11 @@
     <string name="please_enter_valid_password_8_char"><![CDATA[Please enter valid password (>=8 char)*]]></string>
     <string name="please_select_your_gender">Please select your gender</string>
     <string name="please_scan_or_select_you_image">Please scan or select you image.</string>
+    <string name="ok">OK</string>
+    <string name="based_on_the_provided_symptoms_the_diagnosed_condition_is">"Based on the provided symptoms, the diagnosed condition is: "</string>
+    <string name="detailed_description">"Detailed Description: "</string>
+    <string name="as_a_follow_up_please_consider_the_following_recommendations">" As a follow-up, please consider the following recommendations: "</string>
+    <string name="based_on_the_observed_skin_symptoms_the_identified_dermatological_condition_is">"Based on the observed skin symptoms, the identified dermatological condition is: "</string>
+    <string name="please_select_your_symptoms">Please select your Symptoms.</string>
 
 </resources>
