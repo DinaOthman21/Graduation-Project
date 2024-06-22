@@ -1,6 +1,7 @@
 package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bmi
 
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -43,11 +44,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.AnimatedTextWithTileModes
 import com.example.medisim.presentation.components.BackIcon
+import com.example.medisim.presentation.components.BmiCalculatorDialogContent
 import com.example.medisim.presentation.components.ButtonClickOn
+import com.example.medisim.presentation.components.PredictionDialogContent
+import com.example.medisim.presentation.components.ResultPredictionDialog
 import com.example.medisim.ui.theme.CommonComponent2
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -55,6 +60,12 @@ import kotlin.math.absoluteValue
 
 @Composable
 fun BmiScreen(navController: NavHostController) {
+    val vm:BmiViewModel = viewModel()
+    val state = vm.state.value
+
+    val context = LocalContext.current
+
+
     Column (
         modifier = Modifier
             .fillMaxSize(),
@@ -84,15 +95,15 @@ fun BmiScreen(navController: NavHostController) {
         AnimatedTextWithTileModes(stringResource(R.string.height_cm))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), number = 200){
-
+        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), number = 220){
+            vm.onHeightSelected(it)
         }
 
         AnimatedTextWithTileModes(stringResource(R.string.weight_kg))
 
 
         NumberPicker(modifier = Modifier.padding(vertical = 35.dp),number = 220){
-
+            vm.onHeightSelected(it)
         }
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
@@ -100,7 +111,20 @@ fun BmiScreen(navController: NavHostController) {
             modifier = Modifier.padding(bottom = 15.dp),
             paddingValue = 0
         ) {
+            vm.onCalcBMI(context)
+        }
 
+
+
+
+        AnimatedVisibility(visible = state.dialogState) {
+            ResultPredictionDialog(content = {
+                BmiCalculatorDialogContent(state.result){
+                    vm.onDialogClosed()
+                }
+            }, image = R.drawable.mbi_logo) {
+                vm.onDialogClosed()
+            }
         }
     }
 
@@ -135,7 +159,6 @@ fun NumberPicker(modifier: Modifier = Modifier,number:Int,onSelectNumber:(Int)->
             strokeWidth = 2.dp
         )
 
-        val context = LocalContext.current
 
         LaunchedEffect(pagerState) {
             // Collect from the a snapshotFlow reading the currentPage

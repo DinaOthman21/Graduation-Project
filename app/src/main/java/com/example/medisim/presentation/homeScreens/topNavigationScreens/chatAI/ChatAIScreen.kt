@@ -142,7 +142,6 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, Color.Black)
                 .background(MaterialTheme.colorScheme.background)
                 .padding(bottom = 5.dp),
             horizontalArrangement = Arrangement.Center,

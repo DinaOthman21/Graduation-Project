@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -231,7 +232,6 @@ fun SkinDialogContent(
         Spacer(modifier = Modifier.height(40.dp))
         Box(
             modifier = Modifier
-                .height(480.dp)
                 .background(
                     brush = brush2,
                     shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
@@ -298,7 +298,6 @@ fun MedicalTestDialogContent(
         Spacer(modifier = Modifier.height(40.dp))
         Box(
             modifier = Modifier
-                .height(350.dp)
                 .background(
                     color = MaterialTheme.colorScheme.onPrimary,
                     shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
@@ -335,3 +334,56 @@ fun MedicalTestDialogContent(
     }
 
 }
+
+
+
+
+
+
+
+
+
+@Composable
+fun BmiCalculatorDialogContent(
+    result: AnnotatedString,
+    onDismiss: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+    ) {
+        Spacer(modifier = Modifier.height(40.dp))
+        Box(
+            modifier = Modifier
+                .background(
+                    brush = brush2,
+                    shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
+                )
+        ) {
+            LazyColumn(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            )  {
+                item {
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Text(
+                        text = result,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+
+                    Spacer(modifier = Modifier.height(40.dp))
+                    ButtonClickOn(buttonText = stringResource(R.string.ok), paddingValue = 0) {
+                        onDismiss()
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                }
+
+
+
+            }
+        }
+    }
+
+}
+
+
