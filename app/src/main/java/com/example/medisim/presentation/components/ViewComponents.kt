@@ -2,6 +2,7 @@ package com.example.medisim.presentation.components
 
 
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -15,48 +16,63 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-
-import android.os.Parcelable
-import androidx.compose.ui.platform.LocalContext
 import com.example.medisim.data.remote.dto.main.Post
-import kotlinx.parcelize.Parcelize
-
-
-
-
-
+import kotlinx.coroutines.delay
 
 
 @Composable
 fun ScreenLazyRow(posts: List<Post>, onPostClick:(Post)->Unit) {
+    val listState = rememberLazyListState()
+
+
     Column {
         LazyRow(
+            state = listState,
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 4.dp, vertical = 16.dp)
         ) {
-
             items(posts) { post->
                 HorizontalAdviceCard(post){
                     onPostClick(it)
                 }
+
             }
 
         }
 
+
     }
+    LaunchedEffect(Unit) {
+        while (true){
+            Log.d("TAG",">>>>>>>>>>>>>>>>>>>>>>>>> index ${(listState.firstVisibleItemIndex+1) }<<<<<<<<<<<<<<<<<<<<<<<<<")
+            Log.d("TAG",">>>>>>>>>>>>>>>>>>>>>>>>> size ${(posts.size-1) }<<<<<<<<<<<<<<<<<<<<<<<<<")
+            Log.d("TAG",">>>>>>>>>>>>>>>>>>>>>>>>> mod ${(listState.firstVisibleItemIndex+1)%(posts.size-1) }<<<<<<<<<<<<<<<<<<<<<<<<<")
+            listState.animateScrollToItem((listState.firstVisibleItemIndex+1)%(posts.size-1))
+            delay(3000)
+        }
+    }
+
+
 }
+
+
+
+
 
 @Composable
 fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {

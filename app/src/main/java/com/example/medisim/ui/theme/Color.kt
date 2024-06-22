@@ -50,8 +50,8 @@ val brush =  Brush.linearGradient(
 
 val brush2 =  Brush.linearGradient(
     colors = listOf(
-        CommonComponent.copy(alpha = 0.3f),
-        ComponentDark.copy(alpha = 0.6f),
+        CommonComponent.copy(alpha = 0.7f),
+        ComponentDark.copy(alpha = 0.8f),
         CommonComponent.copy(alpha = 0.9f),
     )
 )

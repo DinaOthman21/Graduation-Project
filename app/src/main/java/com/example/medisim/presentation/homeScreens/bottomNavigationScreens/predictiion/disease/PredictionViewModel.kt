@@ -150,7 +150,7 @@ class PredictionViewModel @Inject constructor(private val repo:ApiServicesReposi
                 predictionDiseaseResponse = result,
                 dialogState = true
             )
-            resetSelectedList()
+            // resetSelectedList()
         }
 
 

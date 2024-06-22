@@ -89,4 +89,8 @@
     <string name="as_a_follow_up_please_consider_the_following_recommendations">" As a follow-up, please consider the following recommendations: "</string>
     <string name="based_on_the_observed_skin_symptoms_the_identified_dermatological_condition_is">"Based on the observed skin symptoms, the identified dermatological condition is: "</string>
     <string name="please_select_your_symptoms">Please select your Symptoms.</string>
+    <string name="body_mass_index">Body Mass Index</string>
+    <string name="height_cm">Height/cm</string>
+    <string name="weight_kg">Weight/kg</string>
+    <string name="calculate">Calculate</string>
 </resources>

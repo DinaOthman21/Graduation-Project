@@ -25,6 +25,9 @@ fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
     LazyColumn(
         modifier = Modifier.padding(top = 10.dp)
     ){
+
+
+
         item{
             Column {
                 // make title for "Advices" with small bold under line
@@ -49,6 +52,7 @@ fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
                 )
             }
         }
+
         // this items for Avoid posts
         items(posts.filter { it.isAdvice.not() }){
             VerticalAvoidCard(it){post->
@@ -58,5 +62,7 @@ fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
 
             }
         }
+
+
     }
 }

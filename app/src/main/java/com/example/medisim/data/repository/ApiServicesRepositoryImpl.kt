@@ -1,6 +1,5 @@
 package com.example.medisim.data.repository
 
-import android.util.Log
 import com.example.medisim.data.remote.ApiServices
 import com.example.medisim.data.remote.dto.auth.LoginBody
 import com.example.medisim.data.remote.dto.auth.LoginResponse
@@ -10,13 +9,12 @@ import com.example.medisim.data.remote.dto.main.ChronicDisease
 import com.example.medisim.data.remote.dto.main.MedicalTestResponse
 import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.data.remote.dto.main.Post
+import com.example.medisim.data.remote.dto.main.PredictionDisease
 import com.example.medisim.data.remote.dto.main.PredictionDiseaseBody
-import com.example.medisim.data.remote.dto.main.PredictionDiseaseResponse
 import com.example.medisim.data.remote.dto.main.SkinDiseaseBody
 import com.example.medisim.data.remote.dto.main.SkinDiseaseResponse
 import com.example.medisim.data.remote.dto.main.Symptom
 import com.example.medisim.domain.repository.ApiServicesRepository
-import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -109,8 +107,8 @@ class ApiServicesRepositoryImpl @Inject constructor(
         return list
     }
 
-    override suspend fun predict(predictionDiseaseBody: PredictionDiseaseBody): PredictionDiseaseResponse? {
-        var predictionResult:PredictionDiseaseResponse? = null
+    override suspend fun predict(predictionDiseaseBody: PredictionDiseaseBody): List<PredictionDisease>? {
+        var predictionResult:List<PredictionDisease>? = null
         try {
             val response = api.predict()
             if (response.isSuccessful){

@@ -64,14 +64,10 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
             ) {selectedSymptom->
             predictionViewModel.addSymptomToSelectedList(selectedSymptom)
         }
-        if (state.predictionDiseaseResponse!=null){
-
-        }else{
-            FlowRow{
-                for (symptomItem in listOfSelectedSymptoms){
-                    CustomChip(text = if (isArabicLang) symptomItem.arName else symptomItem.enName) {
-                        predictionViewModel.deleteFromSelectedList(symptomItem)
-                    }
+        FlowRow{
+            for (symptomItem in listOfSelectedSymptoms){
+                CustomChip(text = if (isArabicLang) symptomItem.arName else symptomItem.enName) {
+                    predictionViewModel.deleteFromSelectedList(symptomItem)
                 }
             }
         }
@@ -95,12 +91,7 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
            state.predictionDiseaseResponse?.let {
                ResultPredictionDialog(content = {
                    PredictionDialogContent(
-                       diseaseName = if (isArabicLang) it.arDiseaseName
-                       else it.enDiseaseName,
-                       diseaseDescription = if (isArabicLang) it.arDiseaseDescription
-                       else it.enDiseaseDescription,
-                       advices = if (isArabicLang) it.arAdvices
-                       else it.enAdvices
+                      it
                    ) {
                        predictionViewModel.onDialogDismiss()
                    }

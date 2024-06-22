@@ -6,7 +6,7 @@ import com.example.medisim.data.remote.dto.main.ChronicDisease
 import com.example.medisim.data.remote.dto.main.MedicalTestResponse
 import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.data.remote.dto.main.Post
-import com.example.medisim.data.remote.dto.main.PredictionDiseaseResponse
+import com.example.medisim.data.remote.dto.main.PredictionDisease
 import com.example.medisim.data.remote.dto.main.SkinDiseaseResponse
 import com.example.medisim.data.remote.dto.main.Symptom
 import retrofit2.Response
@@ -44,7 +44,7 @@ interface ApiServices {
 
 
     @GET("predictionResult.json")
-    suspend fun predict(): Response<PredictionDiseaseResponse>
+    suspend fun predict(): Response<List<PredictionDisease>>
 
 
 //    @GET("skinDetection.json")

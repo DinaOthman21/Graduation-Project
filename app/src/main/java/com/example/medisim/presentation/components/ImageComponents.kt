@@ -108,6 +108,7 @@ fun ImageButtonWithText(
     Surface(
         modifier = modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.background)
             .height(height.dp)
             .padding(top = 10.dp)
@@ -129,8 +130,8 @@ fun ImageButtonWithText(
         )
         Box(modifier = Modifier
             .fillMaxWidth()
-            .height(height.dp)
             .clip(RoundedCornerShape(16.dp))
+            .height(height.dp)
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(

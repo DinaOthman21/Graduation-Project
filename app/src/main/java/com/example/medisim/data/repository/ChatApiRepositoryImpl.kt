@@ -19,7 +19,7 @@ class ChatApiRepositoryImpl @Inject constructor(private val api:ChatApiServices)
 
         val requestBody =  ChatBody(
             messages = allMessages,
-            model = "gpt-3.5-turbo"
+            model = Constants.CHAT_MODEL
         )
 
         Log.d("api","from  api 3")

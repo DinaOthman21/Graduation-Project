@@ -11,14 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ImageButtonWithText
 import com.example.medisim.presentation.components.LottieAnimationShow
+import com.example.medisim.presentation.navigation.Screens
 
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MainCalculatorScreen() {
+fun MainCalculatorScreen(appNavController: NavHostController) {
 
     LazyColumn (
         modifier = Modifier
@@ -39,9 +40,12 @@ fun MainCalculatorScreen() {
 
           }
           ImageButtonWithText(
-              image = R.drawable.body,
-              text = stringResource(R.string.body_fat_percentage)
-          ){}
+              image = R.drawable.bmi,
+              text = stringResource(R.string.body_mass_index)
+          ){
+              appNavController.navigate(Screens.BmiCalculator.route)
+          }
+
           ImageButtonWithText(
               image = R.drawable.blood_volume,
               text = stringResource(R.string.estimated_blood_volume)

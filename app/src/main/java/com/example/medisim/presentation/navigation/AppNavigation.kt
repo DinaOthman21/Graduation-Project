@@ -9,8 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navDeepLink
-import com.example.medisim.data.Constants
 import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.presentation.authScreens.RegistrationSuccessfullyScreen
 import com.example.medisim.presentation.authScreens.forgotPassword.ForgotPassword
@@ -25,6 +23,7 @@ import com.example.medisim.presentation.authScreens.signUp.SignUpUserChronicScre
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserInfoScreen
 import com.example.medisim.presentation.homeScreens.MainScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.MainCalculatorScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bmi.BmiScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.PostDetails
@@ -137,6 +136,11 @@ fun AppNavigation(
 
         }
 
+        composable(route = Screens.BmiCalculator.route){
+            // MBI Calculator Screen
+            BmiScreen(navController = navController)
+        }
+
     }
 }
 
@@ -178,10 +182,11 @@ fun BottomNavigation(
 
         }
         composable(route = NavigationScreen.Calculator.route){
-            MainCalculatorScreen()
+            MainCalculatorScreen(appNavController)
             ChangeStatusBarColor(isBackgroundColor = false)
 
         }
+
 
     }
 

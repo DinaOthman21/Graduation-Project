@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,9 +31,11 @@ import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.EditTextWithIcon
+import com.example.medisim.presentation.components.Keyboard
 import com.example.medisim.presentation.components.LottieAnimationShow
 import com.example.medisim.presentation.components.TextLabel
 import com.example.medisim.presentation.components.TextWithBackgroundColorAsCard
+import com.example.medisim.presentation.components.keyboardAsState
 
 @Composable
 fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel) {
@@ -43,9 +47,12 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
 
+    val isKeyboardOpen by keyboardAsState() // Keyboard.Opened or Keyboard.Closed
+
+
 
     Column(
-        modifier = Modifier
+        modifier = Modifier.padding( top = if (isKeyboardOpen == Keyboard.Opened) 300.dp else 0.dp )
     ){
         Row(
             modifier = Modifier
@@ -135,7 +142,7 @@ fun ChatScreen(navController:NavHostController,chatAIViewModel: ChatAIViewModel)
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-
+                .border(1.dp, Color.Black)
                 .background(MaterialTheme.colorScheme.background)
                 .padding(bottom = 5.dp),
             horizontalArrangement = Arrangement.Center,

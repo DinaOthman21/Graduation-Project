@@ -126,8 +126,8 @@ fun MedicineDetails(medicine: Medicine) {
                 )
                 TextPartOfMedicine(
                     partNameId = R.string.medicine_description,
-                    enPart = medicine.enDescription,
-                    arPart = medicine.arDescription
+                    enPart = medicine.enDescription.replace("\\n","\n"),
+                    arPart = medicine.arDescription.replace("\\n","\n")
                 )
 
             }
