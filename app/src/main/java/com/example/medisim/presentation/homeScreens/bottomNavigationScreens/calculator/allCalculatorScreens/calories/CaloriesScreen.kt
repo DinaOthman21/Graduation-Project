@@ -25,7 +25,7 @@ import com.example.medisim.R
 import com.example.medisim.presentation.components.AnimatedTextWithTileModes
 import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.ButtonClickOn
-import com.example.medisim.presentation.components.CaloriesCalculatorDialogContent
+import com.example.medisim.presentation.components.CalculatorDialogContent
 import com.example.medisim.presentation.components.CheckboxWithName
 import com.example.medisim.presentation.components.ResultPredictionDialog
 import com.example.medisim.presentation.components.TextLabel
@@ -142,7 +142,7 @@ fun CaloriesScreen(navController: NavHostController) {
 
         AnimatedVisibility(visible = state.dialogState) {
             ResultPredictionDialog(content = {
-                CaloriesCalculatorDialogContent(state.result){
+               CalculatorDialogContent(state.result){
                     vm.onDialogClosed()
                 }
             }, image = R.drawable.calorie_logo2) {

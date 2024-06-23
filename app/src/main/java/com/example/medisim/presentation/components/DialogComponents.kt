@@ -1,6 +1,7 @@
 package com.example.medisim.presentation.components
 
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -337,60 +338,10 @@ fun MedicalTestDialogContent(
 
 
 
-
-
-
-
-
-
 @Composable
-fun BmiCalculatorDialogContent(
+fun CalculatorDialogContent(
     result: AnnotatedString,
-    onDismiss: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Box(
-            modifier = Modifier
-                .background(
-                    brush = brush2,
-                    shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
-                )
-        ) {
-            LazyColumn(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            )  {
-                item {
-                    Spacer(modifier = Modifier.height(40.dp))
-                    Text(
-                        text = result,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-
-                    Spacer(modifier = Modifier.height(40.dp))
-                    ButtonClickOn(buttonText = stringResource(R.string.ok), paddingValue = 0) {
-                        onDismiss()
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                }
-
-
-
-            }
-        }
-    }
-
-}
-
-
-
-@Composable
-fun BfpCalculatorDialogContent(
-    result: AnnotatedString,
+    showImage:Boolean = false,
     onDismiss: () -> Unit
 ) {
     Column(
@@ -415,14 +366,17 @@ fun BfpCalculatorDialogContent(
                         color = MaterialTheme.colorScheme.primary,
                     )
 
-                    Image(
-                        painter = painterResource(id = R.drawable.body_fat_man),
-                        modifier = Modifier
-                            .fillMaxSize()
-                        ,
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop
-                    )
+                    if(showImage) {
+                        Image(
+                            painter = painterResource(id = R.drawable.body_fat_man),
+                            modifier = Modifier
+                                .fillMaxSize()
+                            ,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+
 
                     Spacer(modifier = Modifier.height(40.dp))
                     ButtonClickOn(buttonText = stringResource(R.string.ok), paddingValue = 0) {
@@ -439,54 +393,6 @@ fun BfpCalculatorDialogContent(
     }
 
 }
-
-
-
-
-
-@Composable
-fun CaloriesCalculatorDialogContent(
-    result: AnnotatedString,
-    onDismiss: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Box(
-            modifier = Modifier
-                .background(
-                    brush = brush2,
-                    shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
-                )
-        ) {
-            LazyColumn(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            )  {
-                item {
-                    Spacer(modifier = Modifier.height(40.dp))
-                    Text(
-                        text = result,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-
-                    Spacer(modifier = Modifier.height(40.dp))
-                    ButtonClickOn(buttonText = stringResource(R.string.ok), paddingValue = 0) {
-                        onDismiss()
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                }
-
-
-
-            }
-        }
-    }
-
-}
-
 
 
 

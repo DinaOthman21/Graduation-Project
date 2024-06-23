@@ -113,7 +113,7 @@ class CaloriesViewModel : ViewModel() {
                append(context.getString(R.string.extreme_weight_loss))
            }
            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
-               append("$${String.format("%.2f", (59/100.0) * result)} ")
+               append("${String.format("%.2f", (59/100.0) * result)} ")
            }
            withStyle(style = SpanStyle(color = Color.White)) {
                append(context.getString(R.string.calories_day_59))

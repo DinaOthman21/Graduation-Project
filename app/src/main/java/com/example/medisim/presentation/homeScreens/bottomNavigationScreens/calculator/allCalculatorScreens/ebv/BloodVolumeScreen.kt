@@ -1,4 +1,4 @@
-package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bfp
+package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.ebv
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
@@ -29,22 +29,23 @@ import com.example.medisim.presentation.components.CalculatorDialogContent
 import com.example.medisim.presentation.components.CheckboxWithName
 import com.example.medisim.presentation.components.ResultPredictionDialog
 import com.example.medisim.presentation.components.TextLabel
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bfp.BodyFatViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bmi.NumberPicker
 
 
 @Composable
-fun BodyFatPercentageScreen(navController: NavHostController) {
-    val vm: BodyFatViewModel = viewModel()
+fun BloodVolumeScreen(navController: NavHostController) {
+    val vm: BloodVolumeViewModel = viewModel()
     val state = vm.state.value
 
     val context = LocalContext.current
 
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -54,10 +55,10 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BackIcon{ navController.popBackStack()}
+            BackIcon { navController.popBackStack() }
             Spacer(modifier = Modifier.width(40.dp))
             Text(
-                text = stringResource(R.string.body_fat_percentage),
+                text = stringResource(R.string.estimated_blood_volume),
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 style = TextStyle(
                     fontSize = 30.sp, color = MaterialTheme.colorScheme.primary,
@@ -66,24 +67,27 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
             )
         }
 
-        AnimatedTextWithTileModes(stringResource(R.string.height_cm))
 
-
-        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), number = 300){
-            vm.onHeightSelected(it)
-        }
 
         AnimatedTextWithTileModes(stringResource(R.string.weight_kg))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 35.dp), initialFactor = 3, number = 210){
+        NumberPicker(
+            modifier = Modifier.padding(vertical = 35.dp),
+            initialFactor = 3,
+            number = 210
+        ) {
             vm.onWeightSelected(it)
         }
 
         AnimatedTextWithTileModes(stringResource(id = R.string.age))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 35.dp),number = 100, initialFactor = 5){
+        NumberPicker(
+            modifier = Modifier.padding(vertical = 35.dp),
+            number = 100,
+            initialFactor = 5
+        ) {
             vm.onAgeSelected(it)
         }
 
@@ -94,18 +98,18 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
             textFontWight = FontWeight.Bold
         )
 
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             CheckboxWithName(
                 checkBoxText = stringResource(R.string.male),
                 checkedState = state.isMale,
-                onToggleClick = {vm.onGenderSelected(true)}
+                onToggleClick = { vm.onGenderSelected(true) }
             )
             CheckboxWithName(
                 checkBoxText = stringResource(R.string.female),
                 checkedState = state.isMale.not(),
-                onToggleClick = {vm.onGenderSelected(false)}
+                onToggleClick = { vm.onGenderSelected(false) }
             )
 
         }
@@ -118,7 +122,7 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
             modifier = Modifier.padding(bottom = 15.dp),
             paddingValue = 0
         ) {
-            vm.onCalcBFP(context)
+            vm.onCalcBloodVolume(context)
         }
 
 
@@ -126,13 +130,13 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
 
         AnimatedVisibility(visible = state.dialogState) {
             ResultPredictionDialog(content = {
-                CalculatorDialogContent(state.result){
+                CalculatorDialogContent(state.result) {
                     vm.onDialogClosed()
                 }
-            }, image = R.drawable.body_logo) {
+            }, image = R.drawable.blood_volume) {
                 vm.onDialogClosed()
             }
         }
     }
-
 }
+

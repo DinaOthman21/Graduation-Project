@@ -49,8 +49,8 @@ import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.AnimatedTextWithTileModes
 import com.example.medisim.presentation.components.BackIcon
-import com.example.medisim.presentation.components.BmiCalculatorDialogContent
 import com.example.medisim.presentation.components.ButtonClickOn
+import com.example.medisim.presentation.components.CalculatorDialogContent
 import com.example.medisim.presentation.components.ResultPredictionDialog
 import com.example.medisim.ui.theme.CommonComponent2
 import kotlinx.coroutines.launch
@@ -118,7 +118,7 @@ fun BmiScreen(navController: NavHostController) {
 
         AnimatedVisibility(visible = state.dialogState) {
             ResultPredictionDialog(content = {
-                BmiCalculatorDialogContent(state.result){
+                CalculatorDialogContent(state.result){
                     vm.onDialogClosed()
                 }
             }, image = R.drawable.mbi_logo) {
