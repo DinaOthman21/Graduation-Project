@@ -4,8 +4,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 
 data class BmiScreenState(
-    val weight:Int = 110,
-    val height:Int = 110,
+    val weight:Int = 70,
+    val height:Int = 150,
     val dialogState:Boolean = false,
     val result:AnnotatedString = buildAnnotatedString {append("") }
 )

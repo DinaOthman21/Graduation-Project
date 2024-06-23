@@ -23,7 +23,9 @@ import com.example.medisim.presentation.authScreens.signUp.SignUpUserChronicScre
 import com.example.medisim.presentation.authScreens.signUp.SignUpUserInfoScreen
 import com.example.medisim.presentation.homeScreens.MainScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.MainCalculatorScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bfp.BodyFatPercentageScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bmi.BmiScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.calories.CaloriesScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.PostDetails
@@ -139,6 +141,14 @@ fun AppNavigation(
         composable(route = Screens.BmiCalculator.route){
             // MBI Calculator Screen
             BmiScreen(navController = navController)
+        }
+        composable(route = Screens.BfpCalculator.route){
+            // BFP Calculator Screen
+            BodyFatPercentageScreen(navController = navController)
+        }
+        composable(route = Screens.CaloriesCalculator.route){
+            // Calories Calculator Screen
+            CaloriesScreen(navController = navController)
         }
 
     }

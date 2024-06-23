@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -385,5 +385,108 @@ fun BmiCalculatorDialogContent(
     }
 
 }
+
+
+
+@Composable
+fun BfpCalculatorDialogContent(
+    result: AnnotatedString,
+    onDismiss: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+    ) {
+        Spacer(modifier = Modifier.height(40.dp))
+        Box(
+            modifier = Modifier
+                .background(
+                    brush = brush2,
+                    shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
+                )
+        ) {
+            LazyColumn(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            )  {
+                item {
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Text(
+                        text = result+ AnnotatedString("\n"),
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+
+                    Image(
+                        painter = painterResource(id = R.drawable.body_fat_man),
+                        modifier = Modifier
+                            .fillMaxSize()
+                        ,
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(modifier = Modifier.height(40.dp))
+                    ButtonClickOn(buttonText = stringResource(R.string.ok), paddingValue = 0) {
+                        onDismiss()
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                }
+
+
+
+            }
+        }
+    }
+
+}
+
+
+
+
+
+@Composable
+fun CaloriesCalculatorDialogContent(
+    result: AnnotatedString,
+    onDismiss: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+    ) {
+        Spacer(modifier = Modifier.height(40.dp))
+        Box(
+            modifier = Modifier
+                .background(
+                    brush = brush2,
+                    shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
+                )
+        ) {
+            LazyColumn(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            )  {
+                item {
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Text(
+                        text = result,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+
+                    Spacer(modifier = Modifier.height(40.dp))
+                    ButtonClickOn(buttonText = stringResource(R.string.ok), paddingValue = 0) {
+                        onDismiss()
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                }
+
+
+
+            }
+        }
+    }
+
+}
+
+
 
 

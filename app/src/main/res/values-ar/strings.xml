@@ -104,5 +104,19 @@
     <string name="indicates_that_your_weight_is_in_the">"indicates that your weight is in the "</string>
     <string name="category_for_a_person_of_your_height">category for a person of your height.</string>
     <string name="maintaining_a_healthy_weight_reduces_the_risk_of_diseases_associated_with_overweight_and_obesity">\n\nMaintaining a healthy weight reduces the risk of diseases associated with overweight and obesity.</string>
+    <string name="body_fat">"Body Fat: "</string>
+    <string name="type_of_work_daily">Type of work daily!</string>
+    <string name="light">Light</string>
+    <string name="moderate">Moderate</string>
+    <string name="heavy">Heavy</string>
+    <string name="daily_calories_need">Daily Calories Need</string>
+    <string name="maintain_weight">"Maintain weight   "</string>
+    <string name="calories_day_100">calories/day 100% \n\n</string>
+    <string name="mild_weight_loss">"Mild weight loss   "</string>
+    <string name="calories_day_90">calories/day 90% \n\n</string>
+    <string name="weight_loss">"Weight loss   "</string>
+    <string name="calories_day_79">calories/day 79% \n\n</string>
+    <string name="extreme_weight_loss">"Extreme weight loss   "</string>
+    <string name="calories_day_59">calories/day 59% \n\n</string>
 
 </resources>

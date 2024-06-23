@@ -15,5 +15,7 @@ sealed class Screens(val route:String){
     data object PostDetails : Screens(route = "postDetails")
     data object ChatAI : Screens(route = "chatAI")
     data object BmiCalculator : Screens(route = "bmiCalculator")
+    data object CaloriesCalculator : Screens(route = "caloriesCalculator")
+    data object BfpCalculator : Screens(route = "bfpCalculator")
 
 }

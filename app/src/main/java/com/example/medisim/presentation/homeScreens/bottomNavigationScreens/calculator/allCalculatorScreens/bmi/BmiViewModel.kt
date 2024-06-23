@@ -48,7 +48,11 @@ class BmiViewModel : ViewModel() {
             calculateBMI(_state.weight,_state.height)
             )
         _state = _state.copy(
-            result = annotatedString +  AnnotatedString(context.getString(R.string.maintaining_a_healthy_weight_reduces_the_risk_of_diseases_associated_with_overweight_and_obesity)),
+            result = annotatedString +  buildAnnotatedString {
+                withStyle(style = SpanStyle(color = Color.White)) {
+                    append(context.getString(R.string.maintaining_a_healthy_weight_reduces_the_risk_of_diseases_associated_with_overweight_and_obesity))
+                }
+            },
             dialogState = true
         )
 
@@ -102,4 +106,3 @@ class BmiViewModel : ViewModel() {
 }
 
 
-//\n\nMaintaining a healthy weight reduces the risk of diseases associated with overweight and obesity.

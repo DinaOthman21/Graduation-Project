@@ -51,7 +51,6 @@ import com.example.medisim.presentation.components.AnimatedTextWithTileModes
 import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.BmiCalculatorDialogContent
 import com.example.medisim.presentation.components.ButtonClickOn
-import com.example.medisim.presentation.components.PredictionDialogContent
 import com.example.medisim.presentation.components.ResultPredictionDialog
 import com.example.medisim.ui.theme.CommonComponent2
 import kotlinx.coroutines.launch
@@ -95,15 +94,15 @@ fun BmiScreen(navController: NavHostController) {
         AnimatedTextWithTileModes(stringResource(R.string.height_cm))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), number = 220){
+        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), number = 300){
             vm.onHeightSelected(it)
         }
 
         AnimatedTextWithTileModes(stringResource(R.string.weight_kg))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 35.dp),number = 220){
-            vm.onHeightSelected(it)
+        NumberPicker(modifier = Modifier.padding(vertical = 35.dp), initialFactor = 3,number = 210){
+            vm.onWeightSelected(it)
         }
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
@@ -134,13 +133,13 @@ fun BmiScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NumberPicker(modifier: Modifier = Modifier,number:Int,onSelectNumber:(Int)->Unit) {
+fun NumberPicker(modifier: Modifier = Modifier,number:Int,initialFactor:Int=2,onSelectNumber:(Int)->Unit) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val contentPadding = (maxWidth - 50.dp) / 2
         val offSet = maxWidth / 5
         val itemSpacing = offSet - 50.dp
         val pagerState = rememberPagerState(
-            initialPage = number/2,
+            initialPage = number/initialFactor,
             pageCount = { number }
         )
 
