@@ -94,7 +94,7 @@ class BodyFatViewModel : ViewModel() {
                 append(context.getString(R.string.body_fat))
             }
             withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
-                append("$result% ")
+                append("${String.format("%.2f", result)}% ")
             }
         }
     }

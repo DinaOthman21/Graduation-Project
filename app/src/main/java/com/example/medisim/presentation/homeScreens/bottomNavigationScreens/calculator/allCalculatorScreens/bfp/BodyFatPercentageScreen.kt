@@ -57,8 +57,8 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
             BackIcon{ navController.popBackStack()}
             Spacer(modifier = Modifier.width(40.dp))
             Text(
-                text = stringResource(R.string.body_mass_index),
-                modifier = Modifier.padding(top = 10.dp, bottom = 30.dp),
+                text = stringResource(R.string.body_fat_percentage),
+                modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 style = TextStyle(
                     fontSize = 30.sp, color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold

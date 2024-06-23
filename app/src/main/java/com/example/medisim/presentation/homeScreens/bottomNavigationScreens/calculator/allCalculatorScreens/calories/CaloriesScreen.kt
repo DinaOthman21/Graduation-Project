@@ -57,7 +57,7 @@ fun CaloriesScreen(navController: NavHostController) {
             BackIcon{ navController.popBackStack()}
             Spacer(modifier = Modifier.width(40.dp))
             Text(
-                text = stringResource(R.string.body_mass_index),
+                text = stringResource(id = R.string.daily_calories_need),
                 modifier = Modifier.padding(top = 10.dp, bottom = 30.dp),
                 style = TextStyle(
                     fontSize = 30.sp, color = MaterialTheme.colorScheme.primary,
@@ -98,7 +98,7 @@ fun CaloriesScreen(navController: NavHostController) {
 
         TextLabel(
             text = stringResource(R.string.type_of_work_daily),
-            modifier = Modifier.padding(bottom = 10.dp),
+            modifier = Modifier.padding(bottom = 10.dp,top = 35.dp),
             textFont = 18,
             textFontWight = FontWeight.Bold
         )
@@ -145,7 +145,7 @@ fun CaloriesScreen(navController: NavHostController) {
                 CaloriesCalculatorDialogContent(state.result){
                     vm.onDialogClosed()
                 }
-            }, image = R.drawable.calorie) {
+            }, image = R.drawable.calorie_logo2) {
                 vm.onDialogClosed()
             }
         }

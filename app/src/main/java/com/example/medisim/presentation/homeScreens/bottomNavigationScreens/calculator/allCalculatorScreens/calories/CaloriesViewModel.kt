@@ -69,19 +69,21 @@ class CaloriesViewModel : ViewModel() {
             val calories = calculateBEN() * calculatePAL()
             val result = buildResultAnnotatedString(context,calories)
             _state = _state.copy(
-                result = result
+                result = result,
+                dialogState = true
             )
         }
 
     }
 
     private fun buildResultAnnotatedString(context:Context,result:Double):AnnotatedString{
-       return buildAnnotatedString {
+
+        return buildAnnotatedString {
             withStyle(style = SpanStyle(color = Color.White)) {
                 append(context.getString(R.string.maintain_weight))
             }
             withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
-                append("$result ")
+                append("${String.format("%.2f", result)} ")
             }
             withStyle(style = SpanStyle(color = Color.White)) {
                 append(context.getString(R.string.calories_day_100))
@@ -91,7 +93,7 @@ class CaloriesViewModel : ViewModel() {
                append(context.getString(R.string.mild_weight_loss))
            }
            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
-               append("${(90/100.0) * result} ")
+               append("${String.format("%.2f", (90/100.0) * result)} ")
            }
            withStyle(style = SpanStyle(color = Color.White)) {
                append(context.getString(R.string.calories_day_90))
@@ -101,7 +103,7 @@ class CaloriesViewModel : ViewModel() {
                append(context.getString(R.string.weight_loss))
            }
            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
-               append("${(79/100.0) * result} ")
+               append("${String.format("%.2f", (79/100.0) * result)} ")
            }
            withStyle(style = SpanStyle(color = Color.White)) {
                append(context.getString(R.string.calories_day_79))
@@ -111,7 +113,7 @@ class CaloriesViewModel : ViewModel() {
                append(context.getString(R.string.extreme_weight_loss))
            }
            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
-               append("${(59/100.0) * result} ")
+               append("$${String.format("%.2f", (59/100.0) * result)} ")
            }
            withStyle(style = SpanStyle(color = Color.White)) {
                append(context.getString(R.string.calories_day_59))
