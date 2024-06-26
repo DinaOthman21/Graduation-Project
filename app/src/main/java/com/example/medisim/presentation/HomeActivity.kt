@@ -71,6 +71,9 @@ class HomeActivity : ComponentActivity() {
                     // to change it if language changed
                     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                         val currentUserState = profileViewModel.getLoginState()
+                        if(currentUserState){
+                            homeViewModel.getAllPosts()
+                        }
                         // UI code here, call app navigation to start application
                         AppNavigation(
                             currentUserState = currentUserState,

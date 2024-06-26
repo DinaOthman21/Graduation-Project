@@ -40,6 +40,11 @@ val HelperColor2 = Color(0xFF06BAF1)
 
 
 
+ val DarkComponentColor2 = Color(0xFF0E274E)
+ val DarkComponentColor1 = Color(0xFF0C1F3D)
+
+
+
 val brush =  Brush.linearGradient(
     colors = listOf(
         Color.Gray.copy(alpha = 0.6f),
@@ -50,8 +55,8 @@ val brush =  Brush.linearGradient(
 
 val brush2 =  Brush.linearGradient(
     colors = listOf(
-        CommonComponent.copy(alpha = 0.7f),
-        ComponentDark.copy(alpha = 0.8f),
+        CommonComponent.copy(alpha = 0.9f),
+        ComponentDark.copy(alpha = 0.9f),
         CommonComponent.copy(alpha = 0.9f),
     )
 )

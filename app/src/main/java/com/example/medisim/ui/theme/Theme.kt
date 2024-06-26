@@ -2,7 +2,6 @@ package com.example.medisim.ui.theme
 
 import android.app.Activity
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -23,6 +22,7 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = ComponentDark,
     onPrimary = CommonComponent,
     onSecondary = HelperColor2,
+    onTertiary = DarkComponentColor1
 
 )
 
@@ -34,6 +34,8 @@ private val LightColorScheme = lightColorScheme(
     tertiary = ComponentLight,
     onPrimary = CommonComponent,
     onSecondary = HelperColor,
+    onTertiary = ComponentLight
+
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

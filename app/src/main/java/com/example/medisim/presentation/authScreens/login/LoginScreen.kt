@@ -36,7 +36,11 @@ import com.example.medisim.presentation.navigation.Screens
 
 
 @Composable
-fun LoginScreen(navController: NavHostController,loginViewModel: LoginScreenViewModel) {
+fun LoginScreen(
+    navController: NavHostController,
+    loginViewModel: LoginScreenViewModel,
+    allPosts:()-> Unit
+) {
     val state = loginViewModel.state.value
     val context = LocalContext.current
 
@@ -108,7 +112,7 @@ fun LoginScreen(navController: NavHostController,loginViewModel: LoginScreenView
             paddingValue = 30
         ) {
             // on login click
-            loginViewModel.onLoginClick(navController,context)
+            loginViewModel.onLoginClick(navController,context,allPosts)
         }
         Row {
             Text(

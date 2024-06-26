@@ -76,7 +76,7 @@ class LoginScreenViewModel @Inject constructor(
     // user click on button to login
     // make check in data and then call login endpoint
     // to get token 
-    fun onLoginClick(navController: NavHostController,context: Context){
+    fun onLoginClick(navController: NavHostController, context: Context, allPosts: () -> Unit){
         if (_state.email.isEmpty()){
             _state=_state.copy(
                 isErrorEmail = true,
@@ -132,6 +132,9 @@ class LoginScreenViewModel @Inject constructor(
                     )
                     // go to home screen after save token in sharedPreferences
                     withContext(Dispatchers.Main){
+                        // load posts home screen
+                        allPosts()
+
                         navController.navigate(Screens.Home.route){
                             popUpTo(Screens.Login.route) {
                                 inclusive = true

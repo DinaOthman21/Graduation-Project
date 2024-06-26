@@ -36,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -47,7 +46,6 @@ import androidx.core.content.ContextCompat
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.LottieAnimationShow
-import com.example.medisim.presentation.components.PredictionDialogContent
 import com.example.medisim.presentation.components.ResultPredictionDialog
 import com.example.medisim.presentation.components.SkinDialogContent
 import com.example.medisim.presentation.components.TextLabel
@@ -55,7 +53,7 @@ import com.example.medisim.ui.theme.brush
 
 
 fun setImage(url: Uri,context:Context,onImageSelected:(Bitmap)->Unit){
-    var bitmap:Bitmap? = null
+    var bitmap:Bitmap?
 
     bitmap = if (Build.VERSION.SDK_INT < 28) {
         MediaStore.Images
@@ -87,13 +85,13 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
     val launcher = rememberLauncherForActivityResult(contract =
     ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
+
             // set image in viewModel
             setImage(it, context ){btm->
                 skinDiseaseViewModel.onSelectImage(btm)
             }
         }
     }
-
 
     val takePictureLauncher  = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
@@ -105,6 +103,7 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
                 // Update the UI or do something with the imageBitmap
                 skinDiseaseViewModel.onSelectImage(imageBitmap)
             }
+
         }
 
     }
@@ -206,7 +205,7 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
             if (state.image == null){
                 Toast.makeText(context, context.getString(R.string.please_scan_or_select_you_image),Toast.LENGTH_SHORT).show()
             }else{
-                skinDiseaseViewModel.onDetectClick()
+                skinDiseaseViewModel.onDetectClick(context)
             }
 
         }

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.ScreenLazyRow
+import com.example.medisim.presentation.components.ShimmerPostsList
 import com.example.medisim.presentation.components.TextWithBoldUnderLine
 import com.example.medisim.presentation.components.VerticalAvoidCard
 import com.example.medisim.presentation.navigation.Screens
@@ -22,47 +23,49 @@ import com.example.medisim.presentation.navigation.Screens
 fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
     val posts = homeViewModel.postsList.collectAsState().value
 
-    LazyColumn(
-        modifier = Modifier.padding(top = 10.dp)
-    ){
+    if(posts.isNotEmpty()) {
+        LazyColumn(
+            modifier = Modifier.padding(top = 10.dp)
+        ){
 
+            item{
+                Column {
+                    // make title for "Advices" with small bold under line
+                    TextWithBoldUnderLine(
+                        text = stringResource(R.string.advices),
+                        lineColor  = MaterialTheme.colorScheme.onSecondary
+                    )
 
+                    // this for the Horizontal Advices posts
+                    ScreenLazyRow(posts = posts.filter { it.isAdvice }){post->
+                        // on user click on post to show its details
+                        // navController.currentBackStackEntry?.arguments?.putParcelable("user", user) // old
+                        navController.currentBackStackEntry?.savedStateHandle?.set("post", post) // new
+                        navController.navigate(Screens.PostDetails.route)
 
-        item{
-            Column {
-                // make title for "Advices" with small bold under line
-                TextWithBoldUnderLine(
-                    text = stringResource(R.string.advices),
-                    lineColor  = MaterialTheme.colorScheme.onSecondary
-                )
+                    }
 
-                // this for the Horizontal Advices posts
-                ScreenLazyRow(posts = posts.filter { it.isAdvice }){post->
+                    // also make title for "Avoid" with small bold under line
+                    TextWithBoldUnderLine(
+                        text = stringResource(R.string.avoid),
+                        lineColor  = MaterialTheme.colorScheme.onSecondary
+                    )
+                }
+            }
+
+            // this items for Avoid posts
+            items(posts.filter { it.isAdvice.not() }){
+                VerticalAvoidCard(it){post->
                     // on user click on post to show its details
-                    // navController.currentBackStackEntry?.arguments?.putParcelable("user", user) // old
                     navController.currentBackStackEntry?.savedStateHandle?.set("post", post) // new
                     navController.navigate(Screens.PostDetails.route)
 
                 }
-
-                // also make title for "Avoid" with small bold under line
-                TextWithBoldUnderLine(
-                    text = stringResource(R.string.avoid),
-                    lineColor  = MaterialTheme.colorScheme.onSecondary
-                )
             }
         }
-
-        // this items for Avoid posts
-        items(posts.filter { it.isAdvice.not() }){
-            VerticalAvoidCard(it){post->
-                // on user click on post to show its details
-                navController.currentBackStackEntry?.savedStateHandle?.set("post", post) // new
-                navController.navigate(Screens.PostDetails.route)
-
-            }
-        }
-
-
+    }else{
+        ShimmerPostsList()
     }
+
+
 }

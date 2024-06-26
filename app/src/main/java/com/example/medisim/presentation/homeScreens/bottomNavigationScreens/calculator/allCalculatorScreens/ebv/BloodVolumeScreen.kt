@@ -29,7 +29,6 @@ import com.example.medisim.presentation.components.CalculatorDialogContent
 import com.example.medisim.presentation.components.CheckboxWithName
 import com.example.medisim.presentation.components.ResultPredictionDialog
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bfp.BodyFatViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bmi.NumberPicker
 
 
@@ -61,7 +60,7 @@ fun BloodVolumeScreen(navController: NavHostController) {
                 text = stringResource(R.string.estimated_blood_volume),
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 style = TextStyle(
-                    fontSize = 30.sp, color = MaterialTheme.colorScheme.primary,
+                    fontSize = 26.sp, color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 ),
             )

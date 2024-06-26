@@ -5,6 +5,9 @@
       <entry key="LoginScreen">
         <State />
       </entry>
+      <entry key="ShimmerGridItemPreview">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>

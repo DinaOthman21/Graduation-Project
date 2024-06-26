@@ -26,6 +26,7 @@ import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calc
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bfp.BodyFatPercentageScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bmi.BmiScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.calories.CaloriesScreen
+import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.ebv.BloodVolumeScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.PostDetails
@@ -76,7 +77,7 @@ fun AppNavigation(
     NavHost(navController = navController, startDestination = if (currentUserState) Screens.Home.route else Screens.Login.route ){
         composable(route = Screens.Login.route){
             // login screen
-            LoginScreen(navController = navController,loginViewModel = loginViewModel)
+            LoginScreen(navController = navController,loginViewModel = loginViewModel) { homeViewModel.getAllPosts() }
         }
         composable(route = Screens.ForgotPassword.route){
             // ForgotPassword screen
@@ -104,11 +105,14 @@ fun AppNavigation(
         }
         composable(route = Screens.RegistrationSuccessfully.route){
             // Registration Successfully screen
-            RegistrationSuccessfullyScreen(navController = navController)
+            RegistrationSuccessfullyScreen(navController = navController){homeViewModel.getAllPosts()}
         }
         composable(route = Screens.Home.route){
             // Home screen
             ChangeStatusBarColor(isBackgroundColor = true)
+
+            // get all posts
+           // Log.d("Home",">>>>>>>>>>>>>>>>>>>>>>>>>> homeViewModel.getAllPosts() <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
             MainScreen(
                 navController,
                 homeViewModel,
@@ -149,6 +153,10 @@ fun AppNavigation(
         composable(route = Screens.CaloriesCalculator.route){
             // Calories Calculator Screen
             CaloriesScreen(navController = navController)
+        }
+        composable(route = Screens.BvCalculator.route){
+            // Calories Calculator Screen
+            BloodVolumeScreen(navController = navController)
         }
 
     }

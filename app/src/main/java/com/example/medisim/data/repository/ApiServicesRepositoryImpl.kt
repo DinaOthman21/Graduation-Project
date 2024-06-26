@@ -11,12 +11,12 @@ import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.data.remote.dto.main.PredictionDisease
 import com.example.medisim.data.remote.dto.main.PredictionDiseaseBody
-import com.example.medisim.data.remote.dto.main.SkinDiseaseBody
 import com.example.medisim.data.remote.dto.main.SkinDiseaseResponse
 import com.example.medisim.data.remote.dto.main.Symptom
 import com.example.medisim.domain.repository.ApiServicesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 
@@ -123,7 +123,7 @@ class ApiServicesRepositoryImpl @Inject constructor(
         return predictionResult
     }
 
-    override suspend fun skinDetect(skinDiseaseBody: SkinDiseaseBody): SkinDiseaseResponse? {
+    override suspend fun skinDetect(imagePart: MultipartBody.Part): SkinDiseaseResponse? {
         var skinDiseaseResponse:SkinDiseaseResponse? = null
         try {
             val response = api.skinDetection()

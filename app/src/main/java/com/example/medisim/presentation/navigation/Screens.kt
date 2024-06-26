@@ -17,5 +17,6 @@ sealed class Screens(val route:String){
     data object BmiCalculator : Screens(route = "bmiCalculator")
     data object CaloriesCalculator : Screens(route = "caloriesCalculator")
     data object BfpCalculator : Screens(route = "bfpCalculator")
+    data object BvCalculator : Screens(route = "bvCalculator")
 
 }

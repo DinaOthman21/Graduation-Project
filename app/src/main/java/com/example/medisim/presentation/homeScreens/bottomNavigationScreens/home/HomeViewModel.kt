@@ -21,11 +21,11 @@ class HomeViewModel @Inject constructor(
     private val _postsList = MutableStateFlow(emptyList<Post>())
     val postsList: StateFlow<List<Post>> = _postsList
 
-    init {
-        getAllPosts()
-    }
+//    init {
+//        getAllPosts()
+//    }
 
-    private fun getAllPosts() {
+     fun getAllPosts() {
         val token = pref.getSharedPreferences("token","")
         viewModelScope.launch(Dispatchers.IO) {
             repo.getPosts(token).collect{

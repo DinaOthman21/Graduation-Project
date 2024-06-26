@@ -20,6 +20,7 @@ import com.example.medisim.presentation.navigation.Screens
 @Composable
 fun MainCalculatorScreen(appNavController: NavHostController) {
 
+
     LazyColumn (
         modifier = Modifier
             .fillMaxSize()
@@ -62,9 +63,9 @@ fun MainCalculatorScreen(appNavController: NavHostController) {
           ImageButtonWithText(
               image = R.drawable.blood_volume,
               text = stringResource(R.string.estimated_blood_volume)
-          ){}
-
-
+          ){
+              appNavController.navigate(Screens.BvCalculator.route)
+          }
       }
     }
 }

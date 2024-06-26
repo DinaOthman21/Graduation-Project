@@ -10,10 +10,10 @@ import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.data.remote.dto.main.PredictionDisease
 import com.example.medisim.data.remote.dto.main.PredictionDiseaseBody
-import com.example.medisim.data.remote.dto.main.SkinDiseaseBody
 import com.example.medisim.data.remote.dto.main.SkinDiseaseResponse
 import com.example.medisim.data.remote.dto.main.Symptom
 import kotlinx.coroutines.flow.StateFlow
+import okhttp3.MultipartBody
 
 interface ApiServicesRepository {
     suspend fun login(loginData:LoginBody):LoginResponse
@@ -22,7 +22,7 @@ interface ApiServicesRepository {
     suspend fun getPosts(token:String):StateFlow<List<Post>>
     suspend fun getSymptoms():StateFlow<List<Symptom>>
     suspend fun predict(predictionDiseaseBody: PredictionDiseaseBody):List<PredictionDisease>?
-    suspend fun skinDetect(skinDiseaseBody: SkinDiseaseBody):SkinDiseaseResponse?
+    suspend fun skinDetect(imagePart: MultipartBody.Part):SkinDiseaseResponse?
     suspend fun getTestResult():MedicalTestResponse?
     suspend fun search(searchedItem:String):Medicine?
 }

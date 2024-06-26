@@ -47,9 +47,12 @@ interface ApiServices {
     suspend fun predict(): Response<List<PredictionDisease>>
 
 
+//    @Multipart
 //    @GET("skinDetection.json")
-//    suspend fun skinDetection(): SkinDiseaseResponse
-//
+//    suspend fun skinDetection(
+//    @Part image: MultipartBody.Part
+//        ): Response<SkinDiseaseResponse>
+
 
     @GET("skinDetection.json")
     suspend fun skinDetection(): Response<SkinDiseaseResponse>
