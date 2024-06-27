@@ -20,9 +20,7 @@ import com.example.medisim.presentation.navigation.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -161,11 +159,19 @@ class SignUpScreenViewModel @Inject constructor(
             )
 
         }
+        if (_state.confirmPassword != _state.password ){
+            _state=_state.copy(
+                isErrorConfirmPassword = true,
+                confirmPasswordErrorMessage = context.getString(R.string.confirm_password_not_match_password)
+            )
+
+        }
         if (_state.userName.isNotEmpty() &&
             _state.password.isNotEmpty() &&
             _state.confirmPassword.isNotEmpty() &&
             _state.email.isNotEmpty() &&
-            isValidEmail(_state.email)
+            isValidEmail(_state.email) &&
+            _state.confirmPassword == _state.password
             ){
             navController.navigate(Screens.UserInfo.route)
         }

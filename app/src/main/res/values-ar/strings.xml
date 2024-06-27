@@ -118,5 +118,9 @@
     <string name="calories_day_79">calories/day 79% \n\n</string>
     <string name="extreme_weight_loss">"Extreme weight loss   "</string>
     <string name="calories_day_59">calories/day 59% \n\n</string>
+    <string name="please_enter_otp_number">Please enter OTP number</string>
+    <string name="otp_number_not_correct">OTP number Not Correct</string>
+    <string name="confirm_password_not_match_password">confirm Password not match password</string>
+    <string name="some_error_happen_please_make_sure_password_match_confirmpassword">Some Error Happen Please Make sure Password Match ConfirmPassword*</string>
 
 </resources>

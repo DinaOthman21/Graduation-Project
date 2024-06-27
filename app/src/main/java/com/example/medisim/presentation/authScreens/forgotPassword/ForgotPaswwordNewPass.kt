@@ -1,21 +1,14 @@
 package com.example.medisim.presentation.authScreens.forgotPassword
 
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,12 +18,12 @@ import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.PasswordEditText
 import com.example.medisim.presentation.components.TextLabel
-import com.example.medisim.ui.theme.brush
 
 
 @Composable
 fun ForgotPasswordNewPassword(navController: NavHostController,forgotPasswordViewModel: ForgotPasswordViewModel) {
     val state = forgotPasswordViewModel.state.value
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -79,7 +72,7 @@ fun ForgotPasswordNewPassword(navController: NavHostController,forgotPasswordVie
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.save),
-            paddingValue = 0) {forgotPasswordViewModel.onSaveClick(navController)}
+            paddingValue = 0) {forgotPasswordViewModel.onSaveClick(navController, context )}
 
 
 

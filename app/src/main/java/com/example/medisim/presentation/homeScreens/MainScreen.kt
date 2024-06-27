@@ -12,16 +12,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
@@ -30,8 +26,6 @@ import androidx.compose.material.icons.automirrored.outlined.Chat
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
@@ -41,7 +35,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -66,7 +59,6 @@ import com.example.medisim.presentation.navigation.BottomNavigation
 import com.example.medisim.presentation.navigation.NavigationScreen
 import com.example.medisim.presentation.navigation.Screens
 import com.example.medisim.ui.theme.CommonComponent2
-import com.example.medisim.ui.theme.animatedShimmerColor
 import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -168,47 +160,8 @@ fun MainScreen(
                 NavigationDrawerBody(appNavController,profileViewModel)
             }
         },
-        // floating action button it for the item of bottom navigation
-        // we use it as center button in bottom navigation
-        floatingActionButton = {
-            Button (
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                enabled = true,
-                onClick = {
-                    // navigate to
-                    navController.navigate(NavigationScreen.MedicalTest.route) {
-                        popUpTo(navController.graph.findStartDestination().id)
-                        launchSingleTop = true
-                    }
-                },
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape)
-                    .background(
-                        animatedShimmerColor(
-                            shimmerColors = listOf(
-                                CommonComponent2.copy(0.9f),
-                                CommonComponent2.copy(0.6f),
-                                CommonComponent2.copy(0.9f)
-                            ),
-                            durationMillis = 2000
-                        )
-                    ),
-                contentPadding = PaddingValues(all = 17.dp)
 
 
-                ){
-                Box(modifier = Modifier.fillMaxSize()){
-                    Icon(
-                        painter = painterResource(id = NavigationScreen.MedicalTest.icon),
-                        modifier = Modifier.size(120.dp),
-                        tint = MaterialTheme.colorScheme.background,
-                        contentDescription = "Add",
-                    )
-                }
-
-            }
-        },
         // bottom navigation contain screens in list and empty item in middle
         // to make space for fab.
         bottomBar = {
@@ -217,17 +170,17 @@ fun MainScreen(
                 modifier = Modifier
                     .height(60.dp)
             ){
-                screens.forEachIndexed { index,screen->
+                screens.forEachIndexed { _, screen->
                     // if this item is middle item then make empty item
                     // to make fab free space
-                    if (index == 2){
-                        NavigationBarItem(
-                            selected = false,
-                            onClick = {},
-                            icon = {},
-                            enabled = false
-                        )
-                    }
+//                    if (index == 2){
+//                        NavigationBarItem(
+//                            selected = false,
+//                            onClick = {},
+//                            icon = {},
+//                            enabled = false
+//                        )
+//                    }
                     NavigationBarItem(
                         selected = false,
                         onClick = {
@@ -273,6 +226,54 @@ fun MainScreen(
         },
         isFloatingActionButtonDocked = true,
         floatingActionButtonPosition = FabPosition.Center
+
+
+
+        // floating action button it for the item of bottom navigation
+        // we use it as center button in bottom navigation
+//        floatingActionButton = {
+//            Button (
+//                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+//                enabled = true,
+//                onClick = {
+//                    // navigate to
+//                    navController.navigate(NavigationScreen.MedicalTest.route) {
+//                        popUpTo(navController.graph.findStartDestination().id)
+//                        launchSingleTop = true
+//                    }
+//                },
+//                modifier = Modifier
+//                    .size(60.dp)
+//                    .clip(CircleShape)
+//                    .background(
+//                        animatedShimmerColor(
+//                            shimmerColors = listOf(
+//                                CommonComponent2.copy(0.9f),
+//                                CommonComponent2.copy(0.6f),
+//                                CommonComponent2.copy(0.9f)
+//                            ),
+//                            durationMillis = 2000
+//                        )
+//                    ),
+//                contentPadding = PaddingValues(all = 17.dp)
+//
+//
+//                ){
+//                Box(modifier = Modifier.fillMaxSize()){
+//                    Icon(
+//                        painter = painterResource(id = NavigationScreen.MedicalTest.icon),
+//                        modifier = Modifier.size(120.dp),
+//                        tint = MaterialTheme.colorScheme.background,
+//                        contentDescription = "Add",
+//                    )
+//                }
+//
+//            }
+//        },
+
+
+
+
 
 
     ){

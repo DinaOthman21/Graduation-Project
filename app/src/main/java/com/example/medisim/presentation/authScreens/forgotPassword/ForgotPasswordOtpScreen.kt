@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,7 +25,7 @@ import com.example.medisim.presentation.components.TextLabel
 fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: ForgotPasswordViewModel) {
 
     val state = forgotPasswordViewModel.state.value
-//    val context = LocalContext.current
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(12.dp),
@@ -52,7 +53,8 @@ fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: 
         )
         OtpTextField(
             otpText = state.otpNumber,
-            otpErrorMessage = state.otpErrorMessage
+            otpErrorMessage = state.otpErrorMessage,
+            otpLength = 6
         ) {newOtp->
             forgotPasswordViewModel.onOtpCodeChange(newOtp)
         }
@@ -61,7 +63,7 @@ fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: 
         ButtonClickOn(
             buttonText = stringResource(R.string.submit),
             paddingValue = 0
-        ) { forgotPasswordViewModel.onSendOtpToServer(navController) }
+        ) { forgotPasswordViewModel.onSendOtpToServer(navController,context) }
 
 
 

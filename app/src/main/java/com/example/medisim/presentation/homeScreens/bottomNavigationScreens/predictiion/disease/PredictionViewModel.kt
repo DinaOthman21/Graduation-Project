@@ -5,20 +5,15 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.medisim.data.remote.dto.main.PredictionDiseaseBody
 import com.example.medisim.data.remote.dto.main.Symptom
 import com.example.medisim.domain.repository.ApiServicesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import java.util.Locale
 import javax.inject.Inject
 
 
@@ -145,7 +140,7 @@ class PredictionViewModel @Inject constructor(private val repo:ApiServicesReposi
             list.add(it.id)
         }
         viewModelScope.launch(Dispatchers.IO){
-            val result = repo.predict(PredictionDiseaseBody(selectedSymptomIDs = list))
+            val result = repo.predict(selectedSymptomIDs = list)
             _state = _state.copy(
                 predictionDiseaseResponse = result,
                 dialogState = true
