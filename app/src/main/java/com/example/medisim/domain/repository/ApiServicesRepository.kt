@@ -8,7 +8,6 @@ import com.example.medisim.data.remote.dto.auth.SignUpBody
 import com.example.medisim.data.remote.dto.auth.SignUpResponse
 import com.example.medisim.data.remote.dto.auth.VerifyOtpRequestBody
 import com.example.medisim.data.remote.dto.main.ChronicDisease
-import com.example.medisim.data.remote.dto.main.MedicalTestResponse
 import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.data.remote.dto.main.PredictionDisease
@@ -37,6 +36,5 @@ interface ApiServicesRepository {
 
 
 
-    suspend fun getTestResult():MedicalTestResponse?
 
 }

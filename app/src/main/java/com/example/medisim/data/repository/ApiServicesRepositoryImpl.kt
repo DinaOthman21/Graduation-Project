@@ -9,7 +9,6 @@ import com.example.medisim.data.remote.dto.auth.SignUpBody
 import com.example.medisim.data.remote.dto.auth.SignUpResponse
 import com.example.medisim.data.remote.dto.auth.VerifyOtpRequestBody
 import com.example.medisim.data.remote.dto.main.ChronicDisease
-import com.example.medisim.data.remote.dto.main.MedicalTestResponse
 import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.data.remote.dto.main.PredictionDisease
@@ -182,22 +181,6 @@ class ApiServicesRepositoryImpl @Inject constructor(
         return skinDiseaseResponse
     }
 
-    override suspend fun getTestResult(): MedicalTestResponse? {
-        var medicalTestResponse:MedicalTestResponse? = null
-        try {
-            val response = api.getTestResult()
-            if (response.isSuccessful){
-                medicalTestResponse = response.body()!!
-            }
-
-        }catch (e:Exception){
-            e.printStackTrace()
-            return medicalTestResponse
-        }
-
-        return medicalTestResponse
-
-    }
 
     override suspend fun search(searchedItem: String): Medicine? {
         var medicine:Medicine? = null

@@ -27,6 +27,7 @@ import androidx.navigation.NavHostController
 import com.example.medisim.R
 import com.example.medisim.presentation.components.AppNameWithHiatusFont
 import com.example.medisim.presentation.components.ButtonClickOn
+import com.example.medisim.presentation.components.ButtonClickOnBorder
 import com.example.medisim.presentation.components.CheckboxWithName
 import com.example.medisim.presentation.components.EmailEditText
 import com.example.medisim.presentation.components.ImageButtonClick
@@ -51,7 +52,7 @@ fun LoginScreen(
             .padding(
             start = 15.dp,
             top =35.dp,
-            bottom = 20.dp
+            bottom = 50.dp
         ),
             showAiString = true
         )
@@ -106,6 +107,7 @@ fun LoginScreen(
 
         }
 
+        Spacer(modifier = Modifier.weight(1f))
 
         ButtonClickOn(
             buttonText = stringResource(R.string.login),
@@ -123,71 +125,19 @@ fun LoginScreen(
 
         }
 
+        ButtonClickOnBorder(
+            buttonText =  stringResource(R.string.sign_up),
+            paddingValueTop = 10,
+            paddingValueBottom = 40,
+            buttonColor = MaterialTheme.colorScheme.onBackground,
+            textColor = MaterialTheme.colorScheme.onSurface
 
-        Row(
-            modifier = Modifier.padding(top = 15.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.don_t_have_account),
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = stringResource(R.string.sign_up),
-                style = TextStyle(
-                    color = MaterialTheme.colorScheme.onSecondary,
-                ),
-                modifier = Modifier.clickable {
-                    // on sign up text click
-                   navController.navigate(Screens.SignUp.route)
-
-                }
-            )
-        }
-
-        Row (
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(top = 20.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
         ){
-            Divider(
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier
-                    .width(120.dp)
-                    .height(1.dp)
-            )
-            TextLabel(
-                text = stringResource(R.string.or),
-                modifier = Modifier.padding(horizontal = 2.dp),
-                textColor = MaterialTheme.colorScheme.secondary,
-                textFont = 14
-            )
-            Divider(
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier
-                    .width(120.dp)
-                    .height(1.dp)
-            )
+            // on sign up text click
+            navController.navigate(Screens.SignUp.route)
         }
 
-        Row (
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ){
-            ImageButtonClick(image = R.drawable.google_logo_light, paddingValue = 20) {
 
-            }
-            ImageButtonClick(image = R.drawable.google_logo_light, paddingValue = 20) {
-
-            }
-        }
 
     }
 

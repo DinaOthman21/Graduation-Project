@@ -19,7 +19,6 @@ import com.example.medisim.presentation.authScreens.login.LoginScreenViewModel
 import com.example.medisim.presentation.authScreens.signUp.SignUpScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease.SkinDiseaseScreenViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.chatAI.ChatAIViewModel
@@ -40,7 +39,6 @@ class HomeActivity : ComponentActivity() {
     private val medicineViewModel by viewModels<MedicineScreenViewModel>()
     private val predictionViewModel by viewModels<PredictionViewModel>()
     private val skinDiseaseViewModel by viewModels<SkinDiseaseScreenViewModel>()
-    private val medicalTestViewModel by viewModels<MedicalTestScreenViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,7 +84,6 @@ class HomeActivity : ComponentActivity() {
                             medicineViewModel = medicineViewModel,
                             predictionViewModel = predictionViewModel,
                             skinDiseaseViewModel = skinDiseaseViewModel,
-                            medicalTestViewModel = medicalTestViewModel
                         )
                     }
 

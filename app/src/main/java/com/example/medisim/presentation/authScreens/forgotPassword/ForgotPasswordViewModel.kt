@@ -15,11 +15,14 @@ import com.example.medisim.data.remote.dto.auth.ForgetPasswordRequestBody
 import com.example.medisim.data.remote.dto.auth.VerifyOtpRequestBody
 import com.example.medisim.domain.repository.ApiServicesRepository
 import com.example.medisim.presentation.navigation.Screens
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
+@HiltViewModel
 class ForgotPasswordViewModel @Inject constructor(private val repo : ApiServicesRepository,) : ViewModel() {
 
     private var _state by mutableStateOf(
@@ -211,6 +214,7 @@ class ForgotPasswordViewModel @Inject constructor(private val repo : ApiServices
                     _state=_state.copy(
                         isErrorConfirmPassword = true,
                         confirmPasswordErrorMessage = context.getString(R.string.some_error_happen_please_make_sure_password_match_confirmpassword)
+
                     )
                 }
             }

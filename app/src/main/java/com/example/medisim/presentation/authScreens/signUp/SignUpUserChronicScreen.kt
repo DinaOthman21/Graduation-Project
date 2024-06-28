@@ -33,6 +33,7 @@ import com.example.medisim.data.remote.dto.main.ChronicDisease
 import com.example.medisim.presentation.components.BackIcon
 import com.example.medisim.presentation.components.ButtonClickOn
 import com.example.medisim.presentation.components.TextLabel
+import com.example.medisim.presentation.components.TextTitle
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -117,7 +118,15 @@ fun ChronicDiseaseCard(
             .padding(vertical = 15.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
-        TextLabel(text = if (isArabicLang) chronicDisease.arName else chronicDisease.enName, textFont = 18)
+//        TextLabel(text = if (isArabicLang) chronicDisease.arName else chronicDisease.enName,
+//            textFont = 18)
+        TextTitle(
+            text =  if (isArabicLang) chronicDisease.arName else chronicDisease.enName,
+            modifier = Modifier.weight(0.9f),
+            textFontWight = FontWeight.Bold,
+            maxLines = 2,
+            textColor = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.width(26.dp))
 //        SelectedIconWithName(
 //            name = stringResource(R.string.yse),
@@ -125,7 +134,7 @@ fun ChronicDiseaseCard(
 //            onSelect = { onSelectChronic() }
 //
 //        )
-        Spacer(modifier = Modifier.weight(1f))
+//        Spacer(modifier = Modifier.weight(1f))
         SelectedIconWithName(
             name = stringResource(R.string.empty_string),
             chronicDisease = chronicDisease,

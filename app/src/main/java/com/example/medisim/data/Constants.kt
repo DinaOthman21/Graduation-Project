@@ -20,7 +20,7 @@ object Constants {
     const val CHAT_API_SERVICES_URL_BASE="https://api.groq.com/openai/v1/"
 
 
-    const val API_SERVICES_URL_BASE="https://medisim-1a16d-default-rtdb.firebaseio.com/"
+    const val API_SERVICES_URL_BASE="https://medisim.tryasp.net/"
 
 
 //    const val CHAT_MODEL="gpt-3.5-turbo"

@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -38,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat.finishAffinity
@@ -49,7 +49,6 @@ import com.example.medisim.R
 import com.example.medisim.presentation.components.TextWithHiatusFont
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease.SkinDiseaseScreenViewModel
 import com.example.medisim.presentation.homeScreens.topNavigationScreens.profile.NavigationDrawerBody
@@ -70,7 +69,7 @@ fun MainScreen(
     predictionViewModel: PredictionViewModel,
     medicineViewModel: MedicineScreenViewModel,
     skinDiseaseViewModel: SkinDiseaseScreenViewModel,
-    medicalTestViewModel: MedicalTestScreenViewModel
+
 ) {
 
     // use it when user need to exit app to show toast to click again to exit.
@@ -91,6 +90,13 @@ fun MainScreen(
         NavigationScreen.Prediction,
         NavigationScreen.Drug,
         NavigationScreen.Calculator
+    )
+
+    val screensName = listOf(
+        stringResource(R.string.home),
+        stringResource(R.string.prediction),
+        stringResource(R.string.drug),
+        stringResource(R.string.calculator)
     )
 
     // back stack & currentRoute to handel route of bottom navigation for user
@@ -120,11 +126,13 @@ fun MainScreen(
                             Spacer(modifier = Modifier.weight(1f))
                             Icon(
                                 imageVector = Icons.Default.Person,
-                                modifier = Modifier.padding(8.dp).clickable {
-                                    scope.launch {
-                                        scaffoldState.drawerState.open()
-                                    }
-                                },
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .clickable {
+                                        scope.launch {
+                                            scaffoldState.drawerState.open()
+                                        }
+                                    },
                                 contentDescription = "",
                                 tint = MaterialTheme.colorScheme.primary
                             )
@@ -132,7 +140,7 @@ fun MainScreen(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Outlined.Chat,
                                 modifier = Modifier
-                                    .padding(8.dp,end = 16.dp)
+                                    .padding(8.dp, end = 16.dp)
                                     .clickable {
                                         appNavController.navigate(Screens.ChatAI.route)
                                     },
@@ -170,17 +178,8 @@ fun MainScreen(
                 modifier = Modifier
                     .height(60.dp)
             ){
-                screens.forEachIndexed { _, screen->
-                    // if this item is middle item then make empty item
-                    // to make fab free space
-//                    if (index == 2){
-//                        NavigationBarItem(
-//                            selected = false,
-//                            onClick = {},
-//                            icon = {},
-//                            enabled = false
-//                        )
-//                    }
+                screens.forEachIndexed { idx, screen->
+
                     NavigationBarItem(
                         selected = false,
                         onClick = {
@@ -203,7 +202,7 @@ fun MainScreen(
                                 )
                                 Spacer(modifier = Modifier.width(2.dp))
                                 Text(
-                                    text = screen.title,
+                                    text = screensName[idx],
                                     fontSize = 16.sp,
                                     modifier = Modifier,
                                     color = if(screen.route == currentRoute) CommonComponent2
@@ -224,56 +223,6 @@ fun MainScreen(
 
 
         },
-        isFloatingActionButtonDocked = true,
-        floatingActionButtonPosition = FabPosition.Center
-
-
-
-        // floating action button it for the item of bottom navigation
-        // we use it as center button in bottom navigation
-//        floatingActionButton = {
-//            Button (
-//                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-//                enabled = true,
-//                onClick = {
-//                    // navigate to
-//                    navController.navigate(NavigationScreen.MedicalTest.route) {
-//                        popUpTo(navController.graph.findStartDestination().id)
-//                        launchSingleTop = true
-//                    }
-//                },
-//                modifier = Modifier
-//                    .size(60.dp)
-//                    .clip(CircleShape)
-//                    .background(
-//                        animatedShimmerColor(
-//                            shimmerColors = listOf(
-//                                CommonComponent2.copy(0.9f),
-//                                CommonComponent2.copy(0.6f),
-//                                CommonComponent2.copy(0.9f)
-//                            ),
-//                            durationMillis = 2000
-//                        )
-//                    ),
-//                contentPadding = PaddingValues(all = 17.dp)
-//
-//
-//                ){
-//                Box(modifier = Modifier.fillMaxSize()){
-//                    Icon(
-//                        painter = painterResource(id = NavigationScreen.MedicalTest.icon),
-//                        modifier = Modifier.size(120.dp),
-//                        tint = MaterialTheme.colorScheme.background,
-//                        contentDescription = "Add",
-//                    )
-//                }
-//
-//            }
-//        },
-
-
-
-
 
 
     ){
@@ -287,7 +236,6 @@ fun MainScreen(
                 medicineViewModel = medicineViewModel,
                 predictionViewModel = predictionViewModel,
                 skinDiseaseViewModel = skinDiseaseViewModel,
-                medicalTestViewModel = medicalTestViewModel
             )
         }
 

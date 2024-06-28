@@ -95,6 +95,9 @@ fun HorizontalAdviceCard(post: Post,onPostClick:(Post)->Unit) {
 
         ViewImage(
             image = post.imgLink,
+            modifier = Modifier
+                .width(300.dp)
+                .height(220.dp),
             contentDescription ="Advice image"
         )
 

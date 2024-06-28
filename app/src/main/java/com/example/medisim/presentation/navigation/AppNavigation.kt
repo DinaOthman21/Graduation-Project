@@ -30,10 +30,8 @@ import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calc
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.HomeViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.home.PostDetails
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.medicine.MedicineScreenViewModel
-import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.mediclaTest.MedicalTestScreenViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.PredictionScreen
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.disease.PredictionViewModel
 import com.example.medisim.presentation.homeScreens.bottomNavigationScreens.predictiion.skinDisease.SkinDiseaseScreenViewModel
@@ -70,7 +68,6 @@ fun AppNavigation(
     medicineViewModel: MedicineScreenViewModel,
     predictionViewModel: PredictionViewModel,
     skinDiseaseViewModel: SkinDiseaseScreenViewModel,
-    medicalTestViewModel: MedicalTestScreenViewModel
 ) {
     val navController = rememberNavController()
 
@@ -120,7 +117,7 @@ fun AppNavigation(
                 predictionViewModel,
                 medicineViewModel,
                 skinDiseaseViewModel,
-                medicalTestViewModel
+
             )
         }
         composable(
@@ -172,7 +169,6 @@ fun BottomNavigation(
     medicineViewModel: MedicineScreenViewModel,
     predictionViewModel: PredictionViewModel,
     skinDiseaseViewModel: SkinDiseaseScreenViewModel,
-    medicalTestViewModel:MedicalTestScreenViewModel
 
     ) {
     NavHost(navController = bottomNavController, startDestination = NavigationScreen.Home.route ){
@@ -189,11 +185,7 @@ fun BottomNavigation(
             ChangeStatusBarColor(isBackgroundColor = false)
 
         }
-        composable(route = NavigationScreen.MedicalTest.route){
-            MedicalTestScreen(medicalTestViewModel = medicalTestViewModel)
-            ChangeStatusBarColor(isBackgroundColor = false)
 
-        }
         composable(route = NavigationScreen.Drug.route){
             MedicineScreen(medicineViewModel = medicineViewModel)
             ChangeStatusBarColor(isBackgroundColor = false)

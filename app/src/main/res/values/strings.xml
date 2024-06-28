@@ -38,7 +38,7 @@
     <string name="yse">Yse</string>
     <string name="no">No</string>
     <string name="press_again_to_exit">Press again to exit</string>
-    <string name="ai_chat">AI Chat</string>
+    <string name="ai_chat">Smart Assistant</string>
     <string name="message">Type a message…</string>
     <string name="medicine_name">"Medicine Name: "</string>
     <string name="scientific_name">"Scientific Name: "</string>
@@ -46,11 +46,8 @@
     <string name="medicine_category">"Medicine Category: "</string>
     <string name="medicine_description">"Medicine Description: "</string>
     <string name="enter_name_of_drug">Enter name of Drug</string>
-    <string name="medical_tests">Medical Tests</string>
-    <string name="upload_test">Upload Test</string>
     <string name="body_fat_percentage">Body fat percentage</string>
     <string name="estimated_blood_volume">Estimated blood volume</string>
-    <string name="creatinine_clearance">Creatinine clearance</string>
     <string name="please_enter_your_email">Please enter your  email</string>
     <string name="please_enter_your_password">Please enter your password</string>
     <string name="remember_me">Remember me</string>
@@ -79,7 +76,6 @@
     <string name="disease">Disease</string>
     <string name="skin_disease">Skin Disease</string>
     <string name="detect">Detect</string>
-    <string name="upload_test_pdf_file">Upload test pdf file</string>
     <string name="please_enter_valid_password_8_char"><![CDATA[Please enter valid password (>=8 char)*]]></string>
     <string name="please_select_your_gender">Please select your gender</string>
     <string name="please_scan_or_select_you_image">Please scan or select you image.</string>
@@ -123,4 +119,15 @@
     <string name="otp_number_not_correct">OTP number Not Correct</string>
     <string name="confirm_password_not_match_password">confirm Password not match password</string>
     <string name="some_error_happen_please_make_sure_password_match_confirmpassword">Some Error Happen Please Make sure Password Match ConfirmPassword*</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="license">License</string>
+    <string name="rate_this_app">Rate this app</string>
+    <string name="share_this_app">Share this app</string>
+    <string name="log_out">Log Out</string>
+    <string name="home">Home</string>
+    <string name="prediction">Prediction</string>
+    <string name="drug">Drug</string>
+    <string name="calculator">Calculator</string>
 </resources>

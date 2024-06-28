@@ -22,7 +22,9 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = ComponentDark,
     onPrimary = CommonComponent,
     onSecondary = HelperColor2,
-    onTertiary = DarkComponentColor1
+    onTertiary = DarkComponentColor1,
+    onSurface = HelperColor44
+
 
 )
 
@@ -34,7 +36,8 @@ private val LightColorScheme = lightColorScheme(
     tertiary = ComponentLight,
     onPrimary = CommonComponent,
     onSecondary = HelperColor,
-    onTertiary = ComponentLight
+    onTertiary = ComponentLight,
+    onSurface = HelperColor4
 
 
     /* Other default colors to override

@@ -38,6 +38,11 @@ val HelperColor = Color(0xFF0343A7)
 val HelperColor1 = Color(0xFF0E274E)
 val HelperColor2 = Color(0xFF06BAF1)
 
+val HelperColor4 = Color(0xFF045891)
+val HelperColor44 = Color.White
+
+
+
 
 
  val DarkComponentColor2 = Color(0xFF0E274E)
@@ -65,7 +70,7 @@ val brush2 =  Brush.linearGradient(
 @Composable
 fun animatedShimmerColor(
     shimmerColors:List<Color>,
-    durationMillis:Int = 1000
+    durationMillis:Int = 2000
 ): Brush {
 
     val transition = rememberInfiniteTransition(label = "")

@@ -8,7 +8,6 @@ import com.example.medisim.data.remote.dto.auth.SignUpBody
 import com.example.medisim.data.remote.dto.auth.SignUpResponse
 import com.example.medisim.data.remote.dto.auth.VerifyOtpRequestBody
 import com.example.medisim.data.remote.dto.main.ChronicDisease
-import com.example.medisim.data.remote.dto.main.MedicalTestResponse
 import com.example.medisim.data.remote.dto.main.Medicine
 import com.example.medisim.data.remote.dto.main.Post
 import com.example.medisim.data.remote.dto.main.PredictionDisease
@@ -26,61 +25,53 @@ import retrofit2.http.Query
 
 interface ApiServices {
 
-    @POST("login.json")
+    @POST("Authentication/login")
     suspend fun login( @Body requestBody: LoginBody): Response<LoginResponse>
 
-    @POST("signUp.json")
+    @POST("Authentication/signup")
     suspend fun signUp(@Body requestBody: SignUpBody): Response<SignUpResponse>
 
-    @POST("forgetPassword.json")
+    @POST("Authentication/forgetpassword")
     suspend fun forgetPassword( @Body requestBody: ForgetPasswordRequestBody)
 
-    @POST("verifyOtp.json")
+    @POST("Authentication/verifyotp")
     suspend fun verifyOtp( @Body requestBody: VerifyOtpRequestBody):Response<String>
 
-    @POST("changePassword.json")
+    @POST("Authentication/changepassword")
     suspend fun changePassword( @Body requestBody: ChangePasswordRequestBody):Response<String>
 
 
 
 
 
-    @GET("chronicDiseases.json")
+
+    @GET("FetchData/getchronicdisease")
     suspend fun getChronicDiseases(): Response<List<ChronicDisease>>
 
-    @GET("posts.json")
+    @GET("FetchData/getposts")
     suspend fun getPosts( @Header("Authorization") authorization:String):  Response<List<Post>>
 
-    @GET("symptoms.json")
+    @GET("FetchData/getsymptoms")
     suspend fun getSymptoms(): Response<List<Symptom>>
 
-
-
-
-
-
-    @POST("predictionResult.json")
-    suspend fun predict(@Body selectedSymptomIDs:List<Int>): Response<List<PredictionDisease>>
-
-    @Multipart
-    @POST("skinDetection.json")
-    suspend fun skinDetection(
-    @Part image: MultipartBody.Part
-        ): Response<SkinDiseaseResponse>
-
-    @POST("medicineSearch.json")
+    @POST("FetchData/searchfordrug")
     suspend fun search( @Query("searchTerm") searchedItem : String): Response<Medicine>
 
 
 
 
 
-    /////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////
-    // Not Use Now
+    @POST("Prediction/predictdisease")
+    suspend fun predict(@Body selectedSymptomIDs:List<Int>): Response<List<PredictionDisease>>
 
-    @GET("testResult.json")
-    suspend fun getTestResult(): Response<MedicalTestResponse>
+    @Multipart
+    @POST("Prediction/predictskindisease")
+    suspend fun skinDetection(
+    @Part image: MultipartBody.Part
+        ): Response<SkinDiseaseResponse>
+
+
+
 
 
 

@@ -117,12 +117,14 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
             )
             BodyItem(
                 item = DrawerItem.Language,
+                title = stringResource(R.string.language),
                 iconColor = DrawerItem.Language.color,
                 onRowClick = {profileViewModel.onShowBottomSheet()}
             )
 
             BodyItem(
                 item = DrawerItem.Mode,
+                title = stringResource(R.string.dark_mode),
                 iconColor = DrawerItem.Mode.color,
                 isDark = state.isDark,
                 onRowClick = {}
@@ -131,21 +133,25 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
 
             BodyItem(
                 item = DrawerItem.TermsAndConditions,
+                title = stringResource(R.string.terms_conditions),
                 iconColor = DrawerItem.TermsAndConditions.color,
                 onRowClick = {}
             )
             BodyItem(
                 item = DrawerItem.License,
+                title = stringResource(R.string.license),
                 iconColor = DrawerItem.License.color,
                 onRowClick = {}
             )
             BodyItem(
                 item = DrawerItem.Rate,
+                title = stringResource(R.string.rate_this_app),
                 iconColor = DrawerItem.Rate.color,
                 onRowClick = {}
             )
             BodyItem(
                 item = DrawerItem.Share,
+                title = stringResource(R.string.share_this_app),
                 iconColor = DrawerItem.Share.color,
                 onRowClick = {
                     shareText(context, "Check out this app!", "https://play.google.com/store/search?q=medithen+ai&c=apps")
@@ -154,6 +160,7 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
             LineWithText(stringId = R.string.account_settings)
             BodyItem(
                 item = DrawerItem.Logout,
+                title = stringResource(R.string.log_out),
                 iconColor = DrawerItem.Logout.color,
                 onRowClick = {
                     profileViewModel.onLogoutClick(navController)
@@ -182,6 +189,7 @@ fun NavigationDrawerBody(navController: NavHostController,profileViewModel: Prof
 @Composable
 fun BodyItem(
     item: DrawerItem,
+    title: String,
     iconColor:Long,
     isDark:Boolean = true,
     onRowClick:()->Unit,
@@ -203,14 +211,14 @@ fun BodyItem(
             iconSize = 40
         )
         TextLabel(
-            text = item.title,
+            text = title,
             modifier = Modifier.padding(start = 5.dp),
             textFont = 18,
             textFontWight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.weight(1f))
-        if (item.title != DrawerItem.Logout.title){
-            if (item.title != DrawerItem.Mode.title){
+        if (title != stringResource(R.string.log_out)){
+            if (title != stringResource(R.string.dark_mode)){
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                     contentDescription = "",

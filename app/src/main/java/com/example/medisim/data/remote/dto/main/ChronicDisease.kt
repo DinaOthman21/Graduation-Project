@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ChronicDisease(
     val id:Int,
-    @SerializedName("Name_en")
+    @SerializedName("name_en")
     val enName:String,
-    @SerializedName("Name_ar")
+    @SerializedName("name_ar")
     val arName:String,
     var isSelected:Boolean = false
 )
