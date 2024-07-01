@@ -86,7 +86,7 @@ fun BmiScreen(navController: NavHostController) {
                 text = stringResource(R.string.body_mass_index),
                 modifier = Modifier.padding(top = 10.dp, bottom = 30.dp),
                 style = TextStyle(
-                    fontSize = 30.sp, color = MaterialTheme.colorScheme.primary,
+                    fontSize = 26.sp, color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 ),
             )
@@ -95,14 +95,14 @@ fun BmiScreen(navController: NavHostController) {
         AnimatedTextWithTileModes(stringResource(R.string.height_cm))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), number = 300){
+        NumberPicker(modifier = Modifier.padding(vertical = 15.dp), number = 300){
             vm.onHeightSelected(it)
         }
 
         AnimatedTextWithTileModes(stringResource(R.string.weight_kg))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 35.dp), initialFactor = 3,number = 210){
+        NumberPicker(modifier = Modifier.padding(vertical = 15.dp), initialFactor = 3,number = 210){
             vm.onWeightSelected(it)
         }
         Spacer(modifier = Modifier.weight(1f))

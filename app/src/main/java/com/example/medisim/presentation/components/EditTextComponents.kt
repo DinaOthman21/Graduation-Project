@@ -438,7 +438,7 @@ fun DropdownMenuExample(
         // Dropdown menu button
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(top = 20.dp)
+            modifier = Modifier.padding(top = 10.dp)
         ) {
 
             TextField(

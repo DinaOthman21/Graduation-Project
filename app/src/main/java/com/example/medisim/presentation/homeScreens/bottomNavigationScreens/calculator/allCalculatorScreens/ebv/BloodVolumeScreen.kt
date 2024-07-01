@@ -61,7 +61,7 @@ fun BloodVolumeScreen(navController: NavHostController) {
                 text = stringResource(R.string.estimated_blood_volume),
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 style = TextStyle(
-                    fontSize = 26.sp, color = MaterialTheme.colorScheme.primary,
+                    fontSize = 22.sp, color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 ),
             )
@@ -73,7 +73,7 @@ fun BloodVolumeScreen(navController: NavHostController) {
 
 
         NumberPicker(
-            modifier = Modifier.padding(vertical = 35.dp),
+            modifier = Modifier.padding(vertical = 15.dp),
             initialFactor = 3,
             number = 210
         ) {

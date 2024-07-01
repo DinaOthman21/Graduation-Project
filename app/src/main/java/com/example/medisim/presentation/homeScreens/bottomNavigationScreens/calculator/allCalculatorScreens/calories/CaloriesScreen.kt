@@ -61,7 +61,7 @@ fun CaloriesScreen(navController: NavHostController) {
                 text = stringResource(id = R.string.daily_calories_need),
                 modifier = Modifier.padding(top = 10.dp, bottom = 30.dp),
                 style = TextStyle(
-                    fontSize = 30.sp, color = MaterialTheme.colorScheme.primary,
+                    fontSize = 26.sp, color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 ),
             )
@@ -70,7 +70,7 @@ fun CaloriesScreen(navController: NavHostController) {
         AnimatedTextWithTileModes(stringResource(R.string.weight_kg))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 35.dp), initialFactor = 3, number = 210){
+        NumberPicker(modifier = Modifier.padding(vertical = 15.dp), initialFactor = 3, number = 210){
             vm.onWeightSelected(it)
         }
 

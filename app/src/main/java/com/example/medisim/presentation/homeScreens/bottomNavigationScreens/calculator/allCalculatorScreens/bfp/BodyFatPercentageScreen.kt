@@ -61,7 +61,7 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
                 text = stringResource(R.string.body_fat_percentage),
                 modifier = Modifier.padding(top = 10.dp, bottom = 12.dp),
                 style = TextStyle(
-                    fontSize = 30.sp, color = MaterialTheme.colorScheme.primary,
+                    fontSize = 26.sp, color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 ),
             )
@@ -70,27 +70,27 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
         AnimatedTextWithTileModes(stringResource(R.string.height_cm))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), number = 300){
+        NumberPicker(modifier = Modifier.padding(vertical = 15.dp), number = 300){
             vm.onHeightSelected(it)
         }
 
         AnimatedTextWithTileModes(stringResource(R.string.weight_kg))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 25.dp), initialFactor = 3, number = 210){
+        NumberPicker(modifier = Modifier.padding(vertical = 15.dp), initialFactor = 3, number = 210){
             vm.onWeightSelected(it)
         }
 
         AnimatedTextWithTileModes(stringResource(id = R.string.age))
 
 
-        NumberPicker(modifier = Modifier.padding(vertical = 25.dp),number = 100, initialFactor = 5){
+        NumberPicker(modifier = Modifier.padding(vertical = 15.dp),number = 100, initialFactor = 5){
             vm.onAgeSelected(it)
         }
 
         TextLabel(
             text = stringResource(R.string.gender),
-            modifier = Modifier.padding(bottom = 6.dp),
+            modifier = Modifier.padding(bottom = 6.dp,top = 12.dp),
             textFont = 18,
             textFontWight = FontWeight.Bold
         )

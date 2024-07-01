@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -43,19 +45,20 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState())
+            .fillMaxSize()
     ){
-
-        Row (
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ){
-            LottieAnimationShow(
-                animationResId = R.raw.predic,
-                size = 200,
-                padding = 12,
-                paddingBottom = 0
-            )
+        AnimatedVisibility(visible = listOfSelectedSymptoms.isEmpty()) {
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ){
+                LottieAnimationShow(
+                    animationResId = R.raw.predic,
+                    size = 200,
+                    padding = 0,
+                    paddingBottom = 0
+                )
+            }
         }
         DropdownMenuExample(
             selectedItem = state.editTextSymptom,
@@ -67,7 +70,9 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
             ) {selectedSymptom->
             predictionViewModel.addSymptomToSelectedList(selectedSymptom)
         }
-        FlowRow{
+        FlowRow(
+            modifier = Modifier
+        ){
             for (symptomItem in listOfSelectedSymptoms){
                 CustomChip(text = if (isArabicLang) symptomItem.arName else symptomItem.enName) {
                     predictionViewModel.deleteFromSelectedList(symptomItem)
@@ -78,7 +83,7 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.predict),
-            modifier = Modifier.padding(bottom = 41.dp),
+            modifier = Modifier.padding(bottom = 10.dp),
             paddingValue = 0
         ) {
             if (listOfSelectedSymptoms.isEmpty()){

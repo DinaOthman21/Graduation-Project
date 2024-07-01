@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -126,6 +127,7 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
+            .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ){
 
@@ -186,7 +188,7 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth()
-                    .height(260.dp)
+                    .height(240.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .background(brush = brush)
                     .shadow(
@@ -202,8 +204,8 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.detect),
-            modifier = Modifier.padding(bottom = 41.dp),
-            paddingValue = 0
+            modifier = Modifier.padding(bottom = 10.dp),
+            paddingValue = 15
         ) {
             if (state.image == null){
                 Toast.makeText(context, context.getString(R.string.please_scan_or_select_you_image),Toast.LENGTH_SHORT).show()
