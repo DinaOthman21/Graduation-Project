@@ -58,7 +58,9 @@ fun ForgotPassword(navController: NavHostController,forgotPasswordViewModel: For
         Spacer(modifier = Modifier.weight(1f))
         ButtonClickOn(
             buttonText = stringResource(R.string.send),
-            paddingValue = 0) {forgotPasswordViewModel.onSendOtpToEmail(navController, context)}
+            paddingValue = 0) {
+            forgotPasswordViewModel.onSendOtpToEmail(navController, context)
+        }
 
 
 

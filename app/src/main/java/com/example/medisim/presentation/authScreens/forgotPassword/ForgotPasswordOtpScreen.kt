@@ -54,7 +54,9 @@ fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: 
         OtpTextField(
             otpText = state.otpNumber,
             otpErrorMessage = state.otpErrorMessage,
-            otpLength = 6
+            otpLength = 6 ,
+            editTextHeight = 65,
+            editTextWidth = 50,
         ) {newOtp->
             forgotPasswordViewModel.onOtpCodeChange(newOtp)
         }

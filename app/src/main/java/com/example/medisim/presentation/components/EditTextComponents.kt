@@ -325,7 +325,7 @@ fun OtpBox(
             .shadow(elevation = 24.dp),
         textStyle =  TextStyle(
             color = MaterialTheme.colorScheme.primary,
-            fontSize = 35.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
@@ -342,6 +342,8 @@ fun OtpTextField(
     modifier: Modifier = Modifier,
     otpErrorMessage:String ,
     otpLength:Int = 4,
+    editTextHeight: Int = 80,
+    editTextWidth: Int = 80,
     onOtpTextChange:(String)->Unit,
 
 ) {
@@ -388,7 +390,11 @@ fun OtpTextField(
                         index >= otpText.length -> ""
                         else -> otpText[index]
                     }
-                    OtpBox(number = number.toString()  )
+                    OtpBox(
+                        number = number.toString(),
+                        editTextHeight = editTextHeight,
+                        editTextWidth = editTextWidth,
+                    )
                 }
             }
         }

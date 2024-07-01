@@ -71,9 +71,9 @@ class ForgotPasswordViewModel @Inject constructor(private val repo : ApiServices
 
         if (_state.email.isNotEmpty() && isValidEmail(_state.email)){
             // first send to back end to send otp number
-            viewModelScope.launch(Dispatchers.IO){
-                repo.forgetPassword(ForgetPasswordRequestBody(_state.email))
-            }
+//            viewModelScope.launch(Dispatchers.IO){
+//                repo.forgetPassword(ForgetPasswordRequestBody(_state.email))
+//            }
             // second go to otp screen
             navController.navigate(Screens.ForgotPasswordOTP.route)
         }
