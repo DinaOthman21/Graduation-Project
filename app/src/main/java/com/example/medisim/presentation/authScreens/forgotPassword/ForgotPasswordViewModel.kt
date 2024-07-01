@@ -1,6 +1,7 @@
 package com.example.medisim.presentation.authScreens.forgotPassword
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -103,6 +104,7 @@ class ForgotPasswordViewModel @Inject constructor(private val repo : ApiServices
         if (_state.otpNumber.isNotEmpty() && _state.otpNumber.length==6){
             // first send to back end to send otp number
             viewModelScope.launch(Dispatchers.IO){
+                Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>> otp ${_state.otpNumber} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
                 val check = repo.verifyOtp(VerifyOtpRequestBody(_state.email,_state.otpNumber))
                 if (check){
                     withContext(Dispatchers.Main){
@@ -112,10 +114,11 @@ class ForgotPasswordViewModel @Inject constructor(private val repo : ApiServices
                 }else{
                     _state=_state.copy(
                         isErrorEmail = true,
-                        emailErrorMessage = context.getString(R.string.otp_number_not_correct)
+                        otpErrorMessage = context.getString(R.string.otp_number_not_correct)
                     )
                 }
             }
+
 
         }
 

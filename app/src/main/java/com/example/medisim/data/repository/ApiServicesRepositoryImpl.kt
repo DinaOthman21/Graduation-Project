@@ -71,11 +71,8 @@ class ApiServicesRepositoryImpl @Inject constructor(
     override suspend fun verifyOtp(verifyOtpData: VerifyOtpRequestBody):Boolean{
         var status = false
         try {
-            val response = api.verifyOtp(verifyOtpData)
-            if (response.isSuccessful){
-                status = true
-            }
-
+           api.verifyOtp(verifyOtpData)
+            status = true
         }catch (e:Exception){
             e.printStackTrace()
             return status
@@ -86,11 +83,8 @@ class ApiServicesRepositoryImpl @Inject constructor(
     override suspend fun changePassword(changePasswordData: ChangePasswordRequestBody):Boolean{
         var status = false
         try {
-            val response = api.changePassword(changePasswordData)
-            if (response.isSuccessful){
-                status = true
-            }
-
+            api.changePassword(changePasswordData)
+            status = true
         }catch (e:Exception){
             e.printStackTrace()
             return status

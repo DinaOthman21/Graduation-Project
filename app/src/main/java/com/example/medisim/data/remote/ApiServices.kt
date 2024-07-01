@@ -35,10 +35,10 @@ interface ApiServices {
     suspend fun forgetPassword( @Body requestBody: ForgetPasswordRequestBody)
 
     @POST("Authentication/verifyotp")
-    suspend fun verifyOtp( @Body requestBody: VerifyOtpRequestBody):Response<String>
+    suspend fun verifyOtp( @Body requestBody: VerifyOtpRequestBody)
 
     @POST("Authentication/changepassword")
-    suspend fun changePassword( @Body requestBody: ChangePasswordRequestBody):Response<String>
+    suspend fun changePassword( @Body requestBody: ChangePasswordRequestBody)
 
 
 

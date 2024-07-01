@@ -1,6 +1,7 @@
 package com.example.medisim.presentation.authScreens.forgotPassword
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -59,6 +60,8 @@ fun ForgotPasswordOto(navController: NavHostController,forgotPasswordViewModel: 
             editTextWidth = 50,
         ) {newOtp->
             forgotPasswordViewModel.onOtpCodeChange(newOtp)
+            Log.d("Tag",">>>>>>>>>>>>>>>>>>>>>>>>>>>> new otp $newOtp <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+
         }
 
         Spacer(modifier = Modifier.weight(1f))

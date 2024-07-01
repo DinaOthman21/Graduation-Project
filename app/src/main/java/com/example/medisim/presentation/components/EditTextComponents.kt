@@ -383,18 +383,23 @@ fun OtpTextField(
             cursorBrush = Brush.verticalGradient(listOf(Color.Red, Color.Yellow))
         ) {
             Row (
-                horizontalArrangement = Arrangement.spacedBy(14.dp)
+                horizontalArrangement = Arrangement.Center,
             ){
-                repeat(otpLength){index->
-                    val number = when{
-                        index >= otpText.length -> ""
-                        else -> otpText[index]
+                Row (
+                    horizontalArrangement = Arrangement.spacedBy(14.dp),
+
+                    ){
+                    repeat(otpLength){index->
+                        val number = when{
+                            index >= otpText.length -> ""
+                            else -> otpText[index]
+                        }
+                        OtpBox(
+                            number = number.toString(),
+                            editTextHeight = editTextHeight,
+                            editTextWidth = editTextWidth,
+                        )
                     }
-                    OtpBox(
-                        number = number.toString(),
-                        editTextHeight = editTextHeight,
-                        editTextWidth = editTextWidth,
-                    )
                 }
             }
         }
@@ -464,11 +469,11 @@ fun DropdownMenuExample(
         AnimatedVisibility(visible = expanded) {
             LazyColumn (
                 modifier = Modifier
-                    .padding(top = if(items.isEmpty()) 0.dp else  10.dp)
+                    .padding(top = if (items.isEmpty()) 0.dp else 10.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.onBackground)
-                    .padding(if(items.isEmpty()) 0.dp else  10.dp)
+                    .padding(if (items.isEmpty()) 0.dp else 10.dp)
             ){
                 itemsIndexed(items){index,item->
 
@@ -477,8 +482,8 @@ fun DropdownMenuExample(
                             .padding(vertical = 6.dp)
                             .fillMaxWidth()
                             .clickable {
-                            onSelectItem(item)
-                        }
+                                onSelectItem(item)
+                            }
                     ){
                         TextLabel(
                             text = if (isArabic) item.arName else item.enName,
