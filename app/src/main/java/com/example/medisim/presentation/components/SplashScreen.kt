@@ -25,9 +25,7 @@ fun SplashScreen() {
         .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ){
-        Column (
-
-        ){
+        Column {
             Image(
                 painter = painterResource(id = R.drawable.logo_no_back),
                 modifier = Modifier

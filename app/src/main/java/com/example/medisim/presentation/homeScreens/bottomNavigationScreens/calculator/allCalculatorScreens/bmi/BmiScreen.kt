@@ -67,7 +67,8 @@ fun BmiScreen(navController: NavHostController) {
 
     Column (
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(horizontal = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Row(

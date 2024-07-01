@@ -74,25 +74,28 @@ fun SignUpUserChronicScreen(navController: NavHostController,signUpScreenViewMod
                     },
                 )
             }
+            item{
+                Spacer(modifier = Modifier.weight(1f))
+                ButtonClickOn(
+                    buttonText = stringResource(R.string.create_account),
+                    paddingValue = 0) {
+                    signUpScreenViewModel.onSignUpClick(navController)
+
+                }
+                Row {
+                    Text(
+                        state.errorMessage, style = MaterialTheme.typography.bodyMedium, modifier = Modifier
+                            .padding(top = 3.dp, start = 25.dp), color = Color.Red
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+
+                }
+            }
         }
 
 
 
-        Spacer(modifier = Modifier.weight(1f))
-        ButtonClickOn(
-            buttonText = stringResource(R.string.create_account),
-            paddingValue = 0) {
-            signUpScreenViewModel.onSignUpClick(navController)
 
-        }
-        Row {
-            Text(
-                state.errorMessage, style = MaterialTheme.typography.bodyMedium, modifier = Modifier
-                    .padding(top = 3.dp, start = 25.dp), color = Color.Red
-            )
-            Spacer(modifier = Modifier.weight(1f))
-
-        }
 
 
 
