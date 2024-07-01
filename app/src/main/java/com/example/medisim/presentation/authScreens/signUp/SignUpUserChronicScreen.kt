@@ -41,6 +41,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun SignUpUserChronicScreen(navController: NavHostController,signUpScreenViewModel: SignUpScreenViewModel) {
     val chronicDiseases = signUpScreenViewModel.chronicDiseasesList.collectAsState().value
     val state = signUpScreenViewModel.state.value
+    val context = LocalContext.current
 
     Column (
         modifier = Modifier.padding(12.dp),
@@ -79,7 +80,7 @@ fun SignUpUserChronicScreen(navController: NavHostController,signUpScreenViewMod
                 ButtonClickOn(
                     buttonText = stringResource(R.string.create_account),
                     paddingValue = 0) {
-                    signUpScreenViewModel.onSignUpClick(navController)
+                    signUpScreenViewModel.onSignUpClick(navController, context )
 
                 }
                 Row {

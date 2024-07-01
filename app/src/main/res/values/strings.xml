@@ -130,4 +130,5 @@
     <string name="prediction">Prediction</string>
     <string name="drug">Drug</string>
     <string name="calculator">Calculator</string>
+    <string name="some_error_happened_please_try_again_or_try_another_email">some error happened please try again or try another email*</string>
 </resources>

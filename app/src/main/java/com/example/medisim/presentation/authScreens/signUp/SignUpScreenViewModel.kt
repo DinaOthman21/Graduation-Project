@@ -319,7 +319,7 @@ class SignUpScreenViewModel @Inject constructor(
 
     }
 
-    fun onSignUpClick(navController: NavHostController) {
+    fun onSignUpClick(navController: NavHostController,context: Context) {
         val selectedChronicDiseasesIds: MutableList<Int> = mutableListOf()
         for (cd in _chronicDiseasesList.value){
             if (cd.isSelected){
@@ -368,7 +368,7 @@ class SignUpScreenViewModel @Inject constructor(
 
             }else{
                 _state = _state.copy(
-                    errorMessage = "some error happened please try again*"
+                    errorMessage = context.getString(R.string.some_error_happened_please_try_again_or_try_another_email)
                 )
             }
         }
