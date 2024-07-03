@@ -26,8 +26,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,6 +66,7 @@ fun BmiScreen(navController: NavHostController) {
     val state = vm.state.value
 
     val context = LocalContext.current
+    var showMyComposable by remember { mutableStateOf(false) }
 
 
     Column (
@@ -110,10 +114,15 @@ fun BmiScreen(navController: NavHostController) {
             buttonText = stringResource(R.string.calculate),
             modifier = Modifier.padding(bottom = 15.dp),
             paddingValue = 0
-        ) {
-            vm.onCalcBMI(context)
+        ){
+            showMyComposable = true
         }
 
+
+        if (showMyComposable) {
+            vm.OnCalcBMI(context)
+            showMyComposable = false
+        }
 
 
 

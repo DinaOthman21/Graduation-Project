@@ -2,6 +2,8 @@ package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.cal
 
 
 import android.content.Context
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -54,7 +56,8 @@ class BodyFatViewModel : ViewModel() {
         )
     }
 
-    fun onCalcBFP(context: Context){
+    @Composable
+    fun OnCalcBFP(context: Context){
         val bmi = calculateBMI(_state.weight,_state.height)
         val bfp:Double
         // check user Male or Female
@@ -87,10 +90,11 @@ class BodyFatViewModel : ViewModel() {
         return weightKg / (heightM * heightM)
     }
 
-    private fun buildResultString(context: Context,result:Double):AnnotatedString{
+    @Composable
+    private fun buildResultString(context: Context, result:Double):AnnotatedString{
         return buildAnnotatedString {
 
-            withStyle(style = SpanStyle(color = Color.White)) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append(context.getString(R.string.body_fat))
             }
             withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {

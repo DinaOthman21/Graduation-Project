@@ -133,5 +133,6 @@
     <string name="drug">الدواء</string>
     <string name="calculator">حاسبة طبية</string>
     <string name="some_error_happened_please_try_again_or_try_another_email">حدث خطأ ما، يرجى المحاولة مرة أخرى أو استخدام بريد إلكتروني آخر*</string>
+    <string name="recommendation">"recommendation : "</string>
 
 </resources>

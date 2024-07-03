@@ -2,6 +2,8 @@ package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.cal
 
 
 import android.content.Context
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -48,7 +50,8 @@ class BloodVolumeViewModel : ViewModel() {
         )
     }
 
-    fun onCalcBloodVolume(context: Context){
+    @Composable
+    fun OnCalcBloodVolume(context: Context){
         _state = _state.copy(
             result = buildAnnotatedString(context,calculateBloodVolume()),
             dialogState = true
@@ -72,9 +75,10 @@ class BloodVolumeViewModel : ViewModel() {
     }
 
 
-    private fun buildAnnotatedString(context: Context,result:Int): AnnotatedString {
+    @Composable
+    private fun buildAnnotatedString(context: Context, result:Int): AnnotatedString {
         return  buildAnnotatedString {
-            withStyle(style = SpanStyle(color = Color.White)) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append(context.getString(R.string.estimated_blood_volume))
             }
             withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {

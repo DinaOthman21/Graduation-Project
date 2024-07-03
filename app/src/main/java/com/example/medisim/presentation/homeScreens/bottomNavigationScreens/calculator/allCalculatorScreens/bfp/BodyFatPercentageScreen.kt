@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -38,6 +42,7 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
     val state = vm.state.value
 
     val context = LocalContext.current
+    var showMyComposable by remember { mutableStateOf(false) }
 
 
     Column (
@@ -119,11 +124,14 @@ fun BodyFatPercentageScreen(navController: NavHostController) {
             modifier = Modifier.padding(bottom = 15.dp),
             paddingValue = 0
         ) {
-            vm.onCalcBFP(context)
+            showMyComposable = true
         }
 
 
-
+        if (showMyComposable) {
+            vm.OnCalcBFP(context)
+            showMyComposable = false
+        }
 
         AnimatedVisibility(visible = state.dialogState) {
             ResultPredictionDialog(content = {

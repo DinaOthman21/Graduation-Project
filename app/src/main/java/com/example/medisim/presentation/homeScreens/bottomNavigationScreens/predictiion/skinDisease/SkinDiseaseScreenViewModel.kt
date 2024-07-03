@@ -47,10 +47,13 @@ class SkinDiseaseScreenViewModel @Inject constructor(private val repo:ApiService
         viewModelScope.launch(Dispatchers.IO){
             val imagePart = prepareFilePart(context,_state.image!!)
             val result = repo.skinDetect(imagePart)
-            _state = _state.copy(
-                skinDiseaseResponse = result,
-                dialogState = true
-            )
+            if (result != null) {
+                _state = _state.copy(
+                    recommendation = getRecommendation(result.enDiseaseName),
+                    skinDiseaseResponse = result,
+                    dialogState = true
+                )
+            }
 
         }
     }
@@ -88,6 +91,55 @@ class SkinDiseaseScreenViewModel @Inject constructor(private val repo:ApiService
         return file
     }
 
+
+
+
+
+    private fun getRecommendation(diseaseName: String): Pair<String, String> {
+        val recommendations = mapOf(
+            "actinic keratosis" to Pair(
+                "Use prescribed medications and protect your skin from the sun with high SPF sunscreen.",
+                "استخدم الأدوية الموصوفة واحمِ بشرتك من الشمس باستخدام واقي شمس بعامل حماية عالٍ."
+            ),
+            "basal cell carcinoma" to Pair(
+                "Follow your dermatologist’s treatment plan and minimize sun exposure.",
+                "اتبع خطة علاج طبيب الأمراض الجلدية وقلل من التعرض للشمس."
+            ),
+            "dermatofibroma" to Pair(
+                "Monitor the lesion for changes and consult your doctor if it becomes symptomatic.",
+                "راقب الآفة لأي تغييرات واستشر طبيبك إذا أصبحت عرضية."
+            ),
+            "melanoma" to Pair(
+                "Follow your oncologist’s treatment recommendations and schedule frequent follow-ups.",
+                "اتبع توصيات طبيب الأورام للعلاج وجدول المتابعات المتكررة."
+            ),
+            "nevus" to Pair(
+                "Regularly check for changes in size, shape, or color, and protect from sun exposure.",
+                "افحص الوحمة بانتظام لأي تغييرات في الحجم أو الشكل أو اللون، واحمِها من الشمس."
+            ),
+            "pigmented benign keratosis" to Pair(
+                "Regularly consult your dermatologist and monitor the lesion for changes.",
+                "استشر طبيب الأمراض الجلدية بانتظام وراقب الآفة لأي تغييرات."
+            ),
+            "seborrheic keratosis" to Pair(
+                "These lesions are benign; avoid scratching and see your doctor if they become irritated.",
+                "هذه الآفات حميدة؛ تجنب الحك واستشر طبيبك إذا أصبحت متهيجة."
+            ),
+            "squamous cell carcinoma" to Pair(
+                "Follow your treatment plan and protect your skin from UV radiation.",
+                "اتبع خطة العلاج واحمِ بشرتك من الأشعة فوق البنفسجية."
+            ),
+            "vascular lesion" to Pair(
+                "Regularly monitor the lesion and protect it from injury.",
+                "راقب الآفة بانتظام واحمها من الإصابات."
+            )
+        )
+
+        return recommendations[diseaseName.toLowerCase()] ?: Pair(
+            "Disease not found. Please consult a healthcare provider.",
+            "المرض غير موجود. يرجى استشارة مقدم الرعاية الصحية."
+        )
+    }
 
 
 

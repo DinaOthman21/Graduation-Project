@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +43,7 @@ fun BloodVolumeScreen(navController: NavHostController) {
 
     val context = LocalContext.current
 
+    var showMyComposable by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -122,9 +127,14 @@ fun BloodVolumeScreen(navController: NavHostController) {
             modifier = Modifier.padding(bottom = 15.dp),
             paddingValue = 0
         ) {
-            vm.onCalcBloodVolume(context)
+            showMyComposable = true
         }
 
+
+        if (showMyComposable) {
+            vm.OnCalcBloodVolume(context)
+            showMyComposable = false
+        }
 
 
 

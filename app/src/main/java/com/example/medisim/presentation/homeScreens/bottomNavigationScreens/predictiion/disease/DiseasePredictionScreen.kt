@@ -47,18 +47,29 @@ fun DiseasePredictionScreen(predictionViewModel: PredictionViewModel) {
             .padding(horizontal = 16.dp)
             .fillMaxSize()
     ){
-        AnimatedVisibility(visible = listOfSelectedSymptoms.isEmpty()) {
-            Row (
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ){
-                LottieAnimationShow(
-                    animationResId = R.raw.predic,
-                    size = 200,
-                    padding = 0,
-                    paddingBottom = 0
-                )
-            }
+//        AnimatedVisibility(visible = listOfSelectedSymptoms.isEmpty()) {
+//            Row (
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalArrangement = Arrangement.Center
+//            ){
+//                LottieAnimationShow(
+//                    animationResId = R.raw.predic,
+//                    size = 200,
+//                    padding = 0,
+//                    paddingBottom = 0
+//                )
+//            }
+//        }
+        Row (
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ){
+            LottieAnimationShow(
+                animationResId = R.raw.predic,
+                size = 150,
+                padding = 0,
+                paddingBottom = 0
+            )
         }
         DropdownMenuExample(
             selectedItem = state.editTextSymptom,

@@ -27,6 +27,14 @@ import com.example.medisim.presentation.navigation.AppNavigation
 import com.example.medisim.ui.theme.MediSimTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+// habiba.ayman552002@gmail.com
+// habiba12345
+
+
+// "continuous sneezing", "chills", "fatigue", "cough",
+// "high fever", "headache", "malaise", "phlegm",
+// "throat irritation", "redness of eyes", "sinus pressure",
+// "runny nose", "congestion", "chest pain", "loss of smell"
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
@@ -93,6 +101,10 @@ class HomeActivity : ComponentActivity() {
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        homeViewModel.getAllPosts()
+    }
 
     private fun getCurrentLanguage(): String {
         val configuration = Resources.getSystem().configuration

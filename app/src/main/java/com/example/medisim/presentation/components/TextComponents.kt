@@ -294,7 +294,7 @@ fun AnimatedTextWithTileModes(text:String) {
                 val widthOffset = size.width * animatedOffset
                 val heightOffset = size.height * animatedOffset
                 return LinearGradientShader(
-                    colors = listOf(Color.Red, Color.Blue, Color.Green),
+                    colors = listOf(Color(0xFF012B53),Color(0xFF0458AC),Color(0xFF0A85FF)),
                     from = Offset(widthOffset, heightOffset),
                     to = Offset(widthOffset + size.width, heightOffset + size.height),
                     tileMode = tileMode

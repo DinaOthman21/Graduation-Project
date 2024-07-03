@@ -1,6 +1,8 @@
 package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.calculator.allCalculatorScreens.bmi
 
 import android.content.Context
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -42,7 +44,8 @@ class BmiViewModel : ViewModel() {
         )
     }
 
-    fun onCalcBMI(context: Context){
+    @Composable
+    fun OnCalcBMI(context: Context){
         val annotatedString = calculateWeightCategory(
             context,
             calculateBMI(_state.weight,_state.height)
@@ -65,7 +68,8 @@ class BmiViewModel : ViewModel() {
         return weightKg / (heightM * heightM)
     }
 
-    private fun calculateWeightCategory(context: Context,bmi:Double): AnnotatedString {
+    @Composable
+    private fun calculateWeightCategory(context: Context, bmi:Double): AnnotatedString {
         return if (bmi < 18.5) {
             buildAnnotatedString(context,context.getString(R.string.less_than_18_5),
                 context.getString(R.string.underweight))
@@ -82,21 +86,22 @@ class BmiViewModel : ViewModel() {
 
     }
 
-    private fun buildAnnotatedString(context: Context,condition:String,category:String):AnnotatedString{
+    @Composable
+    private fun buildAnnotatedString(context: Context, condition:String, category:String):AnnotatedString{
         return  buildAnnotatedString {
-            withStyle(style = SpanStyle(color = Color.White)) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append(context.getString(R.string.a_bmi_of))
             }
             withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
                 append("$condition ")
             }
-            withStyle(style = SpanStyle(color = Color.White)) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append(context.getString(R.string.indicates_that_your_weight_is_in_the))
             }
             withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
                 append("$category ")
             }
-            withStyle(style = SpanStyle(color = Color.White)) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append(context.getString(R.string.category_for_a_person_of_your_height))
             }
 

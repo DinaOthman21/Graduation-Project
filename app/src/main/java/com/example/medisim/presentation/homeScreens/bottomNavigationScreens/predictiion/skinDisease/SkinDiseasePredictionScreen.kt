@@ -222,7 +222,10 @@ fun SkinDiseaseScreen(skinDiseaseViewModel: SkinDiseaseScreenViewModel) {
                         diseaseName = if (isArabicLang) it.arDiseaseName
                         else it.enDiseaseName,
                         diseaseDescription = if (isArabicLang) it.arDiseaseDescription
-                        else it.enDiseaseDescription
+                        else it.enDiseaseDescription,
+                        recommendation = if (isArabicLang) state.recommendation!!.second
+                        else state.recommendation!!.first,
+
                     ) {
                         skinDiseaseViewModel.onDialogDismiss()
                     }

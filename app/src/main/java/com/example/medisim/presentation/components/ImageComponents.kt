@@ -100,6 +100,7 @@ fun ImageButtonWithText(
     textFont: Int = 30,
     height: Int = 150,
     textFontWight: FontWeight = FontWeight.Bold,
+    textColor:Color = Color.White,
     maxLines: Int = 1,
     onButtonClick:() -> Unit
 ) {
@@ -135,9 +136,9 @@ fun ImageButtonWithText(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.Black,
                         Color.Transparent,
-                        Color.Black,
+                        Color.Transparent,
+                        Color.Transparent,
                     )
                 )
             ),
@@ -149,7 +150,7 @@ fun ImageButtonWithText(
                 modifier = modifier,
                 fontSize = textFont.sp,
                 fontWeight = textFontWight,
-                color = Color.White,
+                color = textColor,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = maxLines,
             )

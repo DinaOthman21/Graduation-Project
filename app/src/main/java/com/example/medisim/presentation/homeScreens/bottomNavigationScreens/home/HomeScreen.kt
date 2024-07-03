@@ -31,10 +31,13 @@ fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
             item{
                 Column {
                     // make title for "Advices" with small bold under line
-                    TextWithBoldUnderLine(
-                        text = stringResource(R.string.advices),
-                        lineColor  = MaterialTheme.colorScheme.onSecondary
-                    )
+                    if (posts.filter { it.isAdvice }.isNotEmpty()){
+                        TextWithBoldUnderLine(
+                            text = stringResource(R.string.advices),
+                            lineColor  = MaterialTheme.colorScheme.onSecondary
+                        )
+                    }
+
 
                     // this for the Horizontal Advices posts
                     ScreenLazyRow(posts = posts.filter { it.isAdvice }){post->
@@ -46,10 +49,13 @@ fun HomeScreen(navController: NavHostController,homeViewModel: HomeViewModel) {
                     }
 
                     // also make title for "Avoid" with small bold under line
-                    TextWithBoldUnderLine(
-                        text = stringResource(R.string.avoid),
-                        lineColor  = MaterialTheme.colorScheme.onSecondary
-                    )
+                    if (posts.filter { it.isAdvice.not() }.isNotEmpty()){
+                        TextWithBoldUnderLine(
+                            text = stringResource(R.string.avoid),
+                            lineColor  = MaterialTheme.colorScheme.onSecondary
+                        )
+                    }
+
                 }
             }
 

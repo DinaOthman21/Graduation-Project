@@ -2,6 +2,8 @@ package com.example.medisim.presentation.homeScreens.bottomNavigationScreens.cal
 
 
 import android.content.Context
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -63,7 +65,8 @@ class CaloriesViewModel : ViewModel() {
     }
 
 
-    fun onCalcCalories(context: Context){
+    @Composable
+    fun OnCalcCalories(context: Context){
 
         if (_state.workType!=null){
             val calories = calculateBEN() * calculatePAL()
@@ -76,46 +79,47 @@ class CaloriesViewModel : ViewModel() {
 
     }
 
-    private fun buildResultAnnotatedString(context:Context,result:Double):AnnotatedString{
+    @Composable
+    private fun buildResultAnnotatedString(context:Context, result:Double):AnnotatedString{
 
         return buildAnnotatedString {
-            withStyle(style = SpanStyle(color = Color.White)) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append(context.getString(R.string.maintain_weight))
             }
             withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
                 append("${String.format("%.2f", result)} ")
             }
-            withStyle(style = SpanStyle(color = Color.White)) {
+            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                 append(context.getString(R.string.calories_day_100))
             }
 
-           withStyle(style = SpanStyle(color = Color.White)) {
+           withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                append(context.getString(R.string.mild_weight_loss))
            }
            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
                append("${String.format("%.2f", (90/100.0) * result)} ")
            }
-           withStyle(style = SpanStyle(color = Color.White)) {
+           withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                append(context.getString(R.string.calories_day_90))
            }
 
-           withStyle(style = SpanStyle(color = Color.White)) {
+           withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                append(context.getString(R.string.weight_loss))
            }
            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
                append("${String.format("%.2f", (79/100.0) * result)} ")
            }
-           withStyle(style = SpanStyle(color = Color.White)) {
+           withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                append(context.getString(R.string.calories_day_79))
            }
 
-           withStyle(style = SpanStyle(color = Color.White)) {
+           withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                append(context.getString(R.string.extreme_weight_loss))
            }
            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
                append("${String.format("%.2f", (59/100.0) * result)} ")
            }
-           withStyle(style = SpanStyle(color = Color.White)) {
+           withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                append(context.getString(R.string.calories_day_59))
            }
 

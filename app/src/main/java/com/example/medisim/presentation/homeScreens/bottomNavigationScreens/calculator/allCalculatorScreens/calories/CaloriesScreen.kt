@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -38,6 +42,7 @@ fun CaloriesScreen(navController: NavHostController) {
     val state = vm.state.value
 
     val context = LocalContext.current
+    var showMyComposable by remember { mutableStateOf(false) }
 
 
     Column (
@@ -134,8 +139,14 @@ fun CaloriesScreen(navController: NavHostController) {
             buttonText = stringResource(R.string.calculate),
             modifier = Modifier.padding(bottom = 15.dp),
             paddingValue = 0
-        ) {
-            vm.onCalcCalories(context)
+        ){
+            showMyComposable = true
+        }
+
+
+        if (showMyComposable) {
+            vm.OnCalcCalories(context)
+            showMyComposable = false
         }
 
 

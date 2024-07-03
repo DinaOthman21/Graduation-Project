@@ -1,7 +1,6 @@
 package com.example.medisim.presentation.components
 
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -101,7 +100,7 @@ fun PredictionDialogContent(
         Box(
             modifier = Modifier
                 .background(
-                    brush = brush2,
+                    color = MaterialTheme.colorScheme.background,
                     shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
                 )
 
@@ -121,21 +120,21 @@ fun PredictionDialogContent(
                         Column {
                             Text(
                                 text = buildAnnotatedString {
-                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                         append(stringResource(R.string.based_on_the_provided_symptoms_the_diagnosed_condition_is))
                                     }
-                                    withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
+                                    withStyle(style = SpanStyle(color =  Color(0xFF0369A0))) {
                                         append(if (isArabicLang) predictionDiseaseResponse[index].arDiseaseName
                                         else predictionDiseaseResponse[index].enDiseaseName)
                                     }
-                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                         append(", with ")
                                     }
-                                    withStyle(style = SpanStyle(color =  Color(0xFF05C6F5)
+                                    withStyle(style = SpanStyle(color =  Color(0xFF0369A0)
                                     )) {
                                         append("${predictionDiseaseResponse[index].confidence}%")
                                     }
-                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                         append(" confidence.")
                                     }
 
@@ -145,10 +144,10 @@ fun PredictionDialogContent(
                             Spacer(modifier = Modifier.height(24.dp))
                             Text(
                                 text = buildAnnotatedString {
-                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                         append(stringResource(R.string.detailed_description)  )
                                     }
-                                    withStyle(style = SpanStyle(color = Color(0xFF05C6F5))) {
+                                    withStyle(style = SpanStyle(color = Color(0xFF0369A0))) {
                                         append(if (isArabicLang) predictionDiseaseResponse[index].arDiseaseDescription
                                         else predictionDiseaseResponse[index].enDiseaseDescription)
                                     }
@@ -159,7 +158,7 @@ fun PredictionDialogContent(
                             Spacer(modifier = Modifier.height(24.dp))
                             Text(
                                 text = buildAnnotatedString {
-                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                         append(stringResource(R.string.as_a_follow_up_please_consider_the_following_recommendations))
                                     }
 
@@ -172,7 +171,7 @@ fun PredictionDialogContent(
                                 else predictionDiseaseResponse[index].enAdvices){
                                     TextLabel(
                                         text = "  $advice  ",
-                                        textColor =  Color(0xFF05C6F5),
+                                        textColor =  Color(0xFF0369A0),
                                         textFont = 16
                                     )
                                 }
@@ -225,6 +224,7 @@ fun PredictionDialogContent(
 fun SkinDialogContent(
     diseaseName: String,
     diseaseDescription: String,
+    recommendation:String,
     onDismiss: () -> Unit
 ) {
     Column(
@@ -234,7 +234,7 @@ fun SkinDialogContent(
         Box(
             modifier = Modifier
                 .background(
-                    brush = brush2,
+                    color = MaterialTheme.colorScheme.background,
                     shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
                 )
         ) {
@@ -246,10 +246,10 @@ fun SkinDialogContent(
                     Spacer(modifier = Modifier.height(40.dp))
                     Text(
                         text = buildAnnotatedString {
-                            withStyle(style = SpanStyle(color = Color.White)) {
+                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                 append(stringResource(R.string.based_on_the_observed_skin_symptoms_the_identified_dermatological_condition_is))
                             }
-                            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
+                            withStyle(style = SpanStyle(color =  Color(0xFF0369A0))) {
                                 append(diseaseName)
                             }
 
@@ -259,62 +259,24 @@ fun SkinDialogContent(
                     Spacer(modifier = Modifier.height(24.dp))
                     Text(
                         text = buildAnnotatedString {
-                            withStyle(style = SpanStyle(color = Color.White)) {
+                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                 append(stringResource(R.string.detailed_description)  )
                             }
-                            withStyle(style = SpanStyle(color = Color(0xFF05C6F5))) {
+                            withStyle(style = SpanStyle(color = Color(0xFF0369A0))) {
                                 append(diseaseDescription)
                             }
 
                         },
                         color = MaterialTheme.colorScheme.primary,
                     )
-
-                    Spacer(modifier = Modifier.height(40.dp))
-                    ButtonClickOn(buttonText = stringResource(R.string.ok), paddingValue = 0) {
-                        onDismiss()
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                }
-
-
-
-            }
-        }
-    }
-
-}
-
-
-
-@Composable
-fun MedicalTestDialogContent(
-    result: String,
-    onDismiss: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Box(
-            modifier = Modifier
-                .background(
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
-                )
-        ) {
-            LazyColumn(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            )  {
-                item {
-                    Spacer(modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
                     Text(
                         text = buildAnnotatedString {
-
-                            withStyle(style = SpanStyle(color =  Color(0xFF05C6F5))) {
-                                append(result)
+                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
+                                append(stringResource(R.string.recommendation) )
+                            }
+                            withStyle(style = SpanStyle(color = Color(0xFF0369A0))) {
+                                append(recommendation )
                             }
 
                         },
@@ -335,6 +297,9 @@ fun MedicalTestDialogContent(
     }
 
 }
+
+
+
 
 
 
@@ -351,7 +316,7 @@ fun CalculatorDialogContent(
         Box(
             modifier = Modifier
                 .background(
-                    brush = brush2,
+                    color = MaterialTheme.colorScheme.background,
                     shape = RoundedCornerShape(25.dp, 10.dp, 25.dp, 10.dp)
                 )
         ) {
