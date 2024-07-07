@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id ("kotlin-parcelize")
+    id ("dagger.hilt.android.plugin")
+
 }
 
 android {
@@ -59,11 +63,72 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material")
+    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // preview
+    debugImplementation("androidx.compose.ui:ui-tooling-preview:1.6.2")
+
+    // splash screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // coil for loading image
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // System Ui Controller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+
+    // navigation
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // Icons, get more different icon for app
+    implementation("androidx.compose.material:material-icons-extended:1.6.2")
+
+    // lottie animation
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
+
+    // viewModel Compose LifeCycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+
+    //Hilt
+    implementation ("com.google.dagger:hilt-android:2.46")
+    kapt ("com.google.dagger:hilt-android-compiler:2.46")
+
+    // tab layout
+    implementation ("com.google.accompanist:accompanist-pager:0.21.0-beta")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.21.0-beta")
+    implementation("androidx.compose.foundation:foundation:1.0.4")
+
+
+    // ML Kit document scanner
+    implementation("com.google.android.gms:play-services-mlkit-document-scanner:16.0.0-beta1")
+
+
+    // cameraX
+    implementation("androidx.camera:camera-core:1.3.2")
+    implementation("androidx.camera:camera-camera2:1.3.2")
+    implementation("androidx.camera:camera-lifecycle:1.3.2")
+    implementation("androidx.camera:camera-video:1.3.2")
+    implementation("androidx.camera:camera-view:1.3.2")
+    implementation("androidx.camera:camera-extensions:1.3.2")
+
 }
