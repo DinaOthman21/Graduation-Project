@@ -64,64 +64,46 @@ The android app lets you:
 
 
 
-[<img src="/screenShots/login.jpg" align="left"
+[<img src="/screenShots/login.jfif" align="center"
 width="200"
-    hspace="10" vspace="10">](/screenShots/convert.jpg)
-    
-[<img src="/screenShots/login2.jpg" align="center"
+    hspace="10" vspace="10">](/screenShots/login.jfif)
+    [<img src="/screenShots/login2.jfif" align="center"
 width="200"
-    hspace="10" vspace="10">](/screenShots/compare.jpg)
+    hspace="10" vspace="10">](/screenShots/login2.jfif)
 
 
 
 
-[<img src="/screenShots/convert.jpg" align="left"
+[<img src="/screenShots/signup.jfif" align="center"
 width="200"
-    hspace="10" vspace="10">](/screenShots/convert.jpg)
-    
-[<img src="/screenShots/compare.jpg" align="center"
-width="200"
-    hspace="10" vspace="10">](/screenShots/compare.jpg)
-
-[<img src="/screenShots/compare.jpg" align="right"
-width="200"
-    hspace="10" vspace="10">](/screenShots/compare.jpg)
-
-
-
-[<img src="/screenShots/signup.jfif" align="left"
-width="200"
-    hspace="10" vspace="10">](/screenShots/favorite.jpg)
+    hspace="10" vspace="10">](/screenShots/signup.jfif)
     [<img src="/screenShots/signup-info.jfif" align="center"
 width="200"
-    hspace="10" vspace="10">](/screenShots/dialog.jpg)
-
-[<img src="/screenShots/signup-chronic.jfif" align="right"
+    hspace="10" vspace="10">](/screenShots/signup.jfif)
+    [<img src="/screenShots/signup-chronic.jfif" align="center"
 width="200"
-    hspace="10" vspace="10">](/screenShots/compare.jpg)
+    hspace="10" vspace="10">](/screenShots/signup.jfif)
 
 
-[<img src="/screenShots/home.jfif" align="left"
+[<img src="/screenShots/home.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/favorite.jpg)
     [<img src="/screenShots/post1.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/dialog.jpg)
-
-[<img src="/screenShots/post2.jfif" align="right"
+    [<img src="/screenShots/post2.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/compare.jpg)
 
 
 
-[<img src="/screenShots/calculator.jfif" align="left"
+[<img src="/screenShots/calculator.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/favorite.jpg)
     [<img src="/screenShots/calc1.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/dialog.jpg)
-
-[<img src="/screenShots/calc1R.jfif" align="right"
+    [<img src="/screenShots/calc1R.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/compare.jpg)
 
@@ -130,7 +112,7 @@ width="200"
 
 
 
-[<img src="/screenShots/disease.jfif" align="left"
+[<img src="/screenShots/disease.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/favorite.jpg)
     [<img src="/screenShots/diseaseR.jfif" align="center"
@@ -138,7 +120,7 @@ width="200"
     hspace="10" vspace="10">](/screenShots/dialog.jpg)
 
 
-[<img src="/screenShots/skin.jfif" align="left"
+[<img src="/screenShots/skin.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/favorite.jpg)
     [<img src="/screenShots/skinR.jfif" align="center"
@@ -147,9 +129,11 @@ width="200"
 
 
 
-[<img src="/screenShots/drug.jfif" align="left"
+[<img src="/screenShots/drug.jfif" align="center"
 width="200"
     hspace="10" vspace="10">](/screenShots/convert.jpg)
+
+
 
 
 
