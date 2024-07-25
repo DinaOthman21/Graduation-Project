@@ -127,12 +127,11 @@
     <string name="rate_this_app">قيم هذا التطبيق</string>
     <string name="share_this_app">شارك هذا التطبيق</string>
     <string name="log_out">تسجيل الخروج</string>
-
     <string name="home">الرئيسية</string>
     <string name="prediction">التشخيص</string>
     <string name="drug">الدواء</string>
     <string name="calculator">حاسبة طبية</string>
     <string name="some_error_happened_please_try_again_or_try_another_email">حدث خطأ ما، يرجى المحاولة مرة أخرى أو استخدام بريد إلكتروني آخر*</string>
-    <string name="recommendation">"recommendation : "</string>
+    <string name="recommendation">"اقتراحات: "</string>
 
 </resources>

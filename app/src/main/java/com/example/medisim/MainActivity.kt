@@ -17,6 +17,9 @@ import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+// mahmoudadel5556@gmail.com
+// 123456789
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
