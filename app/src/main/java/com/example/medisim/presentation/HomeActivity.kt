@@ -77,6 +77,7 @@ class HomeActivity : ComponentActivity() {
                     // to change it if language changed
                     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                         val currentUserState = profileViewModel.getLoginState()
+                        // if user login get all posts.
                         if(currentUserState){
                             homeViewModel.getAllPosts()
                         }

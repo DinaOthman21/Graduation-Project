@@ -63,10 +63,6 @@ class ChatAIViewModel @Inject constructor(private val repo: ChatApiRepository): 
     }
 
 
-    private fun callApi(){
-
-    }
-
 
 
 
